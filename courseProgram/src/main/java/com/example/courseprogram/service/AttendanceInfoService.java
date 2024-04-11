@@ -1,0 +1,72 @@
+package com.example.courseprogram.service;
+
+import com.example.courseprogram.model.DO.AttendanceInfo;
+import com.example.courseprogram.model.DTO.DataResponse;
+import com.example.courseprogram.repository.AttendanceInfoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class AttendanceInfoService {
+
+    @Autowired
+    AttendanceInfoRepository attendanceInfoRepository;
+
+    public boolean checkInfo(AttendanceInfo attendanceInfo){
+        if(attendanceInfo==null){
+            return false;
+        }
+        else if(attendanceInfo.getStudent()==null){
+            return false;
+        }
+        else if(attendanceInfo.getIsAttended()==null){
+            return false;
+        }
+        else if(attendanceInfo.getAttendanceTime()==null){
+            return false;
+        }
+        else if(attendanceInfo.getCourse()==null){
+            return false;
+        }
+        return true;
+    }
+
+    //增加或者修改数据
+    public DataResponse addAndUpdAttendanceInfo(AttendanceInfo attendanceInfo){
+        if(!checkInfo(attendanceInfo))return DataResponse.failure(401,"信息不完整！");
+        attendanceInfoRepository.saveAndFlush(attendanceInfo);
+        return DataResponse.ok();
+    }
+
+
+    //删除某学生的所有考勤信息
+    public DataResponse deleteByStudentId(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        attendanceInfoRepository.deleteByStudent_StudentId(id);
+        return DataResponse.ok();
+    }
+
+    //查找某学生的考勤信息
+    public DataResponse findByStudentId(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        List<AttendanceInfo> listA=attendanceInfoRepository.findAttendanceInfosByStudent_StudentId(id);
+        if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");
+        return DataResponse.success(listA);
+    }
+
+    //查找某课程的考勤信息
+    public DataResponse findByCourseId(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        List<AttendanceInfo> listA=attendanceInfoRepository.findAttendanceInfosByCourse_CourseId(id);
+        if(listA==null)return DataResponse.failure(404,"未找到该课程的信息");
+        return DataResponse.success(listA);
+    }
+
+    //获取所有数据
+    public DataResponse findAll(){
+        return DataResponse.success(attendanceInfoRepository.findAll());
+    }
+
+}

@@ -1,0 +1,46 @@
+package com.example.courseprogram.controller;
+
+import com.example.courseprogram.model.DO.LeaveInfo;
+import com.example.courseprogram.model.DTO.DataRequest;
+import com.example.courseprogram.model.DTO.DataResponse;
+import com.example.courseprogram.service.LeaveInfoService;
+import com.example.courseprogram.utils.JsonUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/leaveInfo")
+public class LeaveInfoController {
+    @Autowired
+    LeaveInfoService leaveInfoService;
+
+    //增加或者修改数据
+    @PostMapping("/add")
+    public DataResponse addAndUpdLeaveInfo(@RequestBody DataRequest dataRequest){
+        return leaveInfoService.addAndUpdLeaveInfo(JsonUtil.prase(dataRequest.get("leaveInfo"), LeaveInfo.class));
+    }
+
+
+    //删除某学生的所有请假信息
+    @PostMapping("/delete")
+    public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
+        return leaveInfoService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+    }
+
+    //查找某学生的请假信息
+    @PostMapping("/findByStudent")
+    public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
+        return leaveInfoService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+    }
+
+
+    //获取所有数据
+    @PostMapping("/findAll")
+    public DataResponse findAll(){
+        return leaveInfoService.findAll();
+    }
+
+}
