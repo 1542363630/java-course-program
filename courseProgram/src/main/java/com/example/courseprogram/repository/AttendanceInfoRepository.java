@@ -11,8 +11,6 @@ public interface AttendanceInfoRepository extends JpaRepository<AttendanceInfo,I
 
     List<AttendanceInfo> findAttendanceInfosByStudent_StudentId(Integer studentId);
 
-    List<AttendanceInfo> findAttendanceInfosByCourse_CourseId(Integer studentId);
-
     void deleteByStudent_StudentId(Integer studentId);
 
 

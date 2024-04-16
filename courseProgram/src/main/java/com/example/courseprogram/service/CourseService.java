@@ -49,7 +49,7 @@ public class CourseService {
     //根据课程编号查找课程的数据
     public DataResponse findByCourseNumber(String number){
         if(number==null)return DataResponse.failure(401,"信息不完整！");
-        List<Course> list=courseRepository.findCourseListByNum(number);
+        List<Course> list=courseRepository.findCourseListByNumber(number);
         if(list==null)return DataResponse.failure(404,"未找到相关的信息");
         return DataResponse.success(list);
     }

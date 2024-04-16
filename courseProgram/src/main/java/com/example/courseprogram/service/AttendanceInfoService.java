@@ -59,13 +59,13 @@ public class AttendanceInfoService {
         return DataResponse.success(listA);
     }
 
-    //查找某课程的考勤信息
-    public DataResponse findByCourseId(Integer id){
-        if(id==null)return DataResponse.failure(401,"信息不完整！");
-        List<AttendanceInfo> listA=attendanceInfoRepository.findAttendanceInfosByCourse_CourseId(id);
-        if(listA==null)return DataResponse.failure(404,"未找到该课程的信息");
-        return DataResponse.success(listA);
-    }
+//    //查找某课程的考勤信息
+//    public DataResponse findByCourseId(Integer id){
+//        if(id==null)return DataResponse.failure(401,"信息不完整！");
+//        List<AttendanceInfo> listA=attendanceInfoRepository.findAttendanceInfosByCourse_CourseId(id);
+//        if(listA==null)return DataResponse.failure(404,"未找到该课程的信息");
+//        return DataResponse.success(listA);
+//    }
 
     //获取所有数据
     public DataResponse findAll(){

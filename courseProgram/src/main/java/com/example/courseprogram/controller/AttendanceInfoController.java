@@ -37,11 +37,11 @@ public class AttendanceInfoController {
         return attendanceInfoService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
     }
 
-    //查找某课程的考勤信息
-    @PostMapping("/findByCourse")
-    public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
-        return attendanceInfoService.findByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
-    }
+//    //查找某课程的考勤信息
+//    @PostMapping("/findByCourse")
+//    public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
+//        return attendanceInfoService.findByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+//    }
 
     //获取所有数据
     @PostMapping("/findAll")
