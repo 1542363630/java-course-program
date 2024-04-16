@@ -20,7 +20,7 @@ public class CourseService {
         else if(course.getCoursePath()==null){
             return false;
         }
-        else if(course.getNum()==null){
+        else if(course.getNumber()==null){
             return false;
         }
         else if(course.getCredit()==null){

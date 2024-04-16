@@ -32,9 +32,6 @@ public class LeaveInfoService {
         else if(leaveInfo.getLeaveBeginTime()==null){
             return false;
         }
-        else if(leaveInfo.getIsParentKnow()==null){
-            return false;
-        }
         return true;
     }
 

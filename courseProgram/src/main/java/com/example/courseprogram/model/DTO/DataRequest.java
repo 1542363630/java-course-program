@@ -6,8 +6,8 @@ import lombok.Setter;
 import java.util.*;
 
 /**
- * DataRequest 请求参数数据类
- * Map data 保存前端请求参数的Map集合
+ * <p>DataRequest 请求参数数据类
+ * <p>Map data 保存前端请求参数的Map集合
  */
 @Getter
 @Setter

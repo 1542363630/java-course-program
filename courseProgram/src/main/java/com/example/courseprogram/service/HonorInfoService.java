@@ -23,9 +23,6 @@ public class HonorInfoService {
         else if(honorInfo.getHonorFrom()==null){
             return false;
         }
-        else if(honorInfo.getHonorReason()==null){
-            return false;
-        }
         else if(honorInfo.getHonorName()==null){
             return false;
         }

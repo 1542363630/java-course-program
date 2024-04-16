@@ -27,8 +27,11 @@ public class AttendanceInfoService {
         else if(attendanceInfo.getAttendanceTime()==null){
             return false;
         }
-        else if(attendanceInfo.getCourse()==null){
+        else if(attendanceInfo.getType()==null){
             return false;
+        }
+        else if(attendanceInfo.getActivityId()==null){
+
         }
         return true;
     }

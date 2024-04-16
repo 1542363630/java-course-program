@@ -1,33 +1,36 @@
 package com.example.courseprogram.model.DO;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+
+/**
+ * <p>SocietyMember 社会成员类
+ * <p>Integer societyId 主键id
+ * <p>Student student 对应的学生
+ * <p>String gender  性别
+ * <p>String relation 与学生的关系
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@TableName("society_member")
 @Table(name = "society_member")
 @Entity
-public class SocietyMember {
+public class SocietyMember implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer societyId;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-//    @TableField("student_id")
     private Student student;
-
-    private String age;
 
     private String gender;
 
     private String relation;
-
-    private String unit;
 
 }

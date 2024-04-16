@@ -5,21 +5,23 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+
 /**
- * Fee 消费流水实体类  保存学生消费流水的基本信息信息，
- * Integer feeId 消费表 fee 主键 fee_id
- * Integer studentId  student_id 对应student 表里面的 student_id
- * String day 日期
- * Double money 金额
+ * <p>Fee 消费流水实体类  保存学生消费流水的基本信息信息，
+ * <p>Integer feeId 消费表 fee 主键 fee_id
+ * <p>Integer studentId  student_id 对应student 表里面的 student_id
+ * <p>String day 日期
+ * <p>Double money 金额
  */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-//@TableName("fee")
 @Table(name = "fee")
 @Entity
-public class Fee {
+public class Fee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer feeId;

@@ -25,7 +25,7 @@ public class FamilyMemberService {
         else if(familyMember.getMemberId()==null){
             return false;
         }
-        else if(familyMember.getAge()==null){
+        else if(familyMember.getBirthday()==null){
             return false;
         }
         else if(familyMember.getGender()==null){

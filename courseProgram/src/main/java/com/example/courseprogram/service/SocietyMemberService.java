@@ -20,12 +20,6 @@ public class SocietyMemberService {
         else if(societyMember.getStudent()==null){
             return false;
         }
-        else if(societyMember.getAge()==null){
-            return false;
-        }
-        else if(societyMember.getUnit()==null){
-            return false;
-        }
         else if(societyMember.getRelation()==null){
             return false;
         }
