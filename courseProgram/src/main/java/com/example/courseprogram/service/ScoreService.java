@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.Score;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.ScoreRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,22 +13,7 @@ public class ScoreService {
     ScoreRepository scoreRepository;
 
     public boolean checkInfo(Score score){
-        if(score==null){
-            return false;
-        }
-        else if(score.getStudent()==null){
-            return false;
-        }
-        else if(score.getMark()==null){
-            return false;
-        }
-        else if(score.getCourse()==null){
-            return false;
-        }
-        else if(score.getRanking()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(score);
     }
 
     //增加或者修改数据

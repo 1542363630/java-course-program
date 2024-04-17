@@ -17,7 +17,7 @@ import java.io.Serializable;
  * <p>String checkTime 批改时间
  * <p>String homeworkScore 作业成绩
  * <p>String submitTime 提交时间
- * <p>String file 作业文件
+ * <p>String file 学生提交的作业文件
  */
 @Getter
 @Setter

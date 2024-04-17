@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.DailyActivity;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.DailyActivityRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +15,7 @@ public class DailyActivityService {
     DailyActivityRepository dailyActivityRepository;
 
     public boolean checkInfo(DailyActivity dailyActivity){
-        if(dailyActivity==null){
-            return false;
-        }
-        else if(dailyActivity.getStudent()==null){
-            return false;
-        }
-        else if(dailyActivity.getActivityType()==null){
-            return false;
-        }
-        else if(dailyActivity.getLocation()==null){
-            return false;
-        }
-        else if(dailyActivity.getBeginTime()==null){
-            return false;
-        }
-        else if(dailyActivity.getEndTime()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(dailyActivity);
     }
 
     public DataResponse addAndUpdDailyActivity(DailyActivity dailyActivity){

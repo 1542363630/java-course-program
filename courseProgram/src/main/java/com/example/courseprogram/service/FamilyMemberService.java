@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.FamilyMember;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.FamilyMemberRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,31 +17,7 @@ public class FamilyMemberService {
 
     //检查有没有没填的信息
     public boolean checkInfo(FamilyMember familyMember){
-        if(familyMember==null){
-            return false;
-        }
-        else if(familyMember.getStudent()==null){
-            return false;
-        }
-        else if(familyMember.getMemberId()==null){
-            return false;
-        }
-        else if(familyMember.getBirthday()==null){
-            return false;
-        }
-        else if(familyMember.getGender()==null){
-            return false;
-        }
-        else if(familyMember.getName()==null){
-            return false;
-        }
-        else if(familyMember.getUnit()==null){
-            return false;
-        }
-        else if(familyMember.getRelation()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(familyMember);
     }
 
     //增加或者修改数据

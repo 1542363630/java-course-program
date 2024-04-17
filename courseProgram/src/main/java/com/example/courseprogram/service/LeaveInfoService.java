@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.LeaveInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.LeaveInfoRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +15,7 @@ public class LeaveInfoService {
     LeaveInfoRepository leaveInfoRepository;
 
     public boolean checkInfo(LeaveInfo leaveInfo){
-        if(leaveInfo==null){
-            return false;
-        }
-        else if(leaveInfo.getStudent()==null){
-            return false;
-        }
-        else if(leaveInfo.getLeaveReason()==null){
-            return false;
-        }
-        else if(leaveInfo.getApprover()==null){
-            return false;
-        }
-        else if(leaveInfo.getLeaveEndTime()==null){
-            return false;
-        }
-        else if(leaveInfo.getLeaveBeginTime()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(leaveInfo);
     }
 
     public DataResponse addAndUpdLeaveInfo(LeaveInfo leaveInfo){

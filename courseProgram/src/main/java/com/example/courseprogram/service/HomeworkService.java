@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.Homework;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.HomeworkRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,22 +15,7 @@ public class HomeworkService {
     HomeworkRepository homeworkRepository;
 
     public boolean checkInfo(Homework homework){
-        if(homework==null){
-            return false;
-        }
-        else if(homework.getStudent()==null){
-            return false;
-        }
-        else if(homework.getHomeworkScore()==null){
-            return false;
-        }
-        else if(homework.getCourse()==null){
-            return false;
-        }
-        else if(homework.getIsSubmit()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(homework);
     }
 
     public DataResponse addAndUpdHomework(Homework homework){

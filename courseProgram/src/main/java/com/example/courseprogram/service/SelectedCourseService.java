@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.SelectedCourse;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.SelectedCourseRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,16 +15,7 @@ public class SelectedCourseService {
     SelectedCourseRepository selectedCourseRepository;
 
     public boolean checkInfo(SelectedCourse selectedCourse){
-        if(selectedCourse==null){
-            return false;
-        }
-        else if(selectedCourse.getStudent()==null){
-            return false;
-        }
-        else if(selectedCourse.getCourse()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(selectedCourse);
     }
 
     //增加或修改数据

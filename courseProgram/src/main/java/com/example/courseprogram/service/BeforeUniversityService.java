@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.BeforeUniversity;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.BeforeUniversityRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +16,7 @@ public class BeforeUniversityService {
 
     //检查有没有没填的信息
     public boolean checkInfo(BeforeUniversity beforeUniversity){
-        if(beforeUniversity==null){
-            return false;
-        }
-        else if(beforeUniversity.getStudent()==null){
-            return false;
-        }
-        else if(beforeUniversity.getGraduatedProvince()==null){
-            return false;
-        }
-        else if(beforeUniversity.getGraduatedSchool()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(beforeUniversity);
     }
 
     //增加或者修改数据

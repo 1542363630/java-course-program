@@ -1,11 +1,14 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.AttendanceInfo;
+import com.example.courseprogram.model.DO.InnovativePractice;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.AttendanceInfoRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -15,25 +18,7 @@ public class AttendanceInfoService {
     AttendanceInfoRepository attendanceInfoRepository;
 
     public boolean checkInfo(AttendanceInfo attendanceInfo){
-        if(attendanceInfo==null){
-            return false;
-        }
-        else if(attendanceInfo.getStudent()==null){
-            return false;
-        }
-        else if(attendanceInfo.getIsAttended()==null){
-            return false;
-        }
-        else if(attendanceInfo.getAttendanceTime()==null){
-            return false;
-        }
-        else if(attendanceInfo.getType()==null){
-            return false;
-        }
-        else if(attendanceInfo.getActivityId()==null){
-
-        }
-        return true;
+        return DataUtil.checkInfo(attendanceInfo);
     }
 
     //增加或者修改数据

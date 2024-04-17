@@ -31,13 +31,16 @@ public class DailyActivity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "student_id")
-//    @TableField("student_id")
     private Student student;
 
     private String beginTime;
 
     private String endTime;
 
+    /**
+     * 活动类型：
+     * <p>聚会、旅游、文艺演出、体育活动</p>
+     */
     private String activityType;
 
     private String location;

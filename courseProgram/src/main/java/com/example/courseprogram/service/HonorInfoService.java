@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.HonorInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.HonorInfoRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,28 +20,7 @@ public class HonorInfoService {
     String path;
 
     public boolean checkInfo(HonorInfo honorInfo){
-        if(honorInfo==null){
-            return false;
-        }
-        else if(honorInfo.getStudent()==null){
-            return false;
-        }
-        else if(honorInfo.getHonorFrom()==null){
-            return false;
-        }
-        else if(honorInfo.getHonorName()==null){
-            return false;
-        }
-        else if(honorInfo.getHonorTime()==null){
-            return false;
-        }
-        else if(honorInfo.getProveInfo()==null){
-            return false;
-        }
-        else if(honorInfo.getLevel()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(honorInfo);
     }
 
     public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo, MultipartFile[] files){

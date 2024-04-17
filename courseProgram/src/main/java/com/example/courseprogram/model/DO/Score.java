@@ -26,9 +26,9 @@ public class Score implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer scoreId;
+
     @ManyToOne
     @JoinColumn(name = "student_id")
-//    @TableField("student_id")
     private Student student;
 
     @ManyToOne
@@ -36,6 +36,7 @@ public class Score implements Serializable {
     private Course course;
 
     private Integer mark;
+
     private Integer ranking;
 
 }

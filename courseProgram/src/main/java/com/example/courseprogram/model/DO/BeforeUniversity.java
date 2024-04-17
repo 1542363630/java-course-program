@@ -14,8 +14,6 @@ import java.io.Serializable;
  * <p>Student student 对应的学生
  * <p>String graduatedProvince 毕业省份
  * <p>String graduatedSchool 毕业学校
- * <p>
- * <p>
  */
 
 

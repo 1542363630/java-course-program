@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.Fee;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.FeeRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,19 +17,7 @@ public class FeeService {
 
     //检查有没有没填的信息
     public boolean checkInfo(Fee fee){
-        if(fee==null){
-            return false;
-        }
-        else if(fee.getStudent()==null){
-            return false;
-        }
-        else if(fee.getDay()==null){
-            return false;
-        }
-        else if(fee.getMoney()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(fee);
     }
 
     //增加或者修改数据

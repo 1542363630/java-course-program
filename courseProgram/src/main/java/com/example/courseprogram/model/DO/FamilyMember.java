@@ -37,6 +37,10 @@ public class FamilyMember implements Serializable {
 
     private String name;
 
+    /**
+     * 性别：
+     * <p>男、女</p>
+     */
     private String gender;
 
     private String birthday;

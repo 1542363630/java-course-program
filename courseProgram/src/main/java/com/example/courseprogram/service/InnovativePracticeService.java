@@ -3,9 +3,11 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.InnovativePractice;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.InnovativePracticeRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 @Service
@@ -14,31 +16,7 @@ public class InnovativePracticeService {
     InnovativePracticeRepository innovativePracticeRepository;
 
     public boolean checkInfo(InnovativePractice innovativePractice){
-        if(innovativePractice==null){
-            return false;
-        }
-        else if(innovativePractice.getStudent()==null){
-            return false;
-        }
-        else if(innovativePractice.getType()==null){
-            return false;
-        }
-        else if(innovativePractice.getBeginTime()==null){
-            return false;
-        }
-        else if(innovativePractice.getEndTime()==null){
-            return false;
-        }
-        else if(innovativePractice.getTeacherName()==null){
-            return false;
-        }
-        else if(innovativePractice.getAchievement()==null){
-            return false;
-        }
-        else if(innovativePractice.getActivityName()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(innovativePractice);
     }
 
     public DataResponse addAndUpdInnovativePractice(InnovativePractice innovativePractice){
@@ -48,6 +26,7 @@ public class InnovativePracticeService {
     }
 
     public DataResponse deleteByStudentId(Integer id){
+
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         innovativePracticeRepository.deleteByStudent_StudentId(id);
         return DataResponse.ok();

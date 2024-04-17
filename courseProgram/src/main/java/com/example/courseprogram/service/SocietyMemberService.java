@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.example.courseprogram.model.DO.SocietyMember;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.SocietyMemberRepository;
+import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +15,7 @@ public class SocietyMemberService {
     SocietyMemberRepository societyMemberRepository;
 
     public boolean checkInfo(SocietyMember societyMember){
-        if(societyMember==null){
-            return false;
-        }
-        else if(societyMember.getStudent()==null){
-            return false;
-        }
-        else if(societyMember.getRelation()==null){
-            return false;
-        }
-        else if(societyMember.getGender()==null){
-            return false;
-        }
-        return true;
+        return DataUtil.checkInfo(societyMember);
     }
 
     public DataResponse addAndUpdSocietyMember(SocietyMember societyMember){
