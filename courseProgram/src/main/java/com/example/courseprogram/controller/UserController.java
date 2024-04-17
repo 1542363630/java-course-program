@@ -39,6 +39,9 @@ public class UserController {
         return userService.updatePassword(dataRequest);
     }
 
-
+    @PostMapping("/sduLogin")
+    public DataResponse sduLogin(@RequestBody DataRequest dataRequest){
+        return userService.sduLogin(dataRequest);
+    }
 
 }
