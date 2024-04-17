@@ -20,6 +20,8 @@ server:
       enabled: true
       force: true
   port: 9090
+web:
+  upload-path: ./file/
 
 #mybatis-plus:
 #  configuration:

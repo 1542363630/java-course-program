@@ -7,6 +7,7 @@ package com.example.courseprogram.model.DO;
  * <p>String leaveEndTime 请假结束时间
  * <p>String approver 批准人
  * <p>String leaveReason 请假原因
+ * <p>String isBackSchool 是否回到学校（是否销假）
  */
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,4 +40,5 @@ public class LeaveInfo implements Serializable {
 
     private String leaveReason;
 
+    private String isBackSchool;
 }

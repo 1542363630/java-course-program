@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/honorInfo")
@@ -19,8 +20,8 @@ public class HonorInfoController {
 
     //增加或者修改数据
     @PostMapping("/add")
-    public DataResponse addAndUpdHonorInfo(@RequestBody DataRequest dataRequest){
-        return honorInfoService.addAndUpdHonorInfo(JsonUtil.prase(dataRequest.get("honorInfo"), HonorInfo.class));
+    public DataResponse addAndUpdHonorInfo(@RequestBody DataRequest dataRequest, MultipartFile ...files){
+        return honorInfoService.addAndUpdHonorInfo(JsonUtil.prase(dataRequest.get("honorInfo"), HonorInfo.class),files);
     }
 
 

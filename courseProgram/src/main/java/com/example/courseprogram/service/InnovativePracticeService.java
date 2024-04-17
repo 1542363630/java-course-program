@@ -23,9 +23,6 @@ public class InnovativePracticeService {
         else if(innovativePractice.getType()==null){
             return false;
         }
-        else if(innovativePractice.getLocation()==null){
-            return false;
-        }
         else if(innovativePractice.getBeginTime()==null){
             return false;
         }
@@ -33,6 +30,12 @@ public class InnovativePracticeService {
             return false;
         }
         else if(innovativePractice.getTeacherName()==null){
+            return false;
+        }
+        else if(innovativePractice.getAchievement()==null){
+            return false;
+        }
+        else if(innovativePractice.getActivityName()==null){
             return false;
         }
         return true;

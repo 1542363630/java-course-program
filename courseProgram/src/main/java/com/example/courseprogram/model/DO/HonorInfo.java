@@ -18,6 +18,7 @@ import java.io.Serializable;
  * <p>String honorFrom 授予荣誉的单位
  * <p>String honorName 荣誉名称
  * <p>String type 荣誉类别
+ * <p>String file 文件路径
  */
 @Getter
 @Setter
@@ -44,4 +45,6 @@ public class HonorInfo implements Serializable {
     private String honorFrom;
 
     private String honorName;
+
+    private String file;
 }

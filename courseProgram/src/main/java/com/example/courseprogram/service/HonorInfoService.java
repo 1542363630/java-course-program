@@ -4,7 +4,9 @@ import com.example.courseprogram.model.DO.HonorInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.HonorInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -12,6 +14,9 @@ import java.util.List;
 public class HonorInfoService {
     @Autowired
     HonorInfoRepository honorInfoRepository;
+
+    @Value("${web.upload-path}"+"HonorInfo/")
+    String path;
 
     public boolean checkInfo(HonorInfo honorInfo){
         if(honorInfo==null){
@@ -38,7 +43,7 @@ public class HonorInfoService {
         return true;
     }
 
-    public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo){
+    public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo, MultipartFile[] files){
         if(!checkInfo(honorInfo))return DataResponse.failure(401,"信息不完整！");
         honorInfoRepository.saveAndFlush(honorInfo);
         return DataResponse.ok();
