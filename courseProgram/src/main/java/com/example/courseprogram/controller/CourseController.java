@@ -24,7 +24,7 @@ public class CourseController {
     }
 
 
-    //删除
+    //删除课程
     @PostMapping("/delete")
     public DataResponse deleteByCourseId(@RequestBody DataRequest dataRequest){
         return courseService.deleteByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));

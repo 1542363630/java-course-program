@@ -26,21 +26,25 @@ public class StudentController {
         return studentService.addStudent(dataRequest);
     }
 
+    //删除学生
     @PostMapping("/deleteStudent")
     public DataResponse deleteStudent(@RequestBody DataRequest dataRequest){
         return studentService.deleteStudent(JsonUtil.prase(dataRequest.get("student"), Student.class));
     }
 
+    //修改学生信息
     @PostMapping("/addOrUpdateStudent")
     public DataResponse addOrUpdateStudent(@RequestBody DataRequest dataRequest){
         return studentService.addOrUpdateStudent(JsonUtil.prase(dataRequest.get("student"), Student.class));
     }
 
+    //根据userId查找学生
     @PostMapping("/findByUserId")
     public DataResponse findByUserId(@RequestBody DataRequest dataRequest){
         return studentService.findByUserId(JsonUtil.prase(dataRequest.get("user"), User.class));
     }
 
+    //获取所有学生
     @PostMapping("/getStudentList")
     public DataResponse getStudentList(){
         return studentService.getStudentList();
