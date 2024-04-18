@@ -22,6 +22,7 @@ import java.io.Serializable;
  * <p>String phone 电话
  * <p>String address 地址
  * <p>String introduce 个人简介
+ * <p>String politicalStatus 政治面貌
  */
 @Getter
 @Setter
@@ -55,5 +56,9 @@ public class Person implements Serializable {
     private String address;
 
     private String introduce;
-
+    /**
+     * 政治面貌：
+     * <p>群众、共青团员、共产党员、其它</p>
+     */
+    private String politicalStatus;
 }

@@ -13,6 +13,7 @@ import java.io.Serializable;
  * <p>Integer homeworkInfoId 主键id
  * <p>Course course 对应的课程
  * <p>String demand 作业要求
+ * <p>String time 发布时间</p>
  */
 @Getter
 @Setter
@@ -31,6 +32,7 @@ public class HomeworkInfo implements Serializable {
 
     private String demand;
 
+    private String time;
 
 
 }

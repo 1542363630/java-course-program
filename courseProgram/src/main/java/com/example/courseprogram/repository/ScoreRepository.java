@@ -9,12 +9,16 @@ import java.util.List;
 @Repository
 public interface ScoreRepository extends JpaRepository<Score,Integer> {
 
+    //根据学号查找
     List<Score> findScoresByStudent_StudentId(Integer studentId);
 
+    //根据课程查找
     List<Score> findScoresByCourse_CourseId(Integer courseId);
 
+    //根据学号删除
     void deleteScoresByStudent_StudentId(Integer studentId);
 
+    //根据课程删除
     void deleteScoresByCourse_CourseId(Integer courseId);
 
 
