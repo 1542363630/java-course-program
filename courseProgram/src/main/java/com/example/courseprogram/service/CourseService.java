@@ -14,6 +14,7 @@ public class CourseService {
     @Autowired
     CourseRepository courseRepository;
 
+    //检查信息是否完整
     public boolean checkInfo(Course course){
         return DataUtil.checkInfo(course);
     }

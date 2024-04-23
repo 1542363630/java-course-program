@@ -17,6 +17,7 @@ public class AttendanceInfoService {
     @Autowired
     AttendanceInfoRepository attendanceInfoRepository;
 
+    //检查信息是否完整
     public boolean checkInfo(AttendanceInfo attendanceInfo){
         return DataUtil.checkInfo(attendanceInfo);
     }
@@ -28,6 +29,12 @@ public class AttendanceInfoService {
         return DataResponse.ok();
     }
 
+    //删除指定id的信息
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        attendanceInfoRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
+    }
 
     //删除某学生的所有考勤信息
     public DataResponse deleteByStudentId(Integer id){

@@ -14,19 +14,19 @@ public class DataUtil {
         return dateFormat.format(date);
     }
 
-    public static boolean checkInfo(Object object){
+    public static <T> boolean checkInfo(T t){
         try {
             boolean flag = true;
-            if(object==null){
+            if(t==null){
                 flag=false;
             }
             else{
-                Field[] fields= InnovativePractice.class.getDeclaredFields();
+                Field[] fields= t.getClass().getDeclaredFields();
                 for(Field field:fields){
                     field.setAccessible(true);
-                    if(field.get(object)==null){
-                        if(field.getType()== String.class)field.set(object,"");
-                        else if(field.getType()== Integer.class)field.set(object,0);
+                    if(field.get(t)==null && !field.getName().contains("id")){
+                        if(field.getType()== String.class)field.set(t,"");
+                        else if(field.getType()== Integer.class)field.set(t,0);
                         flag=false;
                     }
                     field.setAccessible(false);

@@ -20,20 +20,20 @@ public class SocietyMemberController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdSocietyMember(@RequestBody DataRequest dataRequest){
-        return societyMemberService.addAndUpdSocietyMember(JsonUtil.prase(dataRequest.get("societyMember"), SocietyMember.class));
+        return societyMemberService.addAndUpdSocietyMember(JsonUtil.parse(dataRequest.get("societyMember"), SocietyMember.class));
     }
 
 
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return societyMemberService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return societyMemberService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return societyMemberService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return societyMemberService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

@@ -20,20 +20,20 @@ public class FeeController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdFee(@RequestBody DataRequest dataRequest){
-        return feeService.addAndUpdFee(JsonUtil.prase(dataRequest.get("fee"), Fee.class));
+        return feeService.addAndUpdFee(JsonUtil.parse(dataRequest.get("fee"), Fee.class));
     }
 
 
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return feeService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return feeService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return feeService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return feeService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

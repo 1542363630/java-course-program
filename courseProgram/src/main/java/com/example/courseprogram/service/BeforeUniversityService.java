@@ -13,8 +13,7 @@ public class BeforeUniversityService {
     @Autowired
     BeforeUniversityRepository beforeUniversityRepository;
 
-
-    //检查有没有没填的信息
+    //检查信息是否完整
     public boolean checkInfo(BeforeUniversity beforeUniversity){
         return DataUtil.checkInfo(beforeUniversity);
     }
@@ -23,6 +22,13 @@ public class BeforeUniversityService {
     public DataResponse addAndUpdBeforeUniversity(BeforeUniversity beforeUniversity){
         if(!checkInfo(beforeUniversity))return DataResponse.failure(401,"信息不完整！");
         beforeUniversityRepository.saveAndFlush(beforeUniversity);
+        return DataResponse.ok();
+    }
+
+    //删除某个数据
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        beforeUniversityRepository.deleteById(id);
         return DataResponse.ok();
     }
 

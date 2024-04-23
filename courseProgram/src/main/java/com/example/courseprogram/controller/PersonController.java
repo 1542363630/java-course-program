@@ -20,26 +20,26 @@ public class PersonController {
     //增加或者修改数据
     @PostMapping("/addOrUpd")
     public DataResponse addOrUpdatePerson(@RequestBody DataRequest dataRequest){
-        return personService.addOrUpdatePerson(JsonUtil.prase(dataRequest.get("person"), Person.class));
+        return personService.addOrUpdatePerson(JsonUtil.parse(dataRequest.get("person"), Person.class));
     }
 
     //增加数据
     @PostMapping("/add")
     public DataResponse addPerson(@RequestBody DataRequest dataRequest){
-        return personService.addPerson(JsonUtil.prase(dataRequest.get("person"), Person.class));
+        return personService.addPerson(JsonUtil.parse(dataRequest.get("person"), Person.class));
     }
 
 
     //删除某人的个人信息
     @PostMapping("/delete")
     public DataResponse deleteByPersonNumber(@RequestBody DataRequest dataRequest){
-        return personService.deleteByPersonNumber(JsonUtil.prase(dataRequest.get("number"), String.class));
+        return personService.deleteByPersonNumber(JsonUtil.parse(dataRequest.get("number"), String.class));
     }
 
     //根据用户名查找个人信息
     @PostMapping("/findByUserName")
     public DataResponse findByUserName(@RequestBody DataRequest dataRequest){
-        return personService.findByUserName(JsonUtil.prase(dataRequest.get("name"), String.class));
+        return personService.findByUserName(JsonUtil.parse(dataRequest.get("name"), String.class));
     }
 
 

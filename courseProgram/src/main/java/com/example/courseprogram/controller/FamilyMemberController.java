@@ -20,20 +20,20 @@ public class FamilyMemberController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdFamilyMember(@RequestBody DataRequest dataRequest){
-        return familyMemberService.addAndUpdFamilyMember(JsonUtil.prase(dataRequest.get("familyMember"), FamilyMember.class));
+        return familyMemberService.addAndUpdFamilyMember(JsonUtil.parse(dataRequest.get("familyMember"), FamilyMember.class));
     }
 
 
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return familyMemberService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return familyMemberService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return familyMemberService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return familyMemberService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

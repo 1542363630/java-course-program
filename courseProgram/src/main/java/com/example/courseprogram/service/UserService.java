@@ -25,11 +25,9 @@ public class UserService{
     @Autowired
     UserRepository userRepository;
 
-    public DataResponse addUser(DataRequest dataRequest){
-        User user = JsonUtil.prase(dataRequest.get("user"), User.class);
-        user.setUserName(dataRequest.getString("userName"));
-        user.setUserType(dataRequest.getString("userType"));
-
+    public DataResponse addUser(User user,String userName,String userType){
+        user.setUserName(userName);
+        user.setUserType(userType);
 
         User userExist = userRepository.findUserByUserName(user.getUserName());
         if(userExist != null){
@@ -41,8 +39,7 @@ public class UserService{
         return DataResponse.ok();
     }
 
-    public DataResponse deleteUser(DataRequest dataRequest){
-        User user=JsonUtil.prase(dataRequest.get("user"), User.class);
+    public DataResponse deleteUser(User user){
         User userExist = userRepository.findUserByUserName(user.getUserName());
         if(userExist != null){
             return DataResponse.failure(400,"该用户不存在！");
@@ -51,9 +48,7 @@ public class UserService{
         return DataResponse.ok();
     }
 
-    public DataResponse login(DataRequest dataRequest){
-//        User user1 = JSONObject.parseObject(JSON.toJSONString(dataRequest.get("user")),User.class);
-        User user1 = JsonUtil.prase(dataRequest.get("user"),User.class);
+    public DataResponse login(User user1){
         String userName= String.valueOf(user1.getUserName());
         String password=String.valueOf(user1.getPassword());
         User user= userRepository.findUserByUserName(userName);
@@ -72,8 +67,7 @@ public class UserService{
         }
     }
 
-    public DataResponse updatePassword(DataRequest dataRequest){
-        User userRe = JsonUtil.prase(dataRequest.get("user"), User.class);
+    public DataResponse updatePassword(User userRe){
         String userName = userRe.getUserName();
         String newPassword = userRe.getPassword();
         User user = userRepository.findUserByUserName(userName);
@@ -89,9 +83,7 @@ public class UserService{
 
     }
 
-    public DataResponse sduLogin(DataRequest dataRequest){
-        User user = JsonUtil.prase(dataRequest.get("user"), User.class);
-
+    public DataResponse sduLogin(User user){
         String baseURL = "https://pass.sdu.edu.cn/";
 
         // 学号和密码填在此处

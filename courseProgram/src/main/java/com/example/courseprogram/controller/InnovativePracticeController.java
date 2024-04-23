@@ -20,20 +20,20 @@ public class InnovativePracticeController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdInnovativePractice(@RequestBody DataRequest dataRequest){
-        return innovativePracticeService.addAndUpdInnovativePractice(JsonUtil.prase(dataRequest.get("innovativePractice"), InnovativePractice.class));
+        return innovativePracticeService.addAndUpdInnovativePractice(JsonUtil.parse(dataRequest.get("innovativePractice"), InnovativePractice.class));
     }
 
 
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return innovativePracticeService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return innovativePracticeService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return innovativePracticeService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return innovativePracticeService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

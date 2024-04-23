@@ -23,25 +23,25 @@ public class StudentController {
     //添加学生，初始账号和密码为学号
     @PostMapping("/addStudent")
     public DataResponse addStudent(@RequestBody DataRequest dataRequest){
-        return studentService.addStudent(dataRequest);
+        return studentService.addStudent(JsonUtil.parse(dataRequest.get("studentInfo"), StudentInfo.class),JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
     //删除学生
     @PostMapping("/deleteStudent")
     public DataResponse deleteStudent(@RequestBody DataRequest dataRequest){
-        return studentService.deleteStudent(JsonUtil.prase(dataRequest.get("student"), Student.class));
+        return studentService.deleteStudent(JsonUtil.parse(dataRequest.get("student"), Student.class));
     }
 
     //修改学生信息
     @PostMapping("/addOrUpdateStudent")
     public DataResponse addOrUpdateStudent(@RequestBody DataRequest dataRequest){
-        return studentService.addOrUpdateStudent(JsonUtil.prase(dataRequest.get("student"), Student.class));
+        return studentService.addOrUpdateStudent(JsonUtil.parse(dataRequest.get("student"), Student.class));
     }
 
     //根据userId查找学生
     @PostMapping("/findByUserId")
     public DataResponse findByUserId(@RequestBody DataRequest dataRequest){
-        return studentService.findByUserId(JsonUtil.prase(dataRequest.get("user"), User.class));
+        return studentService.findByUserId(JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
     //获取所有学生

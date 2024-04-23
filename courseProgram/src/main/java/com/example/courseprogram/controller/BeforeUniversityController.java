@@ -20,20 +20,20 @@ public class BeforeUniversityController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdBeforeUniversity(@RequestBody DataRequest dataRequest){
-        return beforeUniversityService.addAndUpdBeforeUniversity(JsonUtil.prase(dataRequest.get("beforeUniversity"), BeforeUniversity.class));
+        return beforeUniversityService.addAndUpdBeforeUniversity(JsonUtil.parse(dataRequest.get("beforeUniversity"), BeforeUniversity.class));
     }
 
 
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return beforeUniversityService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return beforeUniversityService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return beforeUniversityService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return beforeUniversityService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

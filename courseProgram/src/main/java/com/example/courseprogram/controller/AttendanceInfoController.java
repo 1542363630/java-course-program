@@ -21,20 +21,20 @@ public class AttendanceInfoController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdAttendanceInfo(@RequestBody DataRequest dataRequest){
-        return attendanceInfoService.addAndUpdAttendanceInfo(JsonUtil.prase(dataRequest.get("attendanceInfo"), AttendanceInfo.class));
+        return attendanceInfoService.addAndUpdAttendanceInfo(JsonUtil.parse(dataRequest.get("attendanceInfo"), AttendanceInfo.class));
     }
 
 
     //删除某学生的所有考勤信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return attendanceInfoService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return attendanceInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的考勤信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return attendanceInfoService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return attendanceInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
 //    //查找某课程的考勤信息

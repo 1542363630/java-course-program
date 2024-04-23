@@ -12,6 +12,7 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
+    //检查信息是否完整
     public boolean checkInfo(Person person){
         return true;
     }

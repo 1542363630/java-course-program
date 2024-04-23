@@ -20,26 +20,26 @@ public class CourseController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdCourse(@RequestBody DataRequest dataRequest){
-        return courseService.addAndUpdCourse(JsonUtil.prase(dataRequest.get("course"), Course.class));
+        return courseService.addAndUpdCourse(JsonUtil.parse(dataRequest.get("course"), Course.class));
     }
 
 
     //删除课程
     @PostMapping("/delete")
     public DataResponse deleteByCourseId(@RequestBody DataRequest dataRequest){
-        return courseService.deleteByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return courseService.deleteByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //根据课程编号查找课程的数据
     @PostMapping("/findByCourseNumber")
     public DataResponse findByCourseNumber(@RequestBody DataRequest dataRequest){
-        return courseService.findByCourseNumber(JsonUtil.prase(dataRequest.get("number"), String.class));
+        return courseService.findByCourseNumber(JsonUtil.parse(dataRequest.get("number"), String.class));
     }
 
     //根据课程名字查找课程的数据
     @PostMapping("/findByCourseName")
     public DataResponse findByCourseName(@RequestBody DataRequest dataRequest){
-        return courseService.findByCourseName(JsonUtil.prase(dataRequest.get("name"), String.class));
+        return courseService.findByCourseName(JsonUtil.parse(dataRequest.get("name"), String.class));
     }
 
     //获取所有数据

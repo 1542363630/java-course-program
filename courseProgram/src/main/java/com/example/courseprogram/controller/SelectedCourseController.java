@@ -20,32 +20,32 @@ public class SelectedCourseController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdSelectedCourse(DataRequest dataRequest){
-        return selectedCourseService.addAndUpdSelectedCourse(JsonUtil.prase(dataRequest.get("selectedCourse"), SelectedCourse.class));
+        return selectedCourseService.addAndUpdSelectedCourse(JsonUtil.parse(dataRequest.get("selectedCourse"), SelectedCourse.class));
     }
 
 
     //删除某学生的所有选课数据
     @PostMapping("/deleteByStudentId")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return selectedCourseService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return selectedCourseService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //删除某课程的所有选课数据
     @PostMapping("/deleteByCourseId")
     public DataResponse deleteByCourseId(@RequestBody DataRequest dataRequest){
-        return selectedCourseService.deleteByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return selectedCourseService.deleteByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的所有选课数据
     @PostMapping("/findByStudentId")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return selectedCourseService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return selectedCourseService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某课程的所有选课数据
     @PostMapping("/findByCourseId")
     public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
-        return selectedCourseService.findByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return selectedCourseService.findByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

@@ -20,20 +20,20 @@ public class LeaveInfoController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdLeaveInfo(@RequestBody DataRequest dataRequest){
-        return leaveInfoService.addAndUpdLeaveInfo(JsonUtil.prase(dataRequest.get("leaveInfo"), LeaveInfo.class));
+        return leaveInfoService.addAndUpdLeaveInfo(JsonUtil.parse(dataRequest.get("leaveInfo"), LeaveInfo.class));
     }
 
 
     //删除某学生的所有请假信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return leaveInfoService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return leaveInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某学生的请假信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return leaveInfoService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return leaveInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
 

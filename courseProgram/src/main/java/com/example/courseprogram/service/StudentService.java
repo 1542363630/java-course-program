@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class StudentService {
+public class StudentService{
 
     @Autowired
     StudentRepository studentRepository;
@@ -29,10 +29,12 @@ public class StudentService {
     @Autowired
     PersonRepository personRepository;
 
+    public boolean checkInfo(Student student){
+        return DataUtil.checkInfo(student);
+    }
+
     //添加学生，初始账号和密码为学号
-    public DataResponse addStudent(DataRequest dataRequest){
-        StudentInfo studentInfo= JsonUtil.prase(dataRequest.get("studentInfo"), StudentInfo.class);
-        User user=JsonUtil.prase(dataRequest.get("user"), User.class);
+    public DataResponse addStudent(StudentInfo studentInfo,User user){
         if(studentRepository.existsStudentByPerson_Number(studentInfo.getNumber())){
             return DataResponse.failure(401,"已存在");
         }
@@ -45,6 +47,7 @@ public class StudentService {
         return DataResponse.ok();
     }
 
+    //删除学生
     public DataResponse deleteStudent(Student student){
         if(!studentRepository.existsById(student.getStudentId())){
             return DataResponse.failure(404,"未找到该学生");
@@ -55,6 +58,7 @@ public class StudentService {
         return DataResponse.ok();
     }
 
+    //增加或更改学生
     public DataResponse addOrUpdateStudent(Student student){
         if(studentRepository.existsById(student.getStudentId())){
             return DataResponse.success(studentRepository.saveAndFlush(student));
@@ -64,6 +68,7 @@ public class StudentService {
         }
     }
 
+    //根据uid查找学生
     public DataResponse findByUserId(User user){
         Student student = studentRepository.findByUserId(user.getUserId());
         if(student!=null){
@@ -72,12 +77,10 @@ public class StudentService {
         return DataResponse.failure(404,"未找到该学生");
     }
 
+    //获取所有学生
     public DataResponse getStudentList(){
         List<Student> list = studentRepository.findAll();
         return DataResponse.success(list);
     }
 
-    public DataResponse findAll(){
-        return DataResponse.success(studentRepository.findAll());
-    }
 }

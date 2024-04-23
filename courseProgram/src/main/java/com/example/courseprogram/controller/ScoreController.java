@@ -1,6 +1,5 @@
 package com.example.courseprogram.controller;
 
-import com.example.courseprogram.model.DO.Fee;
 import com.example.courseprogram.model.DO.Score;
 import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
@@ -22,37 +21,37 @@ public class ScoreController {
     //增加或者修改数据
     @PostMapping("/addAndUpdScore")
     public DataResponse addAndUpdScore(@RequestBody DataRequest dataRequest){
-        return scoreService.addAndUpdFee(JsonUtil.prase(dataRequest.get("score"), Score.class));
+        return scoreService.addAndUpdFee(JsonUtil.parse(dataRequest.get("score"), Score.class));
     }
 
     //删除某个学生的所有成绩数据
     @PostMapping("/deleteByStudentId")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return scoreService.deleteByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return scoreService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //删除某个课程的所有成绩数据
     @PostMapping("/deleteByCourseId")
     public DataResponse deleteByCourseId(@RequestBody DataRequest dataRequest){
-        return scoreService.deleteByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return scoreService.deleteByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //删除某条数据
     @PostMapping("/deleteByScoreId")
     public DataResponse deleteByScoreId(@RequestBody DataRequest dataRequest){
-        return scoreService.deleteByScoreId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return scoreService.deleteByScoreId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某个学生的所有数据
     @PostMapping("/findByStudentId")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return scoreService.findByStudentId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return scoreService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //查找某个课程的所有数据
     @PostMapping("/findByCourseId")
     public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
-        return scoreService.findByCourseId(JsonUtil.prase(dataRequest.get("id"), Integer.class));
+        return scoreService.findByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获得所有数据
