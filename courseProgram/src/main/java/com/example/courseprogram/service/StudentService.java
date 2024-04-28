@@ -34,15 +34,15 @@ public class StudentService{
     }
 
     //添加学生，初始账号和密码为学号
-    public DataResponse addStudent(StudentInfo studentInfo,User user){
-        if(studentRepository.existsStudentByPerson_Number(studentInfo.getNumber())){
+    public DataResponse addStudent(Student student,User user){
+        Person person=student.getPerson();
+        if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
             return DataResponse.failure(401,"已存在");
         }
-        Student student=new Student(studentInfo);
+        personRepository.saveAndFlush(student.getPerson());
         studentRepository.saveAndFlush(student);
-        personRepository.saveAndFlush((Person) studentInfo);
-        String encodedPassword = BCrypt.hashpw(studentInfo.getNumber(),BCrypt.gensalt());
-        User studentUser = new User(null,"student",studentInfo,studentInfo.getNumber(),encodedPassword,0,null, DataUtil.getTime(),user.getUserId());
+        String encodedPassword = BCrypt.hashpw(student.getPerson().getNumber(),BCrypt.gensalt());
+        User studentUser = new User(null,"student",student.getPerson(),student.getPerson().getNumber(),encodedPassword,0,null, DataUtil.getTime(),user.getUserId());
         userRepository.saveAndFlush(studentUser);
         return DataResponse.ok();
     }

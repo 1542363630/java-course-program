@@ -23,7 +23,8 @@ public class StudentController {
     //添加学生，初始账号和密码为学号
     @PostMapping("/addStudent")
     public DataResponse addStudent(@RequestBody DataRequest dataRequest){
-        return studentService.addStudent(JsonUtil.parse(dataRequest.get("studentInfo"), StudentInfo.class),JsonUtil.parse(dataRequest.get("user"), User.class));
+        Student student;
+        return studentService.addStudent(JsonUtil.parse(dataRequest.get("student"), Student.class),JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
     //删除学生
