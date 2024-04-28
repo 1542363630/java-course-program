@@ -27,7 +27,7 @@ import java.io.Serializable;
 @Entity
 public class Student implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer studentId;
 
     @OneToOne
@@ -40,6 +40,7 @@ public class Student implements Serializable {
     private String className;
 
     public Student(StudentInfo studentInfo){
+        studentId= Integer.valueOf(studentInfo.getNumber());
         major=studentInfo.getMajor();
         className=studentInfo.getClassName();
     }

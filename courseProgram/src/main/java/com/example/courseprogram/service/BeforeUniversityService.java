@@ -32,7 +32,7 @@ public class BeforeUniversityService {
         return DataResponse.ok();
     }
 
-    //删除数据
+    //删除某个学生的数据
     public DataResponse deleteByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         beforeUniversityRepository.deleteByStudentId(id);

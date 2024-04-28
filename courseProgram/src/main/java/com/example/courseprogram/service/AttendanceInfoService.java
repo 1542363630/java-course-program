@@ -1,14 +1,12 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.AttendanceInfo;
-import com.example.courseprogram.model.DO.InnovativePractice;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.AttendanceInfoRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 @Service

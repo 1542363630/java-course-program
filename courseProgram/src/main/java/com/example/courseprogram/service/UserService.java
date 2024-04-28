@@ -1,23 +1,18 @@
 package com.example.courseprogram.service;
 
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
+import com.example.courseprogram.model.DO.Person;
 import com.example.courseprogram.model.DO.User;
-import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.model.DTO.Token;
 import com.example.courseprogram.model.DTO.UserInfo;
+import com.example.courseprogram.repository.PersonRepository;
 import com.example.courseprogram.repository.UserRepository;
-import com.example.courseprogram.utils.JsonUtil;
+import com.example.courseprogram.utils.DataUtil;
 import com.example.courseprogram.utils.JwtUtil;
 import kong.unirest.Unirest;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class UserService{
@@ -25,7 +20,19 @@ public class UserService{
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PersonRepository personRepository;
+
+    PersonService personService;
+
     public DataResponse addUser(User user,String userName,String userType){
+        user.setLoginCount(0);
+        user.setCreateTime(DataUtil.getTime());
+        Person person = new Person();
+        person.setType(userType);
+        person.setNumber(userName);
+        personService.addPerson(person);
+        user.setPerson(person);
         user.setUserName(userName);
         user.setUserType(userType);
 
@@ -56,7 +63,6 @@ public class UserService{
             return DataResponse.notFound();
         }
         else {
-            //String encodedPassword = BCrypt.hashpw(password,BCrypt.gensalt());
             UserInfo userInfo = new UserInfo(user);
             if(BCrypt.checkpw(password,user.getPassword())){
                 return DataResponse.success(new Token(JwtUtil.generateToken(userName),userInfo));
@@ -98,7 +104,7 @@ public class UserService{
 //        System.out.println("ticket: " + ticket);
         // 如果密码不对，这步就会显示一个Bad Request界面，而非ticket；自行加入错误处理，如返回一个密码错误的消息
         if(!ticket.startsWith("TGT")){
-            return DataResponse.failure(401,"密码错误");
+            return DataResponse.failure(402,"密码错误");
 //            throw new RuntimeException("ticket should start with TGT");
         }
 
@@ -113,18 +119,18 @@ public class UserService{
 
         // 第三个接口，获取姓名和学号
         // 结果是一个xml，需要自己从中提取需要的信息，Jsoup或正则均可
-        String validationResult = Unirest.get(baseURL + "cas/serviceValidate").
-                queryString("ticket", sTicket).
-                queryString("service", "https://service.sdu.edu.cn/tp_up/view?m=up").asString().getBody();
+//        String validationResult = Unirest.get(baseURL + "cas/serviceValidate").
+//                queryString("ticket", sTicket).
+//                queryString("service", "https://service.sdu.edu.cn/tp_up/view?m=up").asString().getBody();
 //        System.out.println(validationResult);
 
         //如果数据库中没有这个人的信息，就添加到数据库中
         if(userRepository.findUserByUserName(username)==null){
-
+            addUser(new User(),username,password);
         }
 
-        Document document = Jsoup.parse(validationResult);
-        String name = document.getElementsByTag("cas:USER_NAME").text();//获取学生姓名
+//        Document document = Jsoup.parse(validationResult);
+//        String name = document.getElementsByTag("cas:USER_NAME").text();//获取学生姓名
 //        System.out.println(name);
 
         return DataResponse.success(new Token(JwtUtil.generateToken(username),new UserInfo(user)));

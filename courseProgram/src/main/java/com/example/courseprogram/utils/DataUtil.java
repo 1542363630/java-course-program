@@ -1,7 +1,5 @@
 package com.example.courseprogram.utils;
 
-import com.example.courseprogram.model.DO.InnovativePractice;
-
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;

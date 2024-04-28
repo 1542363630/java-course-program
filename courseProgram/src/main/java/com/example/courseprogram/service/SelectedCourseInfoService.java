@@ -1,7 +1,5 @@
 package com.example.courseprogram.service;
 
-import com.example.courseprogram.model.DO.BeforeUniversity;
-import com.example.courseprogram.model.DO.HomeworkInfo;
 import com.example.courseprogram.model.DO.SelectedCourseInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.SelectedCourseInfoRepository;
