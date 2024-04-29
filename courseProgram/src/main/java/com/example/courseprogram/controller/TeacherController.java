@@ -28,7 +28,7 @@ public class TeacherController {
     //删除教师
     @PostMapping("/deleteTeacher")
     public DataResponse deleteTeacher(@RequestBody DataRequest dataRequest){
-        return teacherService.deleteTeacher(JsonUtil.parse(dataRequest.get("teacher"), Teacher.class));
+        return teacherService.deleteTeacher(JsonUtil.parse(dataRequest.get("TeacherId"), Integer.class));
     }
 
     //修改教师信息

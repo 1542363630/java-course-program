@@ -14,6 +14,7 @@ public class SelectedCourseService {
     @Autowired
     SelectedCourseRepository selectedCourseRepository;
 
+    //检查信息完整
     public boolean checkInfo(SelectedCourse selectedCourse){
         return DataUtil.checkInfo(selectedCourse);
     }
@@ -53,6 +54,13 @@ public class SelectedCourseService {
         List<SelectedCourse> listA=selectedCourseRepository.findSelectedCoursesByCourse_CourseId(id);
         if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");
         return DataResponse.success(listA);
+    }
+
+    //删除某条选课数据
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        selectedCourseRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
     }
 
     //查找所有选课数据

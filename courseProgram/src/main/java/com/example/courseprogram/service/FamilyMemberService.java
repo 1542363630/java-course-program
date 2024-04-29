@@ -14,7 +14,6 @@ public class FamilyMemberService {
     @Autowired
     FamilyMemberRepository familyMemberRepository;
 
-
     //检查有没有没填的信息
     public boolean checkInfo(FamilyMember familyMember){
         return DataUtil.checkInfo(familyMember);
@@ -27,7 +26,7 @@ public class FamilyMemberService {
         return DataResponse.ok();
     }
 
-    //删除数据
+    //根据学生id删除数据
     public DataResponse deleteByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         familyMemberRepository.deleteByStudent_StudentId(id);
@@ -40,6 +39,13 @@ public class FamilyMemberService {
         List<FamilyMember> b=familyMemberRepository.findFamilyMembersByStudent_StudentId(id);
         if(b==null)return DataResponse.failure(404,"未找到该同学的信息");
         return DataResponse.success(b);
+    }
+
+    //根据id删除数据
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        familyMemberRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
     }
 
     //获得所有数据

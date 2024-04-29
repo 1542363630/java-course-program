@@ -14,6 +14,8 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService{
 
@@ -25,6 +27,7 @@ public class UserService{
 
     PersonService personService;
 
+    //增加一个用户
     public DataResponse addUser(User user,String userName,String userType){
         user.setLoginCount(0);
         user.setCreateTime(DataUtil.getTime());
@@ -46,15 +49,16 @@ public class UserService{
         return DataResponse.ok();
     }
 
-    public DataResponse deleteUser(User user){
-        User userExist = userRepository.findUserByUserName(user.getUserName());
-        if(userExist != null){
-            return DataResponse.failure(400,"该用户不存在！");
-        }
-        userRepository.deleteById(user.getUserId());
+    //根据id删除用户
+    public DataResponse deleteUser(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        Optional<User> o = userRepository.findById(id);
+        if(o.isEmpty())return DataResponse.failure(404,"该用户不存在！");
+        userRepository.deleteById(id);
         return DataResponse.ok();
     }
 
+    //普通登录
     public DataResponse login(User user1){
         String userName= String.valueOf(user1.getUserName());
         String password=String.valueOf(user1.getPassword());
@@ -73,6 +77,7 @@ public class UserService{
         }
     }
 
+    //更改密码
     public DataResponse updatePassword(User userRe){
         String userName = userRe.getUserName();
         String newPassword = userRe.getPassword();
@@ -86,9 +91,9 @@ public class UserService{
         else {
             return DataResponse.notFound();
         }
-
     }
 
+    //山大统一认证登录
     public DataResponse sduLogin(User user){
         String baseURL = "https://pass.sdu.edu.cn/";
 

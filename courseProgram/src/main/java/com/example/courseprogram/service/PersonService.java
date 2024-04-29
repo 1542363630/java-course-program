@@ -17,6 +17,7 @@ public class PersonService {
         return true;
     }
 
+    //增加person
     public DataResponse addPerson(Person person){
         Person person1 = personRepository.findByNumber(person.getNumber());
         if(person1 != null){
@@ -26,24 +27,35 @@ public class PersonService {
         return DataResponse.ok();
     }
 
+    //根据number删除
     public DataResponse deleteByPersonNumber(String number) {
         Person person1 = personRepository.findByNumber(number);
         if(person1 == null){
             return DataResponse.failure(401,"该用户不存在！");
         }
         personRepository.deleteById(person1.getPersonId());
-        return DataResponse.ok();
+        return DataResponse.okM("删除成功");
     }
 
+    //根据id删除
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        personRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
+    }
+
+    //增加或修改
     public DataResponse addOrUpdatePerson(Person person){
         Person person1 = personRepository.findByNumber(person.getNumber());
         return DataResponse.success(personRepository.saveAndFlush(person));
     }
 
+    //根据用户名查找
     public DataResponse findByUserName(String userName){
         return DataResponse.success(personRepository.findPersonByUserName(userName));
     }
 
+    //获取所有信息
     public DataResponse findAll(){
         return DataResponse.success(personRepository.findAll());
     }

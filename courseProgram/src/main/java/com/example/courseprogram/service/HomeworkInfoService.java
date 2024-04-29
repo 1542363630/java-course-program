@@ -35,12 +35,12 @@ public class HomeworkInfoService {
         }
     }
 
-    //删除
+    //根据id删除一条
     public DataResponse deleteHomeworkInfo(Integer id){
         if(id==null){
             return DataResponse.error(401,"信息不完整");
         }
-        else if(homeworkInfoRepository.existsById(id)){
+        else if(!homeworkInfoRepository.existsById(id)){
             return DataResponse.error(404,"未找到这条作业信息");
         }
         else {

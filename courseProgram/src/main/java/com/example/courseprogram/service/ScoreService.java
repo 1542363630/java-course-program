@@ -12,6 +12,7 @@ import java.util.List;
 public class ScoreService {
     ScoreRepository scoreRepository;
 
+    //检查信息完整
     public boolean checkInfo(Score score){
         return DataUtil.checkInfo(score);
     }

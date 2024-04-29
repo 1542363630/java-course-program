@@ -14,22 +14,26 @@ public class SocietyMemberService {
     @Autowired
     SocietyMemberRepository societyMemberRepository;
 
+    //
     public boolean checkInfo(SocietyMember societyMember){
         return DataUtil.checkInfo(societyMember);
     }
 
+    //
     public DataResponse addAndUpdSocietyMember(SocietyMember societyMember){
         if(!checkInfo(societyMember))return DataResponse.failure(401,"信息不完整！");
         societyMemberRepository.saveAndFlush(societyMember);
         return DataResponse.ok();
     }
 
+    //
     public DataResponse deleteByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         societyMemberRepository.deleteByStudent_StudentId(id);
         return DataResponse.ok();
     }
 
+    //
     public DataResponse findByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         List<SocietyMember> listA=societyMemberRepository.findSocietyMembersByStudent_StudentId(id);
@@ -37,6 +41,9 @@ public class SocietyMemberService {
         return DataResponse.success(listA);
     }
 
+    //
+
+    //
     public DataResponse findAll(){
         return DataResponse.success(societyMemberRepository.findAll());
     }

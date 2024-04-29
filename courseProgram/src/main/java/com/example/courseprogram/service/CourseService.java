@@ -26,7 +26,7 @@ public class CourseService {
         return DataResponse.ok();
     }
 
-    //删除数据
+    //根据id删除数据
     public DataResponse deleteByCourseId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         courseRepository.deleteCourseByCourseId(id);

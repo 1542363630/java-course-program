@@ -25,7 +25,7 @@ public class UserController {
     //删除user
     @PostMapping("/deleteUser")
     public DataResponse deleteUser(@RequestBody DataRequest dataRequest){
-        return userService.deleteUser(JsonUtil.parse(dataRequest.get("user"), User.class));
+        return userService.deleteUser(JsonUtil.parse(dataRequest.get("userId"), Integer.class));
     }
 
     //登录
@@ -40,6 +40,7 @@ public class UserController {
         return userService.updatePassword(JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
+    //山大统一认证登录
     @PostMapping("/sduLogin")
     public DataResponse sduLogin(@RequestBody DataRequest dataRequest){
         return userService.sduLogin(JsonUtil.parse(dataRequest.get("user"), User.class));

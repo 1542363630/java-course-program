@@ -14,22 +14,26 @@ public class DailyActivityService {
     @Autowired
     DailyActivityRepository dailyActivityRepository;
 
+    //检查信息完整
     public boolean checkInfo(DailyActivity dailyActivity){
         return DataUtil.checkInfo(dailyActivity);
     }
 
+    //增加或更改
     public DataResponse addAndUpdDailyActivity(DailyActivity dailyActivity){
         if(!checkInfo(dailyActivity))return DataResponse.failure(401,"信息不完整！");
         dailyActivityRepository.saveAndFlush(dailyActivity);
         return DataResponse.ok();
     }
 
+    //根据学生id删除
     public DataResponse deleteByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         dailyActivityRepository.deleteByStudent_StudentId(id);
         return DataResponse.ok();
     }
 
+    //根据学生id查找
     public DataResponse findByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         List<DailyActivity> listA=dailyActivityRepository.findDailyActivitiesByStudent_StudentId(id);
@@ -37,6 +41,14 @@ public class DailyActivityService {
         return DataResponse.success(listA);
     }
 
+    //根据id删除数据
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        dailyActivityRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
+    }
+
+    //获取所有课程
     public DataResponse findAll(){
         return DataResponse.success(dailyActivityRepository.findAll());
     }

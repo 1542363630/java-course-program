@@ -11,6 +11,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeacherService {
@@ -21,6 +22,7 @@ public class TeacherService {
 
     PersonRepository personRepository;
 
+    //增加一个教师
     public DataResponse addTeacher(Teacher teacher){
         if(teacherRepository.existsTeacherByPerson_Number(teacher.getPerson().getNumber())){
             return DataResponse.failure(401,"已存在");
@@ -33,16 +35,21 @@ public class TeacherService {
         return DataResponse.ok();
     }
 
-    public DataResponse deleteTeacher(Teacher teacher){
-        if(!teacherRepository.existsById(teacher.getTeacherId())){
-            return DataResponse.failure(404,"未找到该学生");
+    //根据id删除教师
+    public DataResponse deleteTeacher(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        Optional<Teacher> o=teacherRepository.findById(id);
+        if(o.isEmpty()){
+            return DataResponse.failure(404,"未找到该教师");
         }
+        Teacher teacher=o.get();
         teacherRepository.deleteById(teacher.getTeacherId());
         userRepository.deleteUserByPersonPersonId(teacher.getPerson().getPersonId());
         personRepository.deleteById(teacher.getPerson().getPersonId());
         return DataResponse.ok();
     }
 
+    //增加或删除
     public DataResponse addOrUpdateTeacher(Teacher teacher){
         if(teacherRepository.existsById(teacher.getTeacherId())){
             return DataResponse.success(teacherRepository.saveAndFlush(teacher));
@@ -52,6 +59,7 @@ public class TeacherService {
         }
     }
 
+    //根据用户id查找
     public DataResponse findByUserId(User user){
         Teacher teacher = teacherRepository.findByUserId(user.getUserId());
         if(teacher!=null){
@@ -60,6 +68,7 @@ public class TeacherService {
         return DataResponse.failure(404,"未找到该学生");
     }
 
+    //获取所有教师
     public DataResponse getTeacherList(){
         List<Teacher> list = teacherRepository.findAll();
         return DataResponse.success(list);

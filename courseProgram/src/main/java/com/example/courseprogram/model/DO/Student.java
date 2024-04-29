@@ -31,7 +31,6 @@ public class Student implements Serializable {
     private Integer studentId;
 
     @OneToOne
-    @JsonIgnore
     @JoinColumn(name = "person_id")
     private Person person;
 

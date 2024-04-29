@@ -25,7 +25,7 @@ public class BeforeUniversityService {
         return DataResponse.ok();
     }
 
-    //删除某个数据
+    //删除指定id的数据
     public DataResponse deleteById(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         beforeUniversityRepository.deleteById(id);
