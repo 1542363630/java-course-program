@@ -23,6 +23,17 @@ public class DailyActivityController {
         return dailyActivityService.addAndUpdDailyActivity(JsonUtil.parse(dataRequest.get("dailyActivity"), DailyActivity.class));
     }
 
+    //根据id删除
+    @PostMapping("/deleteById")
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return dailyActivityService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
+
+    //根据学号和活动类型查询
+    @PostMapping("/findByStudentIdAndType")
+    public DataResponse findByStudentIdAndType(@RequestBody DataRequest dataRequest){
+        return dailyActivityService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Integer.class),JsonUtil.parse(dataRequest.get("type"), String.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")

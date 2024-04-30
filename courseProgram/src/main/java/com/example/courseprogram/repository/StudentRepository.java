@@ -15,7 +15,7 @@ public interface StudentRepository extends JpaRepository<Student,Integer> {
     Student updateStudentByStudentId(Student student,Integer studentId);
 
     //根据学号查找是否有对应学生已存在
-    boolean existsStudentByPerson_Number(String number);
+    boolean existsStudentByPerson_Number(Integer number);
 
     //根据用户id查找
     @Query(value = "select s from Student s,User u where u.userId=?1 and s.person.personId=u.person.personId")

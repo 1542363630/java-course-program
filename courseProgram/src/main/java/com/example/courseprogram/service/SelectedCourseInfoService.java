@@ -36,7 +36,7 @@ public class SelectedCourseInfoService {
         }
     }
 
-    //删除
+    //根据id删除
     public DataResponse deleteById(Integer id){
         if(id==null){
             return DataResponse.failure(401,"信息不完整");

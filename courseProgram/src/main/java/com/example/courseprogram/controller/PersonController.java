@@ -29,11 +29,16 @@ public class PersonController {
         return personService.addPerson(JsonUtil.parse(dataRequest.get("person"), Person.class));
     }
 
+    //根据id删除
+    @PostMapping("/deleteById")
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return personService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某人的个人信息
     @PostMapping("/delete")
     public DataResponse deleteByPersonNumber(@RequestBody DataRequest dataRequest){
-        return personService.deleteByPersonNumber(JsonUtil.parse(dataRequest.get("number"), String.class));
+        return personService.deleteByPersonNumber(JsonUtil.parse(dataRequest.get("number"), Integer.class));
     }
 
     //根据用户名查找个人信息

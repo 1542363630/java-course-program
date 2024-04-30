@@ -23,6 +23,10 @@ public class BeforeUniversityController {
         return beforeUniversityService.addAndUpdBeforeUniversity(JsonUtil.parse(dataRequest.get("beforeUniversity"), BeforeUniversity.class));
     }
 
+    //根据id删除
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return beforeUniversityService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")

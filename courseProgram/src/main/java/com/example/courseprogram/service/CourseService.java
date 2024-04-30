@@ -49,6 +49,14 @@ public class CourseService {
         return DataResponse.success(list);
     }
 
+    //根据课程类型查找
+    public DataResponse findByCourseType(String type){
+        if(type==null)return DataResponse.failure(401,"信息不完整！");
+        List<Course> list=courseRepository.findCourseListByType(type);
+        if(list==null)return DataResponse.failure(404,"未找到相关的信息");
+        return DataResponse.success(list);
+    }
+
     //获得所有数据
     public DataResponse findAll(){
         return DataResponse.success(courseRepository.findAll());

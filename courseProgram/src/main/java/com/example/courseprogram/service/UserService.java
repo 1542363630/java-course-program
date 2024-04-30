@@ -14,6 +14,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,7 +34,6 @@ public class UserService{
         user.setCreateTime(DataUtil.getTime());
         Person person = new Person();
         person.setType(userType);
-        person.setNumber(userName);
         personService.addPerson(person);
         user.setPerson(person);
         user.setUserName(userName);
@@ -47,6 +47,22 @@ public class UserService{
         user.setPassword(encodedPassword);
         userRepository.save(user);
         return DataResponse.ok();
+    }
+
+    //根据personId查找
+    public DataResponse findByPersonId(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        User user=userRepository.findUserByPersonPersonId(id);
+        if(user==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(user);
+    }
+
+    //根据 userType 查找
+    public DataResponse findByUserType(String type){
+        if(type==null)return DataResponse.failure(401,"信息不完整");
+        List<User> list=userRepository.findUserByUserType(type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
     }
 
     //根据id删除用户

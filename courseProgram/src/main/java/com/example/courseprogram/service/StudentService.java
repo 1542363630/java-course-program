@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.Person;
 import com.example.courseprogram.model.DO.Student;
+import com.example.courseprogram.model.DO.Teacher;
 import com.example.courseprogram.model.DO.User;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.model.DTO.StudentInfo;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService{
@@ -40,17 +42,20 @@ public class StudentService{
         }
         personRepository.saveAndFlush(student.getPerson());
         studentRepository.saveAndFlush(student);
-        String encodedPassword = BCrypt.hashpw(student.getPerson().getNumber(),BCrypt.gensalt());
-        User studentUser = new User(null,"student",student.getPerson(),student.getPerson().getNumber(),encodedPassword,0,null, DataUtil.getTime(),user.getUserId());
+        String encodedPassword = BCrypt.hashpw(String.valueOf(student.getPerson().getNumber()),BCrypt.gensalt());
+        User studentUser = new User(null,"student",student.getPerson(),student.getPerson().getNumber().toString(),encodedPassword,0,null, DataUtil.getTime(),user.getUserId());
         userRepository.saveAndFlush(studentUser);
         return DataResponse.ok();
     }
 
     //删除学生
-    public DataResponse deleteStudent(Student student){
-        if(!studentRepository.existsById(student.getStudentId())){
+    public DataResponse deleteStudent(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        Optional<Student> o=studentRepository.findById(id);
+        if(o.isEmpty()){
             return DataResponse.failure(404,"未找到该学生");
         }
+        Student student=o.get();
         studentRepository.deleteById(student.getStudentId());
         userRepository.deleteUserByPersonPersonId(student.getPerson().getPersonId());
         personRepository.deleteById(student.getPerson().getPersonId());

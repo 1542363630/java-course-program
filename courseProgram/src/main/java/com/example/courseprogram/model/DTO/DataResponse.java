@@ -25,10 +25,6 @@ public class DataResponse {  //DataResponse：响应用户请求打包返回的�
         return new DataResponse(200,"success",data);
     }
 
-    public static DataResponse result(Object data) {  //返回多个结果
-        return new DataResponse(200,"result",data);
-    }
-
     public static DataResponse failure(int code, String msg) {  //告知操作失败，并返回原因
         return new DataResponse(code, msg,null);
     }

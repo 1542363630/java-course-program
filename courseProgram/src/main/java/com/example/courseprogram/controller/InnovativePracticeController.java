@@ -23,6 +23,11 @@ public class InnovativePracticeController {
         return innovativePracticeService.addAndUpdInnovativePractice(JsonUtil.parse(dataRequest.get("innovativePractice"), InnovativePractice.class));
     }
 
+    //根据id删除
+    @PostMapping("/deleteById")
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return innovativePracticeService.deleteById(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")
@@ -34,6 +39,12 @@ public class InnovativePracticeController {
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
         return innovativePracticeService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+    }
+
+    //根据类别查找
+    @PostMapping("/findByType")
+    public DataResponse findByType(@RequestBody DataRequest dataRequest){
+        return innovativePracticeService.findByType(JsonUtil.parse(dataRequest.get("type"), String.class));
     }
 
     //获取所有数据

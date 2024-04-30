@@ -23,6 +23,10 @@ public class FamilyMemberController {
         return familyMemberService.addAndUpdFamilyMember(JsonUtil.parse(dataRequest.get("familyMember"), FamilyMember.class));
     }
 
+    //根据id删除
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return familyMemberService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")

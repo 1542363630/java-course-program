@@ -24,6 +24,10 @@ public class AttendanceInfoController {
         return attendanceInfoService.addAndUpdAttendanceInfo(JsonUtil.parse(dataRequest.get("attendanceInfo"), AttendanceInfo.class));
     }
 
+    //根据id删除
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return attendanceInfoService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有考勤信息
     @PostMapping("/delete")
@@ -35,6 +39,12 @@ public class AttendanceInfoController {
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
         return attendanceInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+    }
+
+    //根据是否考勤查找
+    @PostMapping("/findByIsAttended")
+    public DataResponse findByIsAttended(@RequestBody DataRequest dataRequest){
+        return attendanceInfoService.findByIsAttended(JsonUtil.parse(dataRequest.get("isAttended"), String.class));
     }
 
 //    //查找某课程的考勤信息

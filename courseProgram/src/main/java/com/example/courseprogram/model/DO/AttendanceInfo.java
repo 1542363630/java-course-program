@@ -41,5 +41,8 @@ public class AttendanceInfo implements Serializable {
 
     private String attendanceTime;
 
+    /**
+     * 已考勤、未考勤
+     */
     private String isAttended;
 }

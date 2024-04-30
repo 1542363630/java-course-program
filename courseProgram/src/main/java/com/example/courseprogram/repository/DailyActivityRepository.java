@@ -14,7 +14,7 @@ public interface DailyActivityRepository extends JpaRepository<DailyActivity,Int
 
     //根据学号和活动类型查询
     @Query(value = "select d from DailyActivity d where ?1 = d.student.studentId and ?2 = d.activityType")
-    List<DailyActivity> findByStudentIdAndType(String number,String type);
+    List<DailyActivity> findByStudentIdAndType(Integer id,String type);
 
     void deleteByStudent_StudentId(Integer studentId);
 }

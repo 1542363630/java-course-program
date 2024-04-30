@@ -24,6 +24,11 @@ public class HonorInfoController {
         return honorInfoService.addAndUpdHonorInfo(JsonUtil.parse(dataRequest.get("honorInfo"), HonorInfo.class),files);
     }
 
+    //根据id删除
+    @PostMapping("/deleteById")
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return honorInfoService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")

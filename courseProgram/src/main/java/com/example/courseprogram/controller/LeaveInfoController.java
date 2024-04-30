@@ -23,6 +23,11 @@ public class LeaveInfoController {
         return leaveInfoService.addAndUpdLeaveInfo(JsonUtil.parse(dataRequest.get("leaveInfo"), LeaveInfo.class));
     }
 
+    //根据id删除
+    @PostMapping("/deleteById")
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return leaveInfoService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有请假信息
     @PostMapping("/delete")
@@ -36,6 +41,11 @@ public class LeaveInfoController {
         return leaveInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
+    //根据是否回到学校查找
+    @PostMapping("/findByIsBack")
+    public DataResponse findByIsBack(@RequestBody DataRequest dataRequest){
+        return leaveInfoService.findByIsBack(JsonUtil.parse(dataRequest.get("isBack"), String.class));
+    }
 
     //获取所有数据
     @PostMapping("/findAll")

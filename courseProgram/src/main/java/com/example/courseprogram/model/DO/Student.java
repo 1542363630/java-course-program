@@ -39,8 +39,8 @@ public class Student implements Serializable {
     private String className;
 
     public Student(StudentInfo studentInfo){
-        studentId= Integer.valueOf(studentInfo.getNumber());
-        major=studentInfo.getMajor();
-        className=studentInfo.getClassName();
+        studentId = studentInfo.getNumber();
+        major = studentInfo.getMajor();
+        className = studentInfo.getClassName();
     }
 }

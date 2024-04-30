@@ -28,7 +28,7 @@ public class PersonService {
     }
 
     //根据number删除
-    public DataResponse deleteByPersonNumber(String number) {
+    public DataResponse deleteByPersonNumber(Integer number) {
         Person person1 = personRepository.findByNumber(number);
         if(person1 == null){
             return DataResponse.failure(401,"该用户不存在！");

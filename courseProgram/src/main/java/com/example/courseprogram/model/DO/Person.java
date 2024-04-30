@@ -35,7 +35,7 @@ public class Person implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer personId;
 
-    private String number;
+    private Integer number;
 
     private String name;
 

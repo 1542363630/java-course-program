@@ -36,7 +36,7 @@ public class HomeworkInfoService {
     }
 
     //根据id删除一条
-    public DataResponse deleteHomeworkInfo(Integer id){
+    public DataResponse deleteById(Integer id){
         if(id==null){
             return DataResponse.error(401,"信息不完整");
         }
@@ -56,5 +56,8 @@ public class HomeworkInfoService {
         else return DataResponse.success(list);
     }
 
-
+    //获取所有信息
+    public DataResponse findAll(){
+        return DataResponse.success(homeworkInfoRepository.findAll());
+    }
 }

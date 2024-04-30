@@ -42,6 +42,12 @@ public class CourseController {
         return courseService.findByCourseName(JsonUtil.parse(dataRequest.get("name"), String.class));
     }
 
+    //根据课程类型查找
+    @PostMapping("/findByCourseType")
+    public DataResponse findByCourseType(@RequestBody DataRequest dataRequest){
+        return courseService.findByCourseType(JsonUtil.parse(dataRequest.get("type"), String.class));
+    }
+
     //获取所有数据
     @PostMapping("/findAll")
     public DataResponse findAll(){

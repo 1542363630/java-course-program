@@ -23,6 +23,11 @@ public class SocietyMemberController {
         return societyMemberService.addAndUpdSocietyMember(JsonUtil.parse(dataRequest.get("societyMember"), SocietyMember.class));
     }
 
+    //根据id删除
+    @PostMapping("/deleteById")
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return societyMemberService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")

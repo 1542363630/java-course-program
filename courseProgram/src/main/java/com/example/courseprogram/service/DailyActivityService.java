@@ -48,6 +48,14 @@ public class DailyActivityService {
         return DataResponse.okM("删除成功");
     }
 
+    //根据学号和活动类型查询
+    public DataResponse findByStudentIdAndType(Integer id,String type){
+        if(id==null||type==null)return DataResponse.failure(401,"信息不完整");
+        List<DailyActivity> list=dailyActivityRepository.findByStudentIdAndType(id,type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
     //获取所有课程
     public DataResponse findAll(){
         return DataResponse.success(dailyActivityRepository.findAll());

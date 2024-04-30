@@ -49,6 +49,14 @@ public class AttendanceInfoService {
         return DataResponse.success(listA);
     }
 
+    //根据是否考勤查找
+    public DataResponse findByIsAttended(String isAttended){
+        if(isAttended==null)return DataResponse.failure(401,"信息不完整");
+        List<AttendanceInfo> list=attendanceInfoRepository.findAttendanceInfosByIsAttended(isAttended);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
 //    //查找某课程的考勤信息
 //    public DataResponse findByCourseId(Integer id){
 //        if(id==null)return DataResponse.failure(401,"信息不完整！");

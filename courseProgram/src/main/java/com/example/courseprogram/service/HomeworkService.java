@@ -26,6 +26,13 @@ public class HomeworkService {
         return DataResponse.ok();
     }
 
+    //根据id删除
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        homeworkRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
+    }
+
     //根据学生id删除
     public DataResponse deleteByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
@@ -39,6 +46,14 @@ public class HomeworkService {
         List<Homework> listA=homeworkRepository.findHomeworkByStudent_StudentId(id);
         if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");
         return DataResponse.success(listA);
+    }
+
+    //根据作业信息id找作业
+    public DataResponse findByHomeworkInfoId(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        List<Homework> list=homeworkRepository.findHomeworkByHomeworkInfo_HomeworkInfoId(id);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
     }
 
     //获取所有信息

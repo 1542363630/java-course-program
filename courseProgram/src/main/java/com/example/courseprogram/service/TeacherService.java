@@ -29,8 +29,8 @@ public class TeacherService {
         }
         teacherRepository.saveAndFlush(teacher);
         personRepository.saveAndFlush(teacher.getPerson());
-        String encodedPassword = BCrypt.hashpw(teacher.getPerson().getNumber(),BCrypt.gensalt());
-        User teacherUser = new User(null,"teacher",teacher.getPerson(),teacher.getPerson().getNumber(),encodedPassword,0,null, DataUtil.getTime(),null);
+        String encodedPassword = BCrypt.hashpw(teacher.getPerson().getNumber().toString(),BCrypt.gensalt());
+        User teacherUser = new User(null,"teacher",teacher.getPerson(),teacher.getPerson().getNumber().toString(),encodedPassword,0,null, DataUtil.getTime(),null);
         userRepository.saveAndFlush(teacherUser);
         return DataResponse.ok();
     }

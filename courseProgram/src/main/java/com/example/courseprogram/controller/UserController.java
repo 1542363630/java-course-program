@@ -40,6 +40,18 @@ public class UserController {
         return userService.updatePassword(JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
+    //根据personId查找
+    @PostMapping("/findByPersonId")
+    public DataResponse findByPersonId(@RequestBody DataRequest dataRequest){
+        return userService.findByPersonId(JsonUtil.parse(dataRequest.get("personId"), Integer.class));
+    }
+
+    //根据 userType 查找
+    @PostMapping("/findByUserType")
+    public DataResponse findByUserType(@RequestBody DataRequest dataRequest){
+        return userService.findByUserType(JsonUtil.parse(dataRequest.get("type"), String.class));
+    }
+
     //山大统一认证登录
     @PostMapping("/sduLogin")
     public DataResponse sduLogin(@RequestBody DataRequest dataRequest){

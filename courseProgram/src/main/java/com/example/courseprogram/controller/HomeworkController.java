@@ -23,6 +23,10 @@ public class HomeworkController {
         return homeworkService.addAndUpdHomework(JsonUtil.parse(dataRequest.get("homework"), Homework.class));
     }
 
+    //根据id删除
+    public DataResponse deleteById(@RequestBody DataRequest dataRequest){
+        return homeworkService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
+    }
 
     //删除某学生的所有信息
     @PostMapping("/delete")
@@ -34,6 +38,12 @@ public class HomeworkController {
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
         return homeworkService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+    }
+
+    //根据作业信息id找作业
+    @PostMapping("/findByHomeworkInfoId")
+    public DataResponse findByHomeworkInfoId(@RequestBody DataRequest dataRequest){
+        return homeworkService.findByHomeworkInfoId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
     //获取所有数据

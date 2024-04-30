@@ -27,6 +27,13 @@ public class FeeService {
         return DataResponse.ok();
     }
 
+    //根据id删除
+    public DataResponse deleteById(Integer id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        feeRepository.deleteById(id);
+        return DataResponse.okM("删除成功");
+    }
+
     //删除数据
     public DataResponse deleteByStudentId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
