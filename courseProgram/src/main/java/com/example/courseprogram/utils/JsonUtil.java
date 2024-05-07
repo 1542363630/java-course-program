@@ -19,7 +19,6 @@ public class JsonUtil {
         }
         Field[] fields = tClass.getDeclaredFields();
         for(Field field:fields){
-            if(field.getName().equals("digits"))continue;
             field.setAccessible(true);
             if(o.containsKey(field.getName())){
                 if (o.get(field.getName()).getClass()==o.getClass()){

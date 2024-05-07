@@ -10,11 +10,11 @@ import java.util.List;
 public interface InnovativePracticeRepository extends JpaRepository<InnovativePractice,Integer> {
 
     //根据学号查找
-    List<InnovativePractice> findInnovativePracticesByStudent_StudentId(Integer studentId);
+    List<InnovativePractice> findInnovativePracticesByStudent_StudentId(Long studentId);
 
     //根据类型查找
     List<InnovativePractice> findInnovativePracticesByType(String type);
 
     //根据学号删除
-    void deleteByStudent_StudentId(Integer studentId);
+    void deleteByStudent_StudentId(Long studentId);
 }

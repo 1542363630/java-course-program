@@ -25,7 +25,7 @@ import java.io.Serializable;
 public class Teacher implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer teacherId;
+    private Long teacherId;
 
     @OneToOne
     @JoinColumn(name = "person_id")

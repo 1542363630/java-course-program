@@ -7,15 +7,15 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface StudentRepository extends JpaRepository<Student,Integer> {
+public interface StudentRepository extends JpaRepository<Student,Long> {
 
     //根据学号更新
     @Modifying
     @Query(value = "update Student s set s = ?1 where s.studentId = ?2")
-    Student updateStudentByStudentId(Student student,Integer studentId);
+    Student updateStudentByStudentId(Student student,Long studentId);
 
     //根据学号查找是否有对应学生已存在
-    boolean existsStudentByPerson_Number(Integer number);
+    boolean existsStudentByPerson_Number(Long number);
 
     //根据用户id查找
     @Query(value = "select s from Student s,User u where u.userId=?1 and s.person.personId=u.person.personId")

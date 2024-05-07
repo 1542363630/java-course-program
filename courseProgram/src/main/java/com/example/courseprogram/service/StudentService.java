@@ -50,7 +50,7 @@ public class StudentService{
     }
 
     //删除学生
-    public DataResponse deleteStudent(Integer id){
+    public DataResponse deleteStudent(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整");
         Optional<Student> o=studentRepository.findById(id);
         if(o.isEmpty()){
