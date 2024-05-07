@@ -45,6 +45,12 @@ public class StudentController {
         return studentService.findByUserId(JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
+    //根据学号或姓名查询学生
+    @PostMapping("/findByStudentIdOrName")
+    public DataResponse findByStudentIdOrName(@RequestBody DataRequest dataRequest){
+        return studentService.findByStudentIdOrName(JsonUtil.parse(dataRequest.get("numName"),String.class));
+    }
+
     //获取所有学生
     @PostMapping("/getStudentList")
     public DataResponse getStudentList(){return studentService.getStudentList();

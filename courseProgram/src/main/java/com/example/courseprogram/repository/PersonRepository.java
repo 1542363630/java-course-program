@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PersonRepository extends JpaRepository<Person,Integer> {
     //根据 number 查找
-    Person findByNumber(Long number);
+    Person findByNumber(String number);
 
     //根据政治面貌查找
     List<Person> findPersonByPoliticalStatus(String politicalStatus);

@@ -14,7 +14,7 @@ public interface TeacherRepository extends JpaRepository<Teacher,Long> {
     @Query(value = "update Teacher t set t = ?1")
     Teacher updateTeacherByTeacherId(Teacher teacher);
 
-    boolean existsTeacherByPerson_Number(Long number);
+    boolean existsTeacherByPerson_Number(String number);
 
     @Query(value = "select t from Teacher t,User u where u.userId=?1 and t.person.personId=u.person.personId")
     Teacher findByUserId(Integer userId);

@@ -40,7 +40,7 @@ public class StudentService{
         if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
             return DataResponse.failure(401,"已存在");
         }
-        student.setStudentId(student.getPerson().getNumber());
+        student.setStudentId(Long.valueOf(student.getPerson().getNumber()));
         personRepository.saveAndFlush(student.getPerson());
         studentRepository.saveAndFlush(student);
         String encodedPassword = BCrypt.hashpw(String.valueOf(student.getPerson().getNumber()),BCrypt.gensalt());
@@ -66,6 +66,7 @@ public class StudentService{
     //增加或更改学生
     public DataResponse addOrUpdateStudent(Student student){
         if(studentRepository.existsById(student.getStudentId())){
+            personRepository.saveAndFlush(student.getPerson());
             return DataResponse.success(studentRepository.saveAndFlush(student));
         }
         else {
@@ -80,6 +81,18 @@ public class StudentService{
             return DataResponse.success(student);
         }
         return DataResponse.failure(404,"未找到该学生");
+    }
+
+    //根据学号或姓名查询学生
+    public DataResponse findByStudentIdOrName(String numName){
+        if(numName==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        List<Student> list = studentRepository.findByStudentIdOrName(numName);
+        if(list.isEmpty()){
+            return DataResponse.failure(404,"未找到相关信息");
+        }
+        return DataResponse.success(list);
     }
 
     //获取所有学生

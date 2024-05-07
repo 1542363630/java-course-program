@@ -39,7 +39,7 @@ public class Student implements Serializable {
     private String className;
 
     public Student(StudentInfo studentInfo){
-        studentId = studentInfo.getNumber();
+        studentId = Long.valueOf(studentInfo.getNumber());
         major = studentInfo.getMajor();
         className = studentInfo.getClassName();
     }
