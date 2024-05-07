@@ -36,7 +36,7 @@ public class TeacherService {
     }
 
     //根据id删除教师
-    public DataResponse deleteTeacher(Integer id){
+    public DataResponse deleteTeacher(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整");
         Optional<Teacher> o=teacherRepository.findById(id);
         if(o.isEmpty()){

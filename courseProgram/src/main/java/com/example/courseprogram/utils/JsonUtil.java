@@ -8,10 +8,15 @@ import java.util.LinkedHashMap;
 public class JsonUtil {
     public static <T> T parse(Object object, Class<T> tClass){
         LinkedHashMap<?,?> o=new LinkedHashMap<>();
+        T t;
         if(object instanceof LinkedHashMap<?,?>){
             o = (LinkedHashMap<?, ?>) object;
+            t = JSONObject.parseObject(JSON.toJSONString(o), tClass);
         }
-        T t = JSONObject.parseObject(JSON.toJSONString(o), tClass);
+        else{
+            t=JSON.parseObject(JSON.toJSONString(object),tClass);
+            return t;
+        }
         Field[] fields = tClass.getDeclaredFields();
         for(Field field:fields){
             field.setAccessible(true);

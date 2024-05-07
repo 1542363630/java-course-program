@@ -30,7 +30,7 @@ public class StudentController {
     //删除学生
     @PostMapping("/deleteStudent")
     public DataResponse deleteStudent(@RequestBody DataRequest dataRequest){
-        return studentService.deleteStudent(JsonUtil.parse(dataRequest.get("studentId"), Integer.class));
+        return studentService.deleteStudent(JsonUtil.parse(dataRequest.get("studentId"), Long.class));
     }
 
     //修改学生信息
@@ -47,7 +47,6 @@ public class StudentController {
 
     //获取所有学生
     @PostMapping("/getStudentList")
-    public DataResponse getStudentList(){
-        return studentService.getStudentList();
+    public DataResponse getStudentList(){return studentService.getStudentList();
     }
 }
