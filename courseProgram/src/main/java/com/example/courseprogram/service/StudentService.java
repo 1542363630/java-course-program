@@ -40,6 +40,7 @@ public class StudentService{
         if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
             return DataResponse.failure(401,"已存在");
         }
+        student.setStudentId(student.getPerson().getNumber());
         personRepository.saveAndFlush(student.getPerson());
         studentRepository.saveAndFlush(student);
         String encodedPassword = BCrypt.hashpw(String.valueOf(student.getPerson().getNumber()),BCrypt.gensalt());

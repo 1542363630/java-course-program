@@ -47,7 +47,6 @@ public class StudentController {
 
     //获取所有学生
     @PostMapping("/getStudentList")
-    public DataResponse getStudentList(){
-        return studentService.getStudentList();
+    public DataResponse getStudentList(){return studentService.getStudentList();
     }
 }
