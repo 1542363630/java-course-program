@@ -32,13 +32,13 @@ public class AttendanceInfoController {
     //删除某学生的所有考勤信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return attendanceInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return attendanceInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某学生的考勤信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return attendanceInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return attendanceInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //根据是否考勤查找

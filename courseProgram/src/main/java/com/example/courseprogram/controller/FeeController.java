@@ -32,13 +32,13 @@ public class FeeController {
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return feeService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return feeService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return feeService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return feeService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //获取所有数据

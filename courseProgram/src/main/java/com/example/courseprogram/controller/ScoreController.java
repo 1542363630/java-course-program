@@ -27,7 +27,7 @@ public class ScoreController {
     //删除某个学生的所有成绩数据
     @PostMapping("/deleteByStudentId")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return scoreService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return scoreService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //删除某个课程的所有成绩数据
@@ -45,7 +45,7 @@ public class ScoreController {
     //查找某个学生的所有数据
     @PostMapping("/findByStudentId")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return scoreService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return scoreService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某个课程的所有数据

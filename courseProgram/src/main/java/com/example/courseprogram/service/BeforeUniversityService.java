@@ -33,14 +33,14 @@ public class BeforeUniversityService {
     }
 
     //删除某个学生的数据
-    public DataResponse deleteByStudentId(Integer id){
+    public DataResponse deleteByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         beforeUniversityRepository.deleteByStudentId(id);
         return DataResponse.ok();
     }
 
     //查找某个学生的数据
-    public DataResponse findByStudentId(Integer id){
+    public DataResponse findByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         BeforeUniversity b=beforeUniversityRepository.findBeforeUniversityByStudent_StudentId(id);
         if(b==null)return DataResponse.failure(404,"未找到该同学的信息");

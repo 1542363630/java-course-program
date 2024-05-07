@@ -32,13 +32,13 @@ public class LeaveInfoController {
     //删除某学生的所有请假信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return leaveInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return leaveInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某学生的请假信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return leaveInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return leaveInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //根据是否回到学校查找

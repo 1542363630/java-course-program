@@ -32,7 +32,7 @@ public class SelectedCourseController {
     //删除某学生的所有选课数据
     @PostMapping("/deleteByStudentId")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return selectedCourseService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return selectedCourseService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //删除某课程的所有选课数据
@@ -44,7 +44,7 @@ public class SelectedCourseController {
     //查找某学生的所有选课数据
     @PostMapping("/findByStudentId")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return selectedCourseService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return selectedCourseService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某课程的所有选课数据

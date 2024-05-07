@@ -34,14 +34,14 @@ public class HomeworkService {
     }
 
     //根据学生id删除
-    public DataResponse deleteByStudentId(Integer id){
+    public DataResponse deleteByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         homeworkRepository.deleteByStudent_StudentId(id);
         return DataResponse.ok();
     }
 
     //根据学生id查找
-    public DataResponse findByStudentId(Integer id){
+    public DataResponse findByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         List<Homework> listA=homeworkRepository.findHomeworkByStudent_StudentId(id);
         if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");

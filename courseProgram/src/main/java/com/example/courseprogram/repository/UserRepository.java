@@ -1,14 +1,16 @@
 package com.example.courseprogram.repository;
 
 import com.example.courseprogram.model.DO.User;
+import org.apache.ibatis.annotations.Delete;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
+@Transactional
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
 

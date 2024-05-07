@@ -31,13 +31,13 @@ public class FamilyMemberController {
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return familyMemberService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return familyMemberService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return familyMemberService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return familyMemberService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //获取所有数据

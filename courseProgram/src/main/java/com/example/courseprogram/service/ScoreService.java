@@ -25,7 +25,7 @@ public class ScoreService {
     }
 
     //删除某个学生的所有成绩数据
-    public DataResponse deleteByStudentId(Integer id){
+    public DataResponse deleteByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         scoreRepository.deleteScoresByStudent_StudentId(id);
         return DataResponse.ok();
@@ -46,7 +46,7 @@ public class ScoreService {
     }
 
     //查找某个学生的所有数据
-    public DataResponse findByStudentId(Integer id){
+    public DataResponse findByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         List<Score> b=scoreRepository.findScoresByStudent_StudentId(id);
         if(b==null)return DataResponse.failure(404,"未找到该同学的信息");

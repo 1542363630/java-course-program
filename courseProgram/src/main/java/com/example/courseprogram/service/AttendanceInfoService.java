@@ -35,14 +35,14 @@ public class AttendanceInfoService {
     }
 
     //删除某学生的所有考勤信息
-    public DataResponse deleteByStudentId(Integer id){
+    public DataResponse deleteByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         attendanceInfoRepository.deleteByStudent_StudentId(id);
         return DataResponse.ok();
     }
 
     //查找某学生的考勤信息
-    public DataResponse findByStudentId(Integer id){
+    public DataResponse findByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
         List<AttendanceInfo> listA=attendanceInfoRepository.findAttendanceInfosByStudent_StudentId(id);
         if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");

@@ -31,13 +31,13 @@ public class HomeworkController {
     //删除某学生的所有信息
     @PostMapping("/delete")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return homeworkService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return homeworkService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
-        return homeworkService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+        return homeworkService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
     //根据作业信息id找作业
