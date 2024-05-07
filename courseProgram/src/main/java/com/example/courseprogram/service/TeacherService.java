@@ -44,7 +44,7 @@ public class TeacherService {
         }
         Teacher teacher=o.get();
         teacherRepository.deleteById(teacher.getTeacherId());
-        userRepository.deleteUserByPersonPersonId(teacher.getPerson().getPersonId());
+        userRepository.deleteUserByPersonId(teacher.getPerson().getPersonId());
         personRepository.deleteById(teacher.getPerson().getPersonId());
         return DataResponse.ok();
     }

@@ -57,9 +57,9 @@ public class StudentService{
             return DataResponse.failure(404,"未找到该学生");
         }
         Student student=o.get();
-        studentRepository.deleteById(student.getStudentId());
-        userRepository.deleteUserByPersonPersonId(student.getPerson().getPersonId());
+        userRepository.deleteUserByPersonId(student.getPerson().getPersonId());
         personRepository.deleteById(student.getPerson().getPersonId());
+        studentRepository.deleteById(student.getStudentId());
         return DataResponse.ok();
     }
 
