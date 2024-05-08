@@ -53,6 +53,23 @@ public class ScoreService {
         return DataResponse.success(b);
     }
 
+    //获取某个学生的绩点
+    public DataResponse getGradePointsByStudentId(Long id){
+        if(id==null)return DataResponse.failure(401,"信息不完整");
+        List<Score> list=scoreRepository.findScoresByStudent_StudentId(id);
+        if(list.isEmpty())return DataResponse.failure(404,"未找到相关信息");
+        Double gradePoints = 0.0;
+        Double totalPoints = 0.0;
+        for(Score score:list){
+            if(score.getIsCal()){
+                totalPoints+=score.getCourse().getCredit();
+                gradePoints+=score.getCourse().getCredit()*score.getMark();
+            }
+        }
+        gradePoints/=totalPoints;
+        return DataResponse.success(gradePoints);
+    }
+
     //查找某个课程的所有数据
     public DataResponse findByCourseId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");

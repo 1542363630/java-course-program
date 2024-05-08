@@ -22,7 +22,7 @@ public class DataUtil {
                 Field[] fields= t.getClass().getDeclaredFields();
                 for(Field field:fields){
                     field.setAccessible(true);
-                    if(field.get(t)==null && !field.getName().contains("id")){
+                    if(field.get(t)==null && !field.getName().contains("Id")){
                         if(field.getType()== String.class)field.set(t,"");
                         else if(field.getType()== Integer.class)field.set(t,0);
                         flag=false;
