@@ -8,6 +8,7 @@ import com.example.courseprogram.repository.TeacherRepository;
 import com.example.courseprogram.repository.UserRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,10 +17,13 @@ import java.util.Optional;
 @Service
 public class TeacherService {
 
+    @Autowired
     TeacherRepository teacherRepository;
 
+    @Autowired
     UserRepository userRepository;
 
+    @Autowired
     PersonRepository personRepository;
 
     //增加一个教师
