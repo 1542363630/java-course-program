@@ -4,6 +4,7 @@ import com.example.courseprogram.model.DO.HonorInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.HonorInfoRepository;
 import com.example.courseprogram.utils.DataUtil;
+import com.example.courseprogram.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class HonorInfoService {
     public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo, MultipartFile[] files){
         if(!checkInfo(honorInfo))return DataResponse.failure(401,"信息不完整！");
         honorInfoRepository.saveAndFlush(honorInfo);
+        for (MultipartFile file : files) {
+            String message = FileUtil.upload(file, path, file.getOriginalFilename());
+            if (message.equals("生成父目录失败") || message.equals("报错了")) {
+                return DataResponse.failure(402, message);
+            }
+        }
         return DataResponse.okM("成功！");
     }
 
