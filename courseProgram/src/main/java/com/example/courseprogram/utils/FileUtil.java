@@ -34,7 +34,7 @@ public class FileUtil {
         //判断文件父目录是否存在
         if(!dest.getParentFile().exists()){
             boolean success = dest.getParentFile().mkdir();
-            if (!success) return null;
+            if (!success) return "生成父目录失败";
         }
 
         try {
@@ -42,7 +42,7 @@ public class FileUtil {
             file.transferTo(dest);
             return newFileName;
         } catch (IllegalStateException | IOException e) {
-            return null;
+            return "报错了";
         }
     }
 }

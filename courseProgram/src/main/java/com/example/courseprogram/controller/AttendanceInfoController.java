@@ -25,12 +25,13 @@ public class AttendanceInfoController {
     }
 
     //根据id删除
+    @PostMapping("/deleteById")
     public DataResponse deleteById(@RequestBody DataRequest dataRequest){
         return attendanceInfoService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
     //删除某学生的所有考勤信息
-    @PostMapping("/delete")
+    @PostMapping("/deleteByStudent")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
         return attendanceInfoService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }

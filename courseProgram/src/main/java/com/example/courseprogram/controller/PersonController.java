@@ -36,7 +36,7 @@ public class PersonController {
     }
 
     //删除某人的个人信息
-    @PostMapping("/delete")
+    @PostMapping("/deleteByStudent")
     public DataResponse deleteByPersonNumber(@RequestBody DataRequest dataRequest){
         return personService.deleteByPersonNumber(JsonUtil.parse(dataRequest.get("number"), String.class));
     }

@@ -24,12 +24,13 @@ public class HomeworkController {
     }
 
     //根据id删除
+    @PostMapping("/deleteById")
     public DataResponse deleteById(@RequestBody DataRequest dataRequest){
         return homeworkService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
     //删除某学生的所有信息
-    @PostMapping("/delete")
+    @PostMapping("/deleteByStudent")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
         return homeworkService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }

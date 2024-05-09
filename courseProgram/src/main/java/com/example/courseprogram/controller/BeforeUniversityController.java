@@ -24,12 +24,13 @@ public class BeforeUniversityController {
     }
 
     //根据id删除
+    @PostMapping("/deleteById")
     public DataResponse deleteById(@RequestBody DataRequest dataRequest){
         return beforeUniversityService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
     //删除某学生的所有信息
-    @PostMapping("/delete")
+    @PostMapping("/deleteByStudent")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
         return beforeUniversityService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
