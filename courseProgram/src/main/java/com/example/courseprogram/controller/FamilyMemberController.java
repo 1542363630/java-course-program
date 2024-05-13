@@ -46,5 +46,4 @@ public class FamilyMemberController {
     public DataResponse findAll(){
         return familyMemberService.findAll();
     }
-
 }
