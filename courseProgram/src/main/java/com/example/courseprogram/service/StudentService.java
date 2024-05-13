@@ -46,7 +46,7 @@ public class StudentService{
         String encodedPassword = BCrypt.hashpw(String.valueOf(student.getPerson().getNumber()),BCrypt.gensalt());
         User studentUser = new User(null,"student",student.getPerson(),student.getPerson().getNumber().toString(),encodedPassword,0,null, DataUtil.getTime(),user.getUserId());
         userRepository.saveAndFlush(studentUser);
-        return DataResponse.ok();
+        return DataResponse.success(student);
     }
 
     //删除学生
