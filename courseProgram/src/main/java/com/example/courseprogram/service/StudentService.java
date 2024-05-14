@@ -36,7 +36,6 @@ public class StudentService{
 
     //添加学生，初始账号和密码为学号
     public DataResponse addStudent(Student student,User user){
-        Person person=student.getPerson();
         if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
             return DataResponse.failure(401,"已存在");
         }

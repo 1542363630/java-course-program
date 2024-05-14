@@ -43,6 +43,12 @@ public class TeacherController {
         return teacherService.findByUserId(JsonUtil.parse(dataRequest.get("user"), User.class));
     }
 
+    //根据工号或姓名查询教师
+    @PostMapping("/findByTeacherIdOrName")
+    public DataResponse findByTeacherIdOrName(@RequestBody DataRequest dataRequest){
+        return teacherService.findByTeacherIdOrName(JsonUtil.parse(dataRequest.get("numName"),String.class));
+    }
+
     //获取所有教师
     @PostMapping("/getTeacherList")
     public DataResponse getTeacherList(){

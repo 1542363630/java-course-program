@@ -24,7 +24,6 @@ import java.io.Serializable;
 @Entity
 public class Teacher implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long teacherId;
 
     @OneToOne

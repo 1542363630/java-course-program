@@ -1,5 +1,6 @@
 package com.example.courseprogram.service;
 
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DO.Teacher;
 import com.example.courseprogram.model.DO.User;
 import com.example.courseprogram.model.DTO.DataResponse;
@@ -31,12 +32,13 @@ public class TeacherService {
         if(teacherRepository.existsTeacherByPerson_Number(teacher.getPerson().getNumber())){
             return DataResponse.failure(401,"已存在");
         }
-        teacherRepository.saveAndFlush(teacher);
+        teacher.setTeacherId(Long.valueOf(teacher.getPerson().getNumber()));
         personRepository.saveAndFlush(teacher.getPerson());
+        teacherRepository.saveAndFlush(teacher);
         String encodedPassword = BCrypt.hashpw(teacher.getPerson().getNumber().toString(),BCrypt.gensalt());
         User teacherUser = new User(null,"teacher",teacher.getPerson(),teacher.getPerson().getNumber().toString(),encodedPassword,0,null, DataUtil.getTime(),null);
         userRepository.saveAndFlush(teacherUser);
-        return DataResponse.ok();
+        return DataResponse.success(teacher);
     }
 
     //根据id删除教师
@@ -47,19 +49,20 @@ public class TeacherService {
             return DataResponse.failure(404,"未找到该教师");
         }
         Teacher teacher=o.get();
-        teacherRepository.deleteById(teacher.getTeacherId());
         userRepository.deleteUserByPersonId(teacher.getPerson().getPersonId());
         personRepository.deleteById(teacher.getPerson().getPersonId());
+        teacherRepository.deleteById(teacher.getTeacherId());
         return DataResponse.ok();
     }
 
     //增加或删除
     public DataResponse addOrUpdateTeacher(Teacher teacher){
         if(teacherRepository.existsById(teacher.getTeacherId())){
+            personRepository.saveAndFlush(teacher.getPerson());
             return DataResponse.success(teacherRepository.saveAndFlush(teacher));
         }
         else {
-            return DataResponse.success(teacherRepository.updateTeacherByTeacherId(teacher));
+            return DataResponse.success(teacherRepository.updateTeacherByTeacherId(teacher,teacher.getTeacherId()));
         }
     }
 
@@ -70,6 +73,18 @@ public class TeacherService {
             return DataResponse.success(teacher);
         }
         return DataResponse.failure(404,"未找到该学生");
+    }
+
+    //根据学号或姓名查询学生
+    public DataResponse findByTeacherIdOrName(String numName){
+        if(numName==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        List<Teacher> list = teacherRepository.findByTeacherIdOrName(numName);
+        if(list.isEmpty()){
+            return DataResponse.failure(404,"未找到相关信息");
+        }
+        return DataResponse.success(list);
     }
 
     //获取所有教师
