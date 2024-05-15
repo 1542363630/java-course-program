@@ -1,19 +1,25 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.AttendanceInfo;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.AttendanceInfoRepository;
+import com.example.courseprogram.repository.ScoreRepository;
+import com.example.courseprogram.repository.StudentRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AttendanceInfoService {
 
     @Autowired
     AttendanceInfoRepository attendanceInfoRepository;
+    @Autowired
+    StudentRepository studentRepository;
 
     //检查信息是否完整
     public boolean checkInfo(AttendanceInfo attendanceInfo){
@@ -22,6 +28,17 @@ public class AttendanceInfoService {
 
     //增加或者修改数据
     public DataResponse addAndUpdAttendanceInfo(AttendanceInfo attendanceInfo){
+        Student s=attendanceInfo.getStudent();
+        if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
+        if(opStudent.isPresent()){
+            s=opStudent.get();
+            attendanceInfo.setStudent(s);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该学生！");
+        }
+
         if(!checkInfo(attendanceInfo))return DataResponse.failure(401,"信息不完整！");
         attendanceInfoRepository.saveAndFlush(attendanceInfo);
         return DataResponse.ok();
