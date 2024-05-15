@@ -1,21 +1,29 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.HonorInfo;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.HonorInfoRepository;
+import com.example.courseprogram.repository.StudentRepository;
 import com.example.courseprogram.utils.DataUtil;
 import com.example.courseprogram.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
+@Transactional
 @Service
 public class HonorInfoService {
     @Autowired
     HonorInfoRepository honorInfoRepository;
+
+    @Autowired
+    StudentRepository studentRepository;
 
     @Value("${web.upload-path}"+"HonorInfo/")
     String path;
@@ -27,6 +35,16 @@ public class HonorInfoService {
 
 //    增加或修改
     public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo, MultipartFile[] files){
+        Student s=honorInfo.getStudent();
+        if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
+        if(opStudent.isPresent()){
+            s=opStudent.get();
+            honorInfo.setStudent(s);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该学生！");
+        }
         if(!checkInfo(honorInfo))return DataResponse.failure(401,"信息不完整！");
         honorInfoRepository.saveAndFlush(honorInfo);
         for (MultipartFile file : files) {
@@ -35,6 +53,7 @@ public class HonorInfoService {
                 return DataResponse.failure(402, message);
             }
         }
+
         return DataResponse.okM("成功！");
     }
 
