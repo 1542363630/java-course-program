@@ -36,13 +36,9 @@ public class Score implements Serializable {
     private Course course;
 
     @NonNull
-    private Integer mark;
+    private Double mark;
 
     private Integer ranking;
 
     private Boolean IsCal;
-
-    private String createTime;
-
-    private String LastUpdateTime;
 }

@@ -19,9 +19,9 @@ public class ScoreController {
     ScoreService scoreService;
 
     //增加或者修改数据
-    @PostMapping("/addAndUpdScore")
+    @PostMapping("/add")
     public DataResponse addAndUpdScore(@RequestBody DataRequest dataRequest){
-        return scoreService.addAndUpdFee(JsonUtil.parse(dataRequest.get("score"), Score.class));
+        return scoreService.addAndUpdScore(JsonUtil.parse(dataRequest.get("score"), Score.class));
     }
 
     //删除某个学生的所有成绩数据
