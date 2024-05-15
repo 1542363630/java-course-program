@@ -20,8 +20,8 @@ public class HonorInfoController {
 
     //增加或者修改数据
     @PostMapping("/add")
-    public DataResponse addAndUpdHonorInfo(@RequestBody DataRequest dataRequest, MultipartFile ...files){
-        return honorInfoService.addAndUpdHonorInfo(JsonUtil.parse(dataRequest.get("honorInfo"), HonorInfo.class),files);
+    public DataResponse addAndUpdHonorInfo(@RequestBody DataRequest dataRequest){
+        return honorInfoService.addAndUpdHonorInfo(JsonUtil.parse(dataRequest.get("honorInfo"), HonorInfo.class));
     }
 
     //根据id删除

@@ -34,7 +34,8 @@ public class HonorInfoService {
     }
 
 //    增加或修改
-    public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo, MultipartFile[] files){
+    public DataResponse addAndUpdHonorInfo(HonorInfo honorInfo){
+//        MultipartFile[] files=null;
         Student s=honorInfo.getStudent();
         if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
         Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
@@ -47,12 +48,12 @@ public class HonorInfoService {
         }
         if(!checkInfo(honorInfo))return DataResponse.failure(401,"信息不完整！");
         honorInfoRepository.saveAndFlush(honorInfo);
-        for (MultipartFile file : files) {
-            String message = FileUtil.upload(file, path, file.getOriginalFilename());
-            if (message.equals("生成父目录失败") || message.equals("报错了")) {
-                return DataResponse.failure(402, message);
-            }
-        }
+//        for (MultipartFile file : files) {
+//            String message = FileUtil.upload(file, path, file.getOriginalFilename());
+//            if (message.equals("生成父目录失败") || message.equals("报错了")) {
+//                return DataResponse.failure(402, message);
+//            }
+//        }
 
         return DataResponse.okM("成功！");
     }
