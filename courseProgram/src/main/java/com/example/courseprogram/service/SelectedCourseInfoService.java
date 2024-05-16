@@ -1,7 +1,9 @@
 package com.example.courseprogram.service;
 
+import com.example.courseprogram.model.DO.Course;
 import com.example.courseprogram.model.DO.SelectedCourseInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
+import com.example.courseprogram.repository.CourseRepository;
 import com.example.courseprogram.repository.SelectedCourseInfoRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ public class SelectedCourseInfoService {
 
     @Autowired
     SelectedCourseInfoRepository selectedCourseInfoRepository;
+    @Autowired
+    CourseRepository courseRepository;
 
     //检查信息是否完整
     boolean checkInfo(SelectedCourseInfo selectedCourseInfo){
@@ -23,6 +27,18 @@ public class SelectedCourseInfoService {
 
     //增加或更改
     public DataResponse addOrUpdSelectedCourseInfo(SelectedCourseInfo selectedCourseInfo){
+
+        Course c=selectedCourseInfo.getCourse();
+        if(c==null||c.getNumber()==null)return DataResponse.failure(401,"信息不完整");
+        Optional<Course> opCourse=courseRepository.findCourseByNumber(c.getNumber());
+        if(opCourse.isPresent()){
+            c=opCourse.get();
+            selectedCourseInfo.setCourse(c);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该课程！");
+        }
+
         if(!checkInfo(selectedCourseInfo)){
             return DataResponse.failure(401,"信息不完整");
         }

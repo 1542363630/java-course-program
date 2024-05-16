@@ -1,7 +1,6 @@
 package com.example.courseprogram.model.DO;
 
 import com.example.courseprogram.model.DTO.StudentInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

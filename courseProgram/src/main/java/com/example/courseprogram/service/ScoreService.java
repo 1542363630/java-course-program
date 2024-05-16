@@ -1,16 +1,29 @@
 package com.example.courseprogram.service;
 
+import com.example.courseprogram.model.DO.Course;
 import com.example.courseprogram.model.DO.Score;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
+import com.example.courseprogram.repository.CourseRepository;
 import com.example.courseprogram.repository.ScoreRepository;
+import com.example.courseprogram.repository.StudentRepository;
 import com.example.courseprogram.utils.DataUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ScoreService {
+    @Autowired
     ScoreRepository scoreRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    CourseRepository courseRepository;
+
+
 
     //检查信息完整
     public boolean checkInfo(Score score){
@@ -18,7 +31,29 @@ public class ScoreService {
     }
 
     //增加或者修改数据
-    public DataResponse addAndUpdFee(Score score){
+    public DataResponse addAndUpdScore(Score score){
+        Student s=score.getStudent();
+        if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
+        if(opStudent.isPresent()){
+            s=opStudent.get();
+            score.setStudent(s);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该学生！");
+        }
+
+        Course c=score.getCourse();
+        if(c==null||c.getNumber()==null)return DataResponse.failure(401,"信息不完整");
+        Optional<Course> opCourse=courseRepository.findCourseByNumber(c.getNumber());
+        if(opCourse.isPresent()){
+            c=opCourse.get();
+            score.setCourse(c);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该课程！");
+        }
+
         if(!checkInfo(score))return DataResponse.failure(401,"信息不完整！");
         scoreRepository.saveAndFlush(score);
         return DataResponse.ok();

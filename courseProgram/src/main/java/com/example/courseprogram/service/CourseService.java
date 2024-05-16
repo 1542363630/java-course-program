@@ -34,9 +34,9 @@ public class CourseService {
     }
 
     //根据课程编号查找课程的数据
-    public DataResponse findByCourseNumber(String number){
-        if(number==null)return DataResponse.failure(401,"信息不完整！");
-        List<Course> list=courseRepository.findCourseListByNumber(number);
+    public DataResponse findByCourseNumberOrName(String numberName){
+        if(numberName==null)return DataResponse.failure(401,"信息不完整！");
+        List<Course> list=courseRepository.findCourseListByNumberOrName(numberName);
         if(list==null)return DataResponse.failure(404,"未找到相关的信息");
         return DataResponse.success(list);
     }
