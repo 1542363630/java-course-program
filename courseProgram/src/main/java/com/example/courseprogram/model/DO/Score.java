@@ -12,8 +12,6 @@ import java.io.Serializable;
  * <p>Course course 关联课程 course_id 关联课程的主键 course_id
  * <p>Integer mark 成绩
  * <p>Integer ranking 排名
- * <p>String createTime 创建时间
- * <p>String LastUpdateTime 最后一次修改的时间
  * <p>Boolean IsCal 是否计入学分绩点
  */
 @Getter
@@ -35,7 +33,6 @@ public class Score implements Serializable {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @NonNull
     private Double mark;
 
     private Integer ranking;
