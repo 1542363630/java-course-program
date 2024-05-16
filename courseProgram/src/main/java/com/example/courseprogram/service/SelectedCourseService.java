@@ -36,7 +36,7 @@ public class SelectedCourseService {
     //删除某课程的所有选课数据
     public DataResponse deleteByCourseId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
-        selectedCourseRepository.deleteByCourse_CourseId(id);
+        selectedCourseRepository.deleteBySelectedCourseInfo_Course_CourseId(id);
         return DataResponse.ok();
     }
 
@@ -51,7 +51,7 @@ public class SelectedCourseService {
     //查找某课程的所有选课数据
     public DataResponse findByCourseId(Integer id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");
-        List<SelectedCourse> listA=selectedCourseRepository.findSelectedCoursesByCourse_CourseId(id);
+        List<SelectedCourse> listA=selectedCourseRepository.findSelectedCoursesBySelectedCourseInfo_Course_CourseId(id);
         if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");
         return DataResponse.success(listA);
     }

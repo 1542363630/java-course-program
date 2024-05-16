@@ -15,11 +15,11 @@ public interface SelectedCourseRepository extends JpaRepository<SelectedCourse,I
     List<SelectedCourse> findSelectedCoursesByStudent_StudentId(Long studentId);
 
     //根据课程id查找
-    List<SelectedCourse> findSelectedCoursesByCourse_CourseId(Integer courseId);
+    List<SelectedCourse> findSelectedCoursesBySelectedCourseInfo_Course_CourseId(Integer courseId);
 
     //根据学号删除
     void deleteByStudent_StudentId(Long studentId);
 
     //根据课程id删除
-    void deleteByCourse_CourseId(Integer courseId);
+    void deleteBySelectedCourseInfo_Course_CourseId(Integer courseId);
 }
