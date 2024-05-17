@@ -1,18 +1,27 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.Homework;
+import com.example.courseprogram.model.DO.HomeworkInfo;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
+import com.example.courseprogram.repository.HomeworkInfoRepository;
 import com.example.courseprogram.repository.HomeworkRepository;
+import com.example.courseprogram.repository.StudentRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HomeworkService {
     @Autowired
     HomeworkRepository homeworkRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    HomeworkInfoRepository homeworkInfoRepository;
 
     //检查信息是否完整
     public boolean checkInfo(Homework homework){
@@ -21,6 +30,27 @@ public class HomeworkService {
 
     //增加或修改
     public DataResponse addAndUpdHomework(Homework homework){
+        Student s=homework.getStudent();
+        if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
+        if(opStudent.isPresent()){
+            s=opStudent.get();
+            homework.setStudent(s);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该学生！");
+        }
+
+        HomeworkInfo homeworkInfo=homework.getHomeworkInfo();
+        if(homeworkInfo==null||homeworkInfo.getHomeworkInfoId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<HomeworkInfo> opHomeworkInfo=homeworkInfoRepository.findById(homeworkInfo.getHomeworkInfoId());
+        if(opHomeworkInfo.isPresent()){
+            homeworkInfo=opHomeworkInfo.get();
+            homework.setHomeworkInfo(homeworkInfo);
+        }
+        else{
+            return DataResponse.failure(404,"未找到该作业信息！");
+        }
         if(!checkInfo(homework))return DataResponse.failure(401,"信息不完整！");
         homeworkRepository.saveAndFlush(homework);
         return DataResponse.ok();
