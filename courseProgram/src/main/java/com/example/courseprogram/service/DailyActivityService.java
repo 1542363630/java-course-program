@@ -1,6 +1,7 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.DailyActivity;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.DailyActivityRepository;
 import com.example.courseprogram.utils.DataUtil;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DailyActivityService {
@@ -19,6 +21,19 @@ public class DailyActivityService {
         return DataUtil.checkInfo(dailyActivity);
     }
 
+    //检查活动是否存在
+    public DataResponse existDailyActivityById(DailyActivity dailyActivity){
+        if(dailyActivity==null||dailyActivity.getActivityId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<DailyActivity> opDailyActivity=dailyActivityRepository.findById(dailyActivity.getActivityId());
+        //noinspection OptionalIsPresent
+        if(opDailyActivity.isPresent()){
+            return DataResponse.success(opDailyActivity.get());
+        }
+        else{
+            return DataResponse.failure(404,"未找到该活动！");
+        }
+    }
+
     //增加或更改
     public DataResponse addAndUpdDailyActivity(DailyActivity dailyActivity){
         if(!checkInfo(dailyActivity))return DataResponse.failure(401,"信息不完整！");
@@ -26,12 +41,6 @@ public class DailyActivityService {
         return DataResponse.ok();
     }
 
-    //根据学生id删除
-    public DataResponse deleteByStudentId(Long id){
-        if(id==null)return DataResponse.failure(401,"信息不完整！");
-        dailyActivityRepository.deleteByStudent_StudentId(id);
-        return DataResponse.ok();
-    }
 
     //根据学生id查找
     public DataResponse findByStudentId(Long id){
@@ -49,7 +58,7 @@ public class DailyActivityService {
     }
 
     //根据学号和活动类型查询
-    public DataResponse findByStudentIdAndType(Integer id,String type){
+    public DataResponse findByStudentIdAndType(Long id,String type){
         if(id==null||type==null)return DataResponse.failure(401,"信息不完整");
         List<DailyActivity> list=dailyActivityRepository.findByStudentIdAndType(id,type);
         if(list==null)return DataResponse.failure(404,"未找到相关信息");

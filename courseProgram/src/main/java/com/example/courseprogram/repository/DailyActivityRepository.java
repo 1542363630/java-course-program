@@ -12,11 +12,15 @@ import java.util.List;
 @Repository
 public interface DailyActivityRepository extends JpaRepository<DailyActivity,Integer> {
     //根据学号查询
+    @Query(value = "select d.dailyActivity from DailyActivityStudent d where d.student.studentId = ?1")
     List<DailyActivity> findDailyActivitiesByStudent_StudentId(Long studentId);
 
     //根据学号和活动类型查询
-    @Query(value = "select d from DailyActivity d where ?1 = d.student.studentId and ?2 = d.activityType")
-    List<DailyActivity> findByStudentIdAndType(Integer id,String type);
+    @Query(value = "select d.dailyActivity from DailyActivityStudent d where d.student.studentId = ?1 and d.dailyActivity.activityType = ?2")
+    List<DailyActivity> findByStudentIdAndType(Long studentId,String type);
 
-    void deleteByStudent_StudentId(Long studentId);
+    //根据活动类型查询
+    @Query(value = "select d from DailyActivity d where ?1 = d.activityType")
+    List<DailyActivity> findByType(String type);
+
 }

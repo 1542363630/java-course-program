@@ -18,6 +18,8 @@ public class FeeService {
     FeeRepository feeRepository;
 
     @Autowired
+    StudentService studentService;
+    @Autowired
     StudentRepository studentRepository;
 
     //检查有没有没填的信息
@@ -27,16 +29,10 @@ public class FeeService {
 
     //增加或者修改数据
     public DataResponse addAndUpdFee(Fee fee){
-        Student s=fee.getStudent();
-        if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
-        Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
-        if(opStudent.isPresent()){
-            s=opStudent.get();
-            fee.setStudent(s);
-        }
-        else{
-            return DataResponse.failure(404,"未找到该学生！");
-        }
+
+        DataResponse dataResponse=studentService.existStudentById(fee.getStudent());
+        if(dataResponse.getCode()!=200||!(dataResponse.getData() instanceof Student))return dataResponse;
+        else fee.setStudent((Student) dataResponse.getData());
 
         if(!checkInfo(fee))return DataResponse.failure(401,"信息不完整！");
         feeRepository.saveAndFlush(fee);

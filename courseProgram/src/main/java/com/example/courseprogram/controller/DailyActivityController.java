@@ -32,14 +32,14 @@ public class DailyActivityController {
     //根据学号和活动类型查询
     @PostMapping("/findByStudentIdAndType")
     public DataResponse findByStudentIdAndType(@RequestBody DataRequest dataRequest){
-        return dailyActivityService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Integer.class),JsonUtil.parse(dataRequest.get("type"), String.class));
+        return dailyActivityService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Long.class),JsonUtil.parse(dataRequest.get("type"), String.class));
     }
 
-    //删除某学生的所有信息
-    @PostMapping("/deleteByStudent")
-    public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return dailyActivityService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
-    }
+//    //删除某学生的所有信息
+//    @PostMapping("/deleteByStudent")
+//    public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
+//        return dailyActivityService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
+//    }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")

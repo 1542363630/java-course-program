@@ -1,6 +1,7 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.Course;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.CourseRepository;
 import com.example.courseprogram.utils.DataUtil;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -17,6 +19,19 @@ public class CourseService {
     //检查信息是否完整
     public boolean checkInfo(Course course){
         return DataUtil.checkInfo(course);
+    }
+
+    //检查课程是否存在
+    public DataResponse existCourseByNumber(Course course){
+        if(course==null||course.getNumber()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<Course> opCourse=courseRepository.findCourseByNumber(course.getNumber());
+        //noinspection OptionalIsPresent
+        if(opCourse.isPresent()){
+            return DataResponse.success(opCourse.get());
+        }
+        else{
+            return DataResponse.failure(404,"未找到该课程！");
+        }
     }
 
     //增加或者修改数据

@@ -34,6 +34,19 @@ public class StudentService{
         return DataUtil.checkInfo(student);
     }
 
+    //检查学生是否存在
+    public DataResponse existStudentById(Student s){
+        if(s==null||s.getStudentId()==null)return DataResponse.failure(401,"信息不完整！");
+        Optional<Student> opStudent=studentRepository.findById(s.getStudentId());
+        //noinspection OptionalIsPresent
+        if(opStudent.isPresent()){
+            return DataResponse.success(opStudent.get());
+        }
+        else{
+            return DataResponse.failure(404,"未找到该学生！");
+        }
+    }
+
     //添加学生，初始账号和密码为学号
     public DataResponse addStudent(Student student,User user){
         if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
