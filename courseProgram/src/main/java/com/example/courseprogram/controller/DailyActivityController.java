@@ -1,6 +1,8 @@
 package com.example.courseprogram.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.DailyActivity;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.service.DailyActivityService;
@@ -19,7 +21,7 @@ public class DailyActivityController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdDailyActivity(@RequestBody DataRequest dataRequest){
-        return dailyActivityService.addAndUpdDailyActivity(JsonUtil.parse(dataRequest.get("dailyActivity"), DailyActivity.class));
+        return dailyActivityService.addAndUpdDailyActivity(JsonUtil.parse(dataRequest.get("dailyActivity"), DailyActivity.class), JSON.parseArray(JSON.toJSONString(dataRequest.get("students")), Student.class));
     }
 
     //根据id删除
@@ -31,14 +33,14 @@ public class DailyActivityController {
     //根据学号和活动类型查询
     @PostMapping("/findByStudentIdAndType")
     public DataResponse findByStudentIdAndType(@RequestBody DataRequest dataRequest){
-        return dailyActivityService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Integer.class),JsonUtil.parse(dataRequest.get("type"), String.class));
+        return dailyActivityService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Long.class),JsonUtil.parse(dataRequest.get("type"), String.class));
     }
 
-    //删除某学生的所有信息
-    @PostMapping("/deleteByStudent")
-    public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
-        return dailyActivityService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
-    }
+//    //删除某学生的所有信息
+//    @PostMapping("/deleteByStudent")
+//    public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
+//        return dailyActivityService.deleteByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
+//    }
 
     //查找某学生的信息
     @PostMapping("/findByStudent")
