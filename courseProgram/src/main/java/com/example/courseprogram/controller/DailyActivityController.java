@@ -1,6 +1,8 @@
 package com.example.courseprogram.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.DailyActivity;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.service.DailyActivityService;
@@ -20,7 +22,7 @@ public class DailyActivityController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdDailyActivity(@RequestBody DataRequest dataRequest){
-        return dailyActivityService.addAndUpdDailyActivity(JsonUtil.parse(dataRequest.get("dailyActivity"), DailyActivity.class));
+        return dailyActivityService.addAndUpdDailyActivity(JsonUtil.parse(dataRequest.get("dailyActivity"), DailyActivity.class), JSON.parseArray(JSON.toJSONString(dataRequest.get("students")), Student.class));
     }
 
     //根据id删除

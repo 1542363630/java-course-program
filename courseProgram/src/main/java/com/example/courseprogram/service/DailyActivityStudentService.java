@@ -40,6 +40,29 @@ public class DailyActivityStudentService {
         return DataResponse.ok();
     }
 
+    //根据活动id和学生数组删除
+    public DataResponse deleteByIdAndStudents(Integer id,List<Student> students){
+        if(id==null||students==null)return DataResponse.failure(401,"信息不完整！");
+        String msg="";
+        for(Student student:students){
+            int index=students.indexOf(student);
+            DataResponse dataResponse=studentService.existStudentById(student);
+            msg=msg+"\n"+"第"+index+"个：";
+            if(dataResponse.getCode()!=200){
+                msg=msg+dataResponse.getMessage();
+            }
+            else if(!(dataResponse.getData() instanceof Student)){
+                msg=msg+"不是学生实例";
+            }
+            else {
+                student=(Student) dataResponse.getData();
+                dailyActivityStudentRepository.deleteByIdAndStudents(id,student.getStudentId());
+                msg=msg+"删除成功";
+            }
+        }
+        return DataResponse.okM(msg);
+    }
+
     //根据学生id删除
     public DataResponse deleteByStudentId(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整！");

@@ -1,6 +1,8 @@
 package com.example.courseprogram.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.DailyActivityStudent;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.service.DailyActivityStudentService;
@@ -29,12 +31,21 @@ public class DailyActivityStudentController {
         return dailyActivityStudentService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
+
+
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
         return dailyActivityStudentService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
-    
+
+    //删除某学生的所有信息
+    @PostMapping("/deleteByIdAndStudents")
+    public DataResponse deleteByIdAndStudents(@RequestBody DataRequest dataRequest){
+        return dailyActivityStudentService.deleteByIdAndStudents(JsonUtil.parse(dataRequest.get("id"), Integer.class), JSON.parseArray(JSON.toJSONString(dataRequest.get("students")), Student.class));
+    }
+
+
     //删除某学生的所有信息
     @PostMapping("/deleteByStudent")
     public DataResponse deleteByStudentId(@RequestBody DataRequest dataRequest){
