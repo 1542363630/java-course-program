@@ -42,14 +42,8 @@ public class SelectedCourseInfoService {
         if(!checkInfo(selectedCourseInfo)){
             return DataResponse.failure(401,"信息不完整");
         }
-        if(selectedCourseInfo.getSelectedCourseInfoId()==null){
-            selectedCourseInfoRepository.saveAndFlush(selectedCourseInfo);
-            return DataResponse.okM("添加成功");
-        }
-        else {
-            selectedCourseInfoRepository.saveAndFlush(selectedCourseInfo);
-            return DataResponse.okM("修改成功");
-        }
+        selectedCourseInfoRepository.saveAndFlush(selectedCourseInfo);
+        return DataResponse.okM("修改成功");
     }
 
     //根据id删除
