@@ -1,9 +1,12 @@
 package com.example.courseprogram.service;
 
-import com.example.courseprogram.model.DO.InnovativePractice;
+import com.example.courseprogram.model.DO.*;
 import com.example.courseprogram.model.DO.InnovativePractice;
 import com.example.courseprogram.model.DTO.DataResponse;
+import com.example.courseprogram.repository.DailyActivityStudentRepository;
 import com.example.courseprogram.repository.InnovativePracticeRepository;
+import com.example.courseprogram.repository.InnovativePracticeStudentRepository;
+import com.example.courseprogram.repository.StudentRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,12 @@ import java.util.Optional;
 public class InnovativePracticeService {
     @Autowired
     InnovativePracticeRepository innovativePracticeRepository;
+    @Autowired
+    InnovativePracticeStudentRepository innovativePracticeStudentRepository;
+    @Autowired
+    StudentRepository studentRepository;
+    @Autowired
+    StudentService studentService;
 
     //检查信息完整
     public boolean checkInfo(InnovativePractice innovativePractice){
@@ -35,10 +44,32 @@ public class InnovativePracticeService {
     }
     
     //增加或修改
-    public DataResponse addAndUpdInnovativePractice(InnovativePractice innovativePractice){
+    public DataResponse addAndUpdInnovativePractice(InnovativePractice innovativePractice, List<Student> students){
         if(!checkInfo(innovativePractice))return DataResponse.failure(401,"信息不完整！");
         innovativePracticeRepository.saveAndFlush(innovativePractice);
-        return DataResponse.ok();
+        String msg="";
+        for(Student student:students){
+            int index=students.indexOf(student);
+            DataResponse dataResponse=studentService.existStudentById(student);
+            msg=msg+"\n"+"第"+index+"个：";
+            if(dataResponse.getCode()!=200){
+                msg=msg+dataResponse.getMessage();
+            }
+            else if(!(dataResponse.getData() instanceof Student)){
+                msg=msg+"不是学生实例";
+            }
+            else if(innovativePracticeStudentRepository.selectByIdAndStudentId(innovativePractice.getInnovativeId(),student.getStudentId())!=0){
+                msg=msg+"该学生已存在";
+            }
+            else{
+                student=(Student) dataResponse.getData();
+                InnovativePracticeStudent innovativePracticeStudent=new InnovativePracticeStudent(null,student,innovativePractice);
+//                students.set(index,);
+                innovativePracticeStudentRepository.saveAndFlush(innovativePracticeStudent);
+                msg=msg+"添加成功";
+            }
+        }
+        return DataResponse.okM(msg);
     }
 
     //根据id删除
@@ -60,6 +91,14 @@ public class InnovativePracticeService {
     public DataResponse findByType(String type){
         if(type==null)return DataResponse.failure(401,"信息不完整");
         List<InnovativePractice> list=innovativePracticeRepository.findInnovativePracticesByType(type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
+    //根据学号和活动类型查询
+    public DataResponse findByStudentIdAndType(Long id,String type){
+        if(id==null||type==null)return DataResponse.failure(401,"信息不完整");
+        List<DailyActivity> list=innovativePracticeRepository.findByStudentIdAndType(id,type);
         if(list==null)return DataResponse.failure(404,"未找到相关信息");
         return DataResponse.success(list);
     }
