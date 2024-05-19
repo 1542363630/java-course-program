@@ -1,6 +1,8 @@
 package com.example.courseprogram.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.InnovativePractice;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.service.InnovativePracticeService;
@@ -20,13 +22,19 @@ public class InnovativePracticeController {
     //增加或者修改数据
     @PostMapping("/add")
     public DataResponse addAndUpdInnovativePractice(@RequestBody DataRequest dataRequest){
-        return innovativePracticeService.addAndUpdInnovativePractice(JsonUtil.parse(dataRequest.get("innovativePractice"), InnovativePractice.class));
+        return innovativePracticeService.addAndUpdInnovativePractice(JsonUtil.parse(dataRequest.get("innovativePractice"), InnovativePractice.class), JSON.parseArray(JSON.toJSONString(dataRequest.get("students")), Student.class));
     }
 
     //根据id删除
     @PostMapping("/deleteById")
     public DataResponse deleteById(@RequestBody DataRequest dataRequest){
         return innovativePracticeService.deleteById(JsonUtil.parse(dataRequest.get("id"), Integer.class));
+    }
+
+    //根据学号和活动类型查询
+    @PostMapping("/findByStudentIdAndType")
+    public DataResponse findByStudentIdAndType(@RequestBody DataRequest dataRequest){
+        return innovativePracticeService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Long.class),JsonUtil.parse(dataRequest.get("type"), String.class));
     }
 
     //查找某学生的信息

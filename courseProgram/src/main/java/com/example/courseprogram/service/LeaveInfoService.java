@@ -1,6 +1,7 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.LeaveInfo;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.LeaveInfoRepository;
 import com.example.courseprogram.utils.DataUtil;
@@ -13,6 +14,8 @@ import java.util.List;
 public class LeaveInfoService {
     @Autowired
     LeaveInfoRepository leaveInfoRepository;
+    @Autowired
+    StudentService studentService;
 
 //    检查信息完整
     public boolean checkInfo(LeaveInfo leaveInfo){
@@ -21,9 +24,14 @@ public class LeaveInfoService {
 
 //    增加或修改
     public DataResponse addAndUpdLeaveInfo(LeaveInfo leaveInfo){
+
+        DataResponse dataResponse=studentService.existStudentById(leaveInfo.getStudent());
+        if(dataResponse.getCode()!=200||!(dataResponse.getData() instanceof Student))return dataResponse;
+        else leaveInfo.setStudent((Student) dataResponse.getData());
+
         if(!checkInfo(leaveInfo))return DataResponse.failure(401,"信息不完整！");
         leaveInfoRepository.saveAndFlush(leaveInfo);
-        return DataResponse.ok();
+        return DataResponse.okM("添加成功！");
     }
 
 //    根据id删除

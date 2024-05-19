@@ -31,20 +31,17 @@ public class DailyActivityStudentController {
         return dailyActivityStudentService.deleteById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
-
-
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){
         return dailyActivityStudentService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
-    //删除某学生的所有信息
+    //根据id和学生列表删除
     @PostMapping("/deleteByIdAndStudents")
     public DataResponse deleteByIdAndStudents(@RequestBody DataRequest dataRequest){
         return dailyActivityStudentService.deleteByIdAndStudents(JsonUtil.parse(dataRequest.get("id"), Integer.class), JSON.parseArray(JSON.toJSONString(dataRequest.get("students")), Student.class));
     }
-
 
     //删除某学生的所有信息
     @PostMapping("/deleteByStudent")
