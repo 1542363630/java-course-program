@@ -49,6 +49,12 @@ public class ScoreController {
     }
 
     //查找某个课程的所有数据
+    @PostMapping("/getGradePointsByStudentId")
+    public DataResponse getGradePointsByStudentId(@RequestBody DataRequest dataRequest){
+        return scoreService.getGradePointsByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
+    }
+
+    //查找某个课程的所有数据
     @PostMapping("/findByCourseId")
     public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
         return scoreService.findByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
