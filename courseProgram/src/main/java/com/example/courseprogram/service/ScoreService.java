@@ -23,8 +23,6 @@ public class ScoreService {
     @Autowired
     CourseRepository courseRepository;
 
-
-
     //检查信息完整
     public boolean checkInfo(Score score){
         return DataUtil.checkInfo(score);
