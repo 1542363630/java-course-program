@@ -15,4 +15,6 @@ public class StudentInfo extends Person {
     private String major;
 
     private String className;
+
+    private String GPA;
 }
