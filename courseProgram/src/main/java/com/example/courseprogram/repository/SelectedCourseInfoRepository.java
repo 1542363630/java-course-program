@@ -2,6 +2,7 @@ package com.example.courseprogram.repository;
 
 import com.example.courseprogram.model.DO.SelectedCourseInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,10 @@ public interface SelectedCourseInfoRepository extends JpaRepository<SelectedCour
 
     //根据课程查找
     List<SelectedCourseInfo> findSelectedCourseInfoByCourse_CourseId(Integer id);
+
+    //根据学号查找
+    @Query(value = "select s.selectedCourseInfo from SelectedCourse s where s.student.studentId=?1")
+    List<SelectedCourseInfo> findByStudentId(Long id);
 
     //根据课程id删除
     void deleteByCourse_CourseId(Integer id);
