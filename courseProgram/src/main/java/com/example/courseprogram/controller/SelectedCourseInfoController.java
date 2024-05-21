@@ -49,6 +49,19 @@ public class SelectedCourseInfoController {
         return selectedCourseInfoService.findById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
+
+    //根据课程编号或名称查询
+    @PostMapping("/findByCourseNumberOrName")
+    public DataResponse findByCourseNumberOrName(@RequestBody DataRequest dataRequest){
+        return selectedCourseInfoService.findByCourseNumberOrName(JsonUtil.parse(dataRequest.get("numName"), String.class));
+    }
+
+    //根据教师名称查询
+    @PostMapping("/findByTeacherName")
+    public DataResponse findByTeacherName(@RequestBody DataRequest dataRequest){
+        return selectedCourseInfoService.findByTeacherName(JsonUtil.parse(dataRequest.get("teacherName"), String.class));
+    }
+
     //获取所有数据
     @PostMapping("/findAll")
     public DataResponse findAll(){

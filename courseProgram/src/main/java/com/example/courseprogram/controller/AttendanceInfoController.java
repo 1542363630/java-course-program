@@ -48,6 +48,12 @@ public class AttendanceInfoController {
         return attendanceInfoService.findByIsAttended(JsonUtil.parse(dataRequest.get("isAttended"), String.class));
     }
 
+    //根据类型查询
+    @PostMapping("/findAttendanceInfoByType")
+    public DataResponse findAttendanceInfoByType(@RequestBody DataRequest dataRequest){
+        return attendanceInfoService.findAttendanceInfoByType(JsonUtil.parse(dataRequest.get("type"), String.class));
+    }
+
 //    //查找某课程的考勤信息
 //    @PostMapping("/findByCourse")
 //    public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){

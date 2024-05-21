@@ -48,6 +48,12 @@ public class DailyActivityController {
 //        return dailyActivityService.findByType(JsonUtil.parse(dataRequest.get("type"), String.class));
 //    }
 
+    //根据名称查找
+    @PostMapping("/findByName")
+    public DataResponse findByName(@RequestBody DataRequest dataRequest){
+        return dailyActivityService.findByName(JsonUtil.parse(dataRequest.get("name"), String.class));
+    }
+
     //获取所有数据
     @PostMapping("/findAll")
     public DataResponse findAll(){

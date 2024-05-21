@@ -2,6 +2,7 @@ package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.DailyActivity;
 import com.example.courseprogram.model.DO.DailyActivityStudent;
+import com.example.courseprogram.model.DO.InnovativePractice;
 import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.DailyActivityRepository;
@@ -92,6 +93,14 @@ public class DailyActivityService {
     public DataResponse findByStudentIdAndType(Long id,String type){
         if(id==null||type==null)return DataResponse.failure(401,"信息不完整");
         List<DailyActivity> list=dailyActivityRepository.findByStudentIdAndType(id,type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
+    //根据名称查找
+    public DataResponse findByName(String name){
+        if(name==null)return DataResponse.failure(401,"信息不完整");
+        List<DailyActivity> list=dailyActivityRepository.findByName(name);
         if(list==null)return DataResponse.failure(404,"未找到相关信息");
         return DataResponse.success(list);
     }

@@ -17,4 +17,7 @@ public interface AttendanceInfoRepository extends JpaRepository<AttendanceInfo,I
 
     void deleteByStudent_StudentId(Long studentId);
 
+    //根据类型查询
+    List<AttendanceInfo> findAttendanceInfoByType(String type);
+
 }

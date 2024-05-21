@@ -1,6 +1,7 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.HonorInfo;
+import com.example.courseprogram.model.DO.InnovativePractice;
 import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.HonorInfoRepository;
@@ -9,6 +10,7 @@ import com.example.courseprogram.utils.DataUtil;
 import com.example.courseprogram.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,6 +80,22 @@ public class HonorInfoService {
         List<HonorInfo> listA=honorInfoRepository.findHonorInfosByStudent_StudentId(id);
         if(listA==null)return DataResponse.failure(404,"未找到该同学的信息");
         return DataResponse.success(listA);
+    }
+
+    //根据名称查找
+    public DataResponse findByName(String name){
+        if(name==null)return DataResponse.failure(401,"信息不完整");
+        List<HonorInfo> list=honorInfoRepository.findByName(name);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
+    //根据类别查找
+    public DataResponse findHonorInfosByType(String type){
+        if(type==null)return DataResponse.failure(401,"信息不完整");
+        List<HonorInfo> list=honorInfoRepository.findHonorInfosByType(type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
     }
 
 //    获取所有信息

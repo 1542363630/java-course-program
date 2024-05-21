@@ -42,6 +42,18 @@ public class HonorInfoController {
         return honorInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
+    //根据名称查找
+    @PostMapping("/findByName")
+    public DataResponse findByName(@RequestBody DataRequest dataRequest){
+        return honorInfoService.findByName(JsonUtil.parse(dataRequest.get("name"), String.class));
+    }
+
+    //根据名称查找
+    @PostMapping("/findHonorInfosByType")
+    public DataResponse findHonorInfosByType(@RequestBody DataRequest dataRequest){
+        return honorInfoService.findHonorInfosByType(JsonUtil.parse(dataRequest.get("type"), String.class));
+    }
+
     //获取所有数据
     @PostMapping("/findAll")
     public DataResponse findAll(){

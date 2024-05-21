@@ -74,6 +74,14 @@ public class AttendanceInfoService {
         return DataResponse.success(list);
     }
 
+    //根据类型查询
+    public DataResponse findAttendanceInfoByType(String type){
+        if(type==null)return DataResponse.failure(401,"信息不完整");
+        List<AttendanceInfo> list=attendanceInfoRepository.findAttendanceInfoByType(type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
 //    //查找某课程的考勤信息
 //    public DataResponse findByCourseId(Integer id){
 //        if(id==null)return DataResponse.failure(401,"信息不完整！");

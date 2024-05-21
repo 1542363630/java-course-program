@@ -1,7 +1,9 @@
 package com.example.courseprogram.repository;
 
 import com.example.courseprogram.model.DO.Score;
+import com.example.courseprogram.model.DO.SelectedCourseInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,5 +25,8 @@ public interface ScoreRepository extends JpaRepository<Score,Integer> {
     //根据课程删除
     void deleteScoresByCourse_CourseId(Integer courseId);
 
+    //根据课程编号或名称查询
+    @Query(value = "select s from Score s where s.course.number like %?1% or s.course.name like %?1% or ?1='' ")
+    List<Score> findByCourseNumberOrName(String numName);
 
 }

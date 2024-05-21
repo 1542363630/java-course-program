@@ -106,6 +106,38 @@ public class SelectedCourseInfoService {
         }
     }
 
+    //根据课程编号或名称查询
+    public DataResponse findByCourseNumberOrName(String numName){
+        if (numName==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<SelectedCourseInfo> list = selectedCourseInfoRepository.findByCourseNumberOrName(numName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"未找到相关信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
+
+    //根据教师名称查询
+    public DataResponse findByTeacherName(String teacherName){
+        if (teacherName==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<SelectedCourseInfo> list = selectedCourseInfoRepository.findByTeacherName(teacherName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"未找到相关信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
+
     //根据学号查找
     public DataResponse findByStudentId(Long id){
         if (id==null){

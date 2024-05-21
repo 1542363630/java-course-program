@@ -3,6 +3,7 @@ package com.example.courseprogram.service;
 import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.Course;
 import com.example.courseprogram.model.DO.HomeworkInfo;
+import com.example.courseprogram.model.DO.SelectedCourseInfo;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.CourseRepository;
 import com.example.courseprogram.repository.HomeworkInfoRepository;
@@ -85,6 +86,22 @@ public class HomeworkInfoService {
         List<HomeworkInfo> list=homeworkInfoRepository.findHomeworksInfoByCourse_CourseId(id);
         if(list.isEmpty())return DataResponse.error(404,"未找到课程对应的作业信息");
         else return DataResponse.success(list);
+    }
+
+    //根据课程编号或名称查询
+    public DataResponse findByCourseNumberOrName(String numName){
+        if (numName==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<HomeworkInfo> list = homeworkInfoRepository.findByCourseNumberOrName(numName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"未找到相关信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
     }
 
     //获取所有信息

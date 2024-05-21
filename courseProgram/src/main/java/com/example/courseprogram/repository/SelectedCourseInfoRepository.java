@@ -22,4 +22,11 @@ public interface SelectedCourseInfoRepository extends JpaRepository<SelectedCour
     //根据课程id删除
     void deleteByCourse_CourseId(Integer id);
 
+    //根据课程编号或名称查询
+    @Query(value = "select s from SelectedCourseInfo s where s.course.number like %?1% or s.course.name like %?1% or ?1='' ")
+    List<SelectedCourseInfo> findByCourseNumberOrName(String numName);
+
+    //根据教师名称查询
+    @Query(value = "select s from SelectedCourseInfo s where s.course.teacherName like %?1%")
+    List<SelectedCourseInfo> findByTeacherName(String name);
 }

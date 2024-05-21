@@ -47,6 +47,12 @@ public class HomeworkController {
         return homeworkService.findByHomeworkInfoId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
+    //根据课程编号或名称查询
+    @PostMapping("/findByCourseNumberOrName")
+    public DataResponse findByCourseNumberOrName(@RequestBody DataRequest dataRequest){
+        return homeworkService.findByCourseNumberOrName(JsonUtil.parse(dataRequest.get("numName"), String.class));
+    }
+
     //获取所有数据
     @PostMapping("/findAll")
     public DataResponse findAll(){

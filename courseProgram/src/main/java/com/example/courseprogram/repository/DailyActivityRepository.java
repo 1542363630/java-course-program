@@ -1,6 +1,7 @@
 package com.example.courseprogram.repository;
 
 import com.example.courseprogram.model.DO.DailyActivity;
+import com.example.courseprogram.model.DO.InnovativePractice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,9 @@ public interface DailyActivityRepository extends JpaRepository<DailyActivity,Int
     //根据活动类型查询
     @Query(value = "select d from DailyActivity d where ?1 = d.activityType")
     List<DailyActivity> findByType(String type);
+
+    //根据活动名称
+    @Query(value = "select da from DailyActivity da where da.activityName like %?1% or ?1='' ")
+    List<DailyActivity> findByName(String name);
 
 }

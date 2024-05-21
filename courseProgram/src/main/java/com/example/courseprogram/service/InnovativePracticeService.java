@@ -98,7 +98,15 @@ public class InnovativePracticeService {
     //根据学号和活动类型查询
     public DataResponse findByStudentIdAndType(Long id,String type){
         if(id==null||type==null)return DataResponse.failure(401,"信息不完整");
-        List<DailyActivity> list=innovativePracticeRepository.findByStudentIdAndType(id,type);
+        List<InnovativePractice> list=innovativePracticeRepository.findByStudentIdAndType(id,type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
+    //根据名称查找
+    public DataResponse findByName(String name){
+        if(name==null)return DataResponse.failure(401,"信息不完整");
+        List<InnovativePractice> list=innovativePracticeRepository.findByName(name);
         if(list==null)return DataResponse.failure(404,"未找到相关信息");
         return DataResponse.success(list);
     }
