@@ -33,7 +33,7 @@ public class CourseController {
     //根据课程编号查找课程的数据
     @PostMapping("/findByCourseNumberOrName")
     public DataResponse findByCourseNumber(@RequestBody DataRequest dataRequest){
-        return courseService.findByCourseNumberOrName(JsonUtil.parse(dataRequest.get("numberName"), String.class));
+        return courseService.findByCourseNumberOrName(JsonUtil.parse(dataRequest.get("numName"), String.class));
     }
 
     //根据课程名字查找课程的数据
