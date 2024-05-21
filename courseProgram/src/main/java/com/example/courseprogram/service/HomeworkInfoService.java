@@ -45,63 +45,6 @@ public class HomeworkInfoService {
         return DataUtil.checkInfo(homeworkInfo);
     }
 
-    public DataResponse upload(byte[] file,String fileName){
-        if (!(file.length==0)) {
-            String allowedTypes = "application/pdf, image/jpeg, image/png,application/zip,application/rar"; // 允许的文件类型
-//            if (!Arrays.asList(allowedTypes.split(", ")).contains(file.getContentType())) {
-//                return DataResponse.failure(402,"文件类型不允许");
-//            }
-
-            if (file.length > 209715200) { // 200MB
-                return DataResponse.failure(402,"文件过大(最大200MB)");
-            }
-            try {
-                String directoryPath=path+ "\\"+LocalDate.now();
-                File directory = new File(directoryPath);
-                if (!directory.exists()) {
-                    // 目录不存在，创建目录及其所有必需的父目录
-                    boolean isDirectoryCreated = directory.mkdirs();
-                    if (!isDirectoryCreated) {
-                        System.out.println("目录创建失败: " + directoryPath);
-                    }
-                }
-
-                Path dirPath = Paths.get(directoryPath);
-
-                // 文件处理逻辑，例如保存到服务器上的某个目录
-                // 这里可以使用文件输出流来保存文件
-                FileOutputStream fos = new FileOutputStream(dirPath +"\\"+ fileName);
-                fos.write(file);
-                fos.close();
-                File nowFile = new File(dirPath +"\\"+ fileName);
-
-                return DataResponse.okM("success:"+dirPath +"\\"+fileName);
-            } catch (Exception e) {
-                return DataResponse.failure(402,"File upload failed: " + e.getMessage());
-            }
-        } else {
-            return DataResponse.failure(401,"请上传一个文件!");
-        }
-
-    }
-
-    public ResponseEntity<byte[]> download(String url){
-        try {
-            HttpResponse<byte[]> response;
-            url=url.replace((char) 32, (char) 92);
-            Path filePath = Paths.get(url);
-            Resource resource = new UrlResource(filePath.toUri());
-            byte[] fileContent=Files.readAllBytes(filePath);
-            if (resource.exists() || resource.isReadable()) {
-                return ResponseEntity.ok(fileContent);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-
     //增加或修改
     public DataResponse addOrUpdHomeworkInfo(HomeworkInfo homeworkInfo){
 

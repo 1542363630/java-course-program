@@ -24,18 +24,6 @@ public class HomeworkInfoController {
         return homeworkInfoService.addOrUpdHomeworkInfo(JsonUtil.parse(dataRequest.get("homeworkInfo"), HomeworkInfo.class));
     }
 
-    //上传文件
-    @PostMapping("/upload")
-    public DataResponse upload(@RequestBody byte[] file,@RequestParam("fileName") String fileName){
-        return homeworkInfoService.upload(file,fileName);
-    }
-
-    //下载文件
-    @PostMapping("/download")
-    public ResponseEntity<byte[]> download(@RequestBody DataRequest dataRequest){
-        return homeworkInfoService.download(JsonUtil.parse(dataRequest.get("url"), String.class));
-    }
-
     //根据id删除
     @PostMapping("/deleteById")
     public DataResponse deleteById(@RequestBody DataRequest dataRequest){
