@@ -8,10 +8,9 @@ import com.example.courseprogram.service.FeeService;
 import com.example.courseprogram.service.HomeworkInfoService;
 import com.example.courseprogram.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/homeworkInfo")
@@ -23,6 +22,18 @@ public class HomeworkInfoController {
     @PostMapping("/add")
     public DataResponse addAndUpdHomeworkInfo(@RequestBody DataRequest dataRequest){
         return homeworkInfoService.addOrUpdHomeworkInfo(JsonUtil.parse(dataRequest.get("homeworkInfo"), HomeworkInfo.class));
+    }
+
+    //上传文件
+    @PostMapping("/upload")
+    public DataResponse upload(@RequestBody byte[] file,@RequestParam("fileName") String fileName){
+        return homeworkInfoService.upload(file,fileName);
+    }
+
+    //下载文件
+    @PostMapping("/download")
+    public ResponseEntity<byte[]> download(@RequestBody DataRequest dataRequest){
+        return homeworkInfoService.download(JsonUtil.parse(dataRequest.get("url"), String.class));
     }
 
     //根据id删除

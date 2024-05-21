@@ -1,7 +1,11 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
   datasource:
     driver-class-name: org.sqlite.JDBC
-    url: jdbc:sqlite:C:/Users\17991/Desktop/java shared code/java-course-program/data.db
+    url: jdbc:sqlite:E:/git/first/java-course-program/data.db
     username: admin
     password: admin
   main:
@@ -21,7 +25,7 @@ server:
       force: true
   port: 9090
 web:
-  upload-path: ./file/
+  upload-path: .\file\
 
 #mybatis-plus:
 #  configuration:
