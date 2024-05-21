@@ -106,6 +106,22 @@ public class SelectedCourseInfoService {
         }
     }
 
+    //根据学号查找
+    public DataResponse findByStudentId(Long id){
+        if (id==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<SelectedCourseInfo> list = selectedCourseInfoRepository.findByStudentId(id);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"该学生没有任何选课信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
+
     //获取所有
     public DataResponse findAll(){
         return DataResponse.success(selectedCourseInfoRepository.findAll());

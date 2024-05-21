@@ -1,18 +1,26 @@
 package com.example.courseprogram.service;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.SelectedCourse;
+import com.example.courseprogram.model.DO.SelectedCourseInfo;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.SelectedCourseRepository;
 import com.example.courseprogram.utils.DataUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SelectedCourseService {
     @Autowired
     SelectedCourseRepository selectedCourseRepository;
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    SelectedCourseInfoService selectedCourseInfoService;
 
     //检查信息完整
     public boolean checkInfo(SelectedCourse selectedCourse){
@@ -24,6 +32,40 @@ public class SelectedCourseService {
         if(!checkInfo(selectedCourse))return DataResponse.failure(401,"信息不完整！");
         selectedCourseRepository.saveAndFlush(selectedCourse);
         return DataResponse.ok();
+    }
+
+    //学生选课的增加和修改
+    public DataResponse addByStudentAndList(Student student, List<SelectedCourseInfo> selectedCourseInfos){
+        if(student==null || selectedCourseInfos==null)return DataResponse.failure(401,"信息不完整！");
+
+        DataResponse dataResponse=studentService.existStudentById(student);
+        if(dataResponse.getCode()!=200||!(dataResponse.getData() instanceof Student))return dataResponse;
+        else student=(Student) dataResponse.getData();
+
+        DataResponse res=selectedCourseInfoService.findByStudentId(student.getStudentId());
+        List<SelectedCourseInfo> list;
+        if(res.getCode()==200){
+            list= JSON.parseArray(JSON.toJSONString(res.getData()),SelectedCourseInfo.class);
+        }
+        else if(res.getCode()==404){
+            list=new ArrayList<SelectedCourseInfo>();
+        }
+        else{
+            return res;
+        }
+
+        for(SelectedCourseInfo selectedCourseInfo:selectedCourseInfos){
+            if(list.contains(selectedCourseInfo)){
+                list.remove(selectedCourseInfo);
+            }
+            else{
+                selectedCourseRepository.saveAndFlush(new SelectedCourse(null,student,selectedCourseInfo));
+            }
+        }
+        for(SelectedCourseInfo selectedCourseInfo:list){
+            selectedCourseRepository.deleteByStudent_StudentIdAndAndSelectedCourseInfo_SelectedCourseInfoId(student.getStudentId(),selectedCourseInfo.getSelectedCourseInfoId());
+        }
+        return DataResponse.okM("成功");
     }
 
     //删除某学生的所有选课数据

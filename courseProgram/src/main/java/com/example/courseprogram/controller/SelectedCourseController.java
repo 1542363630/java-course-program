@@ -1,6 +1,9 @@
 package com.example.courseprogram.controller;
 
+import com.alibaba.fastjson2.JSON;
 import com.example.courseprogram.model.DO.SelectedCourse;
+import com.example.courseprogram.model.DO.SelectedCourseInfo;
+import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataRequest;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.service.SelectedCourseService;
@@ -19,8 +22,14 @@ public class SelectedCourseController {
 
     //增加或者修改数据
     @PostMapping("/add")
-    public DataResponse addAndUpdSelectedCourse(DataRequest dataRequest){
+    public DataResponse addAndUpdSelectedCourse(@RequestBody DataRequest dataRequest){
         return selectedCourseService.addAndUpdSelectedCourse(JsonUtil.parse(dataRequest.get("selectedCourse"), SelectedCourse.class));
+    }
+
+    //学生选课的增加和修改
+    @PostMapping("/addByStudentAndList")
+    public DataResponse addByStudentAndList(@RequestBody DataRequest dataRequest){
+        return selectedCourseService.addByStudentAndList(JsonUtil.parse(dataRequest.get("student"), Student.class), JSON.parseArray(JSON.toJSONString(dataRequest.get("selectedCourseInfos")), SelectedCourseInfo.class));
     }
 
     //根据id删除
