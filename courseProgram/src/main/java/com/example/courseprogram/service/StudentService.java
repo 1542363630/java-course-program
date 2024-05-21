@@ -7,9 +7,7 @@ import com.example.courseprogram.model.DO.Teacher;
 import com.example.courseprogram.model.DO.User;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.model.DTO.StudentInfo;
-import com.example.courseprogram.repository.PersonRepository;
-import com.example.courseprogram.repository.StudentRepository;
-import com.example.courseprogram.repository.UserRepository;
+import com.example.courseprogram.repository.*;
 import com.example.courseprogram.utils.DataUtil;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,15 +18,36 @@ import java.util.Optional;
 
 @Service
 public class StudentService{
-
     @Autowired
     StudentRepository studentRepository;
-
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    AttendanceInfoRepository attendanceInfoRepository;
+    @Autowired
+    BeforeUniversityRepository beforeUniversityRepository;
+    @Autowired
+    DailyActivityStudentRepository dailyActivityStudentRepository;
+    @Autowired
+    FamilyMemberRepository familyMemberRepository;
+    @Autowired
+    FeeRepository feeRepository;
+    @Autowired
+    HomeworkRepository homeworkRepository;
+    @Autowired
+    HonorInfoRepository honorInfoRepository;
+    @Autowired
+    InnovativePracticeStudentRepository innovativePracticeStudentRepository;
+    @Autowired
+    LeaveInfoRepository leaveInfoRepository;
+    @Autowired
+    ScoreRepository scoreRepository;
+    @Autowired
+    SelectedCourseRepository selectedCourseRepository;
+    @Autowired
+    SocietyMemberRepository societyMemberRepository;
 
     public boolean checkInfo(Student student){
         return DataUtil.checkInfo(student);
@@ -72,6 +91,20 @@ public class StudentService{
         userRepository.deleteUserByPersonId(student.getPerson().getPersonId());
         personRepository.deleteById(student.getPerson().getPersonId());
         studentRepository.deleteById(student.getStudentId());
+
+        attendanceInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+        beforeUniversityRepository.deleteBeforeUniversityByStudent_StudentId(student.getStudentId());
+        dailyActivityStudentRepository.deleteByStudent_StudentId(student.getStudentId());
+        familyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+        feeRepository.deleteByStudent_StudentId(student.getStudentId());
+        homeworkRepository.deleteByStudent_StudentId(student.getStudentId());
+        honorInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+        innovativePracticeStudentRepository.deleteByStudent_StudentId(student.getStudentId());
+        leaveInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+        scoreRepository.deleteScoresByStudent_StudentId(student.getStudentId());
+        selectedCourseRepository.deleteByStudent_StudentId(student.getStudentId());
+        societyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+
         return DataResponse.ok();
     }
 
