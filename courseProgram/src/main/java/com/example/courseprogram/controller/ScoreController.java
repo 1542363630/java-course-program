@@ -54,7 +54,7 @@ public class ScoreController {
         return scoreService.getGradePointsByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
-    //查找某个学生的总绩点
+    //根据课程编号查询
     @PostMapping("/findByCourseId")
     public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
         return scoreService.findByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));

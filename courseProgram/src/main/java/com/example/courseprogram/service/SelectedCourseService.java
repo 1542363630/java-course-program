@@ -105,6 +105,56 @@ public class SelectedCourseService {
         return DataResponse.okM("删除成功");
     }
 
+
+    //根据学号和课程种类查询
+    public DataResponse findByStudentIdAndCourseType(Long id,String type){
+        if (id==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<SelectedCourseInfo> list = selectedCourseRepository.findByStudentIdAndType(id,type);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"未找到任何选课信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
+
+    //根据学号和(课程编号或名称)查询
+    public DataResponse findByStudentIdAndNumName(Long id,String numName){
+        if (id==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<SelectedCourseInfo> list = selectedCourseRepository.findByStudentIdAndNumName(id,numName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"该学生没有任何选课信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
+
+    //根据学号和教师名称
+    public DataResponse findByStudentIdAndTeacherName(Long id,String teacherName){
+        if (id==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<SelectedCourseInfo> list = selectedCourseRepository.findByStudentIdAndTeacherName(id,teacherName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"该学生没有任何选课信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
+
+
     //查找所有选课数据
     public DataResponse findAll(){
         return DataResponse.success(selectedCourseRepository.findAll());
