@@ -32,7 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object Handle) {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object Handle) {
         String token = request.getHeader("token");
         if (token == null) {
             throw new RuntimeException("未携带token");
@@ -46,7 +46,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             throw new RuntimeException("用户不存在,请重新登录");
         } else {
             String path = request.getServletPath();
-
             if (Arrays.stream(FOR_ADMIN).anyMatch(path::startsWith)) {
                 if(!Objects.equals(loginInterceptor.userMapper.findUserTypeByName(nickName), "ADMIN")) throw new RuntimeException("no authority");
             }
