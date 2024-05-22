@@ -2,10 +2,7 @@ package com.example.courseprogram.model.DO;
 
 import com.example.courseprogram.model.DTO.StudentInfo;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -18,6 +15,7 @@ import java.io.Serializable;
  * <p>String className 班级
  *
  */
+@Data
 @Getter
 @Setter
 @AllArgsConstructor

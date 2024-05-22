@@ -15,7 +15,7 @@ public interface LeaveInfoRepository extends JpaRepository<LeaveInfo,Integer> {
     List<LeaveInfo> findLeaveInfosByStudent_StudentId(Long studentId);
 
     //根据是否回到学校查找
-    List<LeaveInfo> findLeaveInfosByIsBackSchool(String isBackSchool);
+    List<LeaveInfo> findLeaveInfosByLeaveStatus(String LeaveStatus);
 
     //根据学号删除
     void deleteByStudent_StudentId(Long studentId);

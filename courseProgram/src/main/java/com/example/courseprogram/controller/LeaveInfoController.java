@@ -41,10 +41,10 @@ public class LeaveInfoController {
         return leaveInfoService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
-    //根据是否回到学校查找
-    @PostMapping("/findByIsBack")
-    public DataResponse findByIsBack(@RequestBody DataRequest dataRequest){
-        return leaveInfoService.findByIsBack(JsonUtil.parse(dataRequest.get("isBack"), String.class));
+    //根据请假状态查找
+    @PostMapping("/findByLeaveStatus")
+    public DataResponse findByLeaveStatus(@RequestBody DataRequest dataRequest){
+        return leaveInfoService.findByLeaveStatus(JsonUtil.parse(dataRequest.get("leaveStatus"), String.class));
     }
 
     //获取所有数据

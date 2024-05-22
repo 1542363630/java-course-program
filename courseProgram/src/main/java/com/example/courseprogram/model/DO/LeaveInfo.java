@@ -8,16 +8,13 @@ package com.example.courseprogram.model.DO;
  * <p>String leaveTime 请假时间
  * <p>String approver 批准人
  * <p>String leaveReason 请假原因
- * <p>String isBackSchool 是否回到学校（是否销假）
+ * <p>String leaveStatus 请假状态
  */
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
-
+@Data
 @Getter
 @Setter
 @AllArgsConstructor
@@ -43,5 +40,5 @@ public class LeaveInfo implements Serializable {
 
     private String leaveReason;
 
-    private String isBackSchool;
+    private String leaveStatus;
 }

@@ -56,10 +56,10 @@ public class LeaveInfoService {
         return DataResponse.success(listA);
     }
 
-//    根据是否回到学校查找
-    public DataResponse findByIsBack(String isBack){
-        if(isBack==null)return DataResponse.failure(401,"信息不完整！");
-        List<LeaveInfo> list=leaveInfoRepository.findLeaveInfosByIsBackSchool(isBack);
+//    根据请假状态查找
+    public DataResponse findByLeaveStatus(String leaveStatus){
+        if(leaveStatus==null)return DataResponse.failure(401,"信息不完整！");
+        List<LeaveInfo> list=leaveInfoRepository.findLeaveInfosByLeaveStatus(leaveStatus);
         if(list==null)return DataResponse.failure(404,"未找到相关的信息");
         return DataResponse.success(list);
     }
