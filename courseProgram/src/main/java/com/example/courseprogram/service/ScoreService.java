@@ -2,7 +2,6 @@ package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.Course;
 import com.example.courseprogram.model.DO.Score;
-import com.example.courseprogram.model.DO.SelectedCourseInfo;
 import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.repository.CourseRepository;
@@ -92,16 +91,21 @@ public class ScoreService {
         if(id==null)return DataResponse.failure(401,"信息不完整");
         List<Score> list=scoreRepository.findScoresByStudent_StudentId(id);
         if(list.isEmpty())return DataResponse.failure(404,"未找到相关信息");
-        Double gradePoints = 0.0;
-        Double totalPoints = 0.0;
+        double gradePoints = 0.0;
+        double totalPoints = 0.0;
         for(Score score:list){
-            if(score.getIsCal()){
+            if(score.getCourse().getType().equals("必修")||score.getCourse().getType().equals("限选")){
                 totalPoints+=score.getCourse().getCredit();
                 gradePoints+=score.getCourse().getCredit()*score.getMark();
             }
         }
-        gradePoints/=totalPoints;
-        return DataResponse.success(gradePoints);
+        if(totalPoints!=0){
+            gradePoints/=totalPoints;
+            return DataResponse.success(gradePoints);
+        }
+        else{
+            return DataResponse.failure(404,"未找到相关信息");
+        }
     }
 
     //查找某个课程的所有数据
