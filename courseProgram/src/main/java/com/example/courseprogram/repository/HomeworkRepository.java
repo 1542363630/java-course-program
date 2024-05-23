@@ -25,4 +25,8 @@ public interface HomeworkRepository extends JpaRepository<Homework,Integer> {
     //根据课程编号或名称查询
     @Query(value = "select h from Homework h where h.homeworkInfo.course.number like %?1% or h.homeworkInfo.course.name like %?1% or ?1='' ")
     List<Homework> findByCourseNumberOrName(String numName);
+
+    //根据学号和(课程编号或名称)查询
+    @Query(value = "select h.homeworkInfo from Homework h where h.student.studentId = ?1 and (h.homeworkInfo.course.number like %?2% or h.homeworkInfo.course.name like %?2%)")
+    List<Homework> findByStudentIdAndNumName(Long id,String numName);
 }

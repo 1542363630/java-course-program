@@ -48,7 +48,7 @@ public class HonorInfoController {
         return honorInfoService.findByName(JsonUtil.parse(dataRequest.get("name"), String.class));
     }
 
-    //根据名称查找
+    //根据类型查找
     @PostMapping("/findHonorInfosByType")
     public DataResponse findHonorInfosByType(@RequestBody DataRequest dataRequest){
         return honorInfoService.findHonorInfosByType(JsonUtil.parse(dataRequest.get("type"), String.class));

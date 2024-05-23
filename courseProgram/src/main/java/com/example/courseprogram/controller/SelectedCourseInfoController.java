@@ -49,7 +49,6 @@ public class SelectedCourseInfoController {
         return selectedCourseInfoService.findById(JsonUtil.parse(dataRequest.get("id"),Integer.class));
     }
 
-
     //根据课程编号或名称查询
     @PostMapping("/findByCourseNumberOrName")
     public DataResponse findByCourseNumberOrName(@RequestBody DataRequest dataRequest){

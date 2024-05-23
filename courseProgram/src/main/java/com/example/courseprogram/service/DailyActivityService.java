@@ -109,4 +109,12 @@ public class DailyActivityService {
     public DataResponse findAll(){
         return DataResponse.success(dailyActivityRepository.findAll());
     }
+
+    //活动类型查询
+    public DataResponse findByType(String type){
+        if(type==null)return DataResponse.failure(401,"信息不完整");
+        List<DailyActivity> list=dailyActivityRepository.findByType(type);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
 }

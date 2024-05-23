@@ -42,11 +42,11 @@ public class DailyActivityController {
         return dailyActivityService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
-//    //根据类别查找
-//    @PostMapping("/findByType")
-//    public DataResponse findByType(@RequestBody DataRequest dataRequest){
-//        return dailyActivityService.findByType(JsonUtil.parse(dataRequest.get("type"), String.class));
-//    }
+    //根据类别查找
+    @PostMapping("/findByType")
+    public DataResponse findByType(@RequestBody DataRequest dataRequest){
+        return dailyActivityService.findByType(JsonUtil.parse(dataRequest.get("type"), String.class));
+    }
 
     //根据名称查找
     @PostMapping("/findByName")

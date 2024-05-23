@@ -107,4 +107,20 @@ public class HomeworkService {
     public DataResponse findAll(){
         return DataResponse.success(homeworkRepository.findAll());
     }
+
+    //根据学号和(课程编号或名称)查询
+    public DataResponse findByStudentIdAndNumName(Long id,String numName){
+        if (id==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<Homework> list = homeworkRepository.findByStudentIdAndNumName(id,numName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"该学生没有任何选课信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
+    }
 }

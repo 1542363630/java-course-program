@@ -39,4 +39,6 @@ public interface SelectedCourseRepository extends JpaRepository<SelectedCourse,I
 
     @Query(value = "select s.selectedCourseInfo from SelectedCourse s where s.student.studentId = ?1 and (s.selectedCourseInfo.course.teacherName like %?2%)")
     List<SelectedCourseInfo> findByStudentIdAndTeacherName(Long id,String teacherName);
+
+
 }

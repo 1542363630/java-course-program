@@ -59,4 +59,10 @@ public class HomeworkController {
         return homeworkService.findAll();
     }
 
+    //根据学号和(课程编号或名称)查询
+    @PostMapping("/findByStudentIdAndNumName")
+    public DataResponse findByStudentIdAndNumName(@RequestBody DataRequest dataRequest){
+        return homeworkService.findByStudentIdAndNumName(JsonUtil.parse(dataRequest.get("studentId"), Long.class),JsonUtil.parse(dataRequest.get("numName"), String.class));
+    }
+
 }
