@@ -147,7 +147,7 @@ public class UserService{
 
         //如果数据库中没有这个人的信息，就添加到数据库中
         if(userRepository.findUserByUserName(username)==null){
-            addUser(new User(),username,password);
+//            addUser(new User(),username,password);
         }
 
 //        Document document = Jsoup.parse(validationResult);
