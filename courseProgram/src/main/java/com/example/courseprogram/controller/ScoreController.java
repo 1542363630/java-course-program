@@ -66,6 +66,12 @@ public class ScoreController {
         return scoreService.findByCourseNumberOrName(JsonUtil.parse(dataRequest.get("numName"), String.class));
     }
 
+//    根据学号和(课程编号或名称)查询
+    @PostMapping("/findByStudentIdAndNumName")
+    public DataResponse findByStudentIdAndNumName(@RequestBody DataRequest dataRequest){
+        return scoreService.findByStudentIdAndNumName(JsonUtil.parse(dataRequest.get("studentId"), Long.class),JsonUtil.parse(dataRequest.get("numName"), String.class));
+    }
+
     //获得所有数据
     @PostMapping("/findAll")
     public DataResponse findAll(){
