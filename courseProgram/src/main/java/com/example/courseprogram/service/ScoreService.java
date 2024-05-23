@@ -1,6 +1,7 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.Course;
+import com.example.courseprogram.model.DO.Homework;
 import com.example.courseprogram.model.DO.Score;
 import com.example.courseprogram.model.DO.Student;
 import com.example.courseprogram.model.DTO.DataResponse;
@@ -135,6 +136,22 @@ public class ScoreService {
     //获得所有数据
     public DataResponse findAll(){
         return DataResponse.success(scoreRepository.findAll());
+    }
+
+    //根据学号和(课程编号或名称)查询
+    public DataResponse findByStudentIdAndNumName(Long id,String numName){
+        if (id==null){
+            return DataResponse.failure(401,"信息不完整");
+        }
+        else {
+            List<Score> list = scoreRepository.findByStudentIdAndNumName(id,numName);
+            if(list.isEmpty()){
+                return DataResponse.failure(404,"该学生没有任何选课信息");
+            }
+            else {
+                return DataResponse.success(list);
+            }
+        }
     }
 
 }
