@@ -66,6 +66,19 @@ public class TeacherService {
         }
     }
 
+    //添加统一认证的教师，初始账号和密码为学号
+    public DataResponse addSDUTeacher(Teacher teacher,User user){
+        if(teacherRepository.existsTeacherByPerson_Number(teacher.getPerson().getNumber())){
+            return DataResponse.failure(401,"已存在");
+        }
+        personRepository.saveAndFlush(teacher.getPerson());
+        teacherRepository.saveAndFlush(teacher);
+        String encodedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
+        User teacherUser = new User(null,"teacher",teacher.getPerson(),teacher.getPerson().getNumber().toString(),encodedPassword,0,null, DataUtil.getTime(),null);
+        userRepository.saveAndFlush(teacherUser);
+        return DataResponse.success(teacher);
+    }
+
     //根据用户id查找
     public DataResponse findByUserId(User user){
         Teacher teacher = teacherRepository.findByUserId(user.getUserId());

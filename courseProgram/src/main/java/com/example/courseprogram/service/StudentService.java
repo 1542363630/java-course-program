@@ -80,6 +80,19 @@ public class StudentService{
         return DataResponse.success(student);
     }
 
+    //添加统一认证的学生，初始账号和密码为学号
+    public DataResponse addSDUStudent(Student student,User user){
+        if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
+            return DataResponse.failure(401,"已存在");
+        }
+        personRepository.saveAndFlush(student.getPerson());
+        studentRepository.saveAndFlush(student);
+        String encodedPassword = BCrypt.hashpw(user.getPassword(),BCrypt.gensalt());
+        User studentUser = new User(null,"student",student.getPerson(),student.getPerson().getNumber().toString(),encodedPassword,0,null, DataUtil.getTime(),null);
+        userRepository.saveAndFlush(studentUser);
+        return DataResponse.success(student);
+    }
+
     //删除学生
     public DataResponse deleteStudent(Long id){
         if(id==null)return DataResponse.failure(401,"信息不完整");
@@ -88,22 +101,22 @@ public class StudentService{
             return DataResponse.failure(404,"未找到该学生");
         }
         Student student=o.get();
-        userRepository.deleteUserByPersonId(student.getPerson().getPersonId());
-        personRepository.deleteById(student.getPerson().getPersonId());
+//        userRepository.deleteUserByPersonId(student.getPerson().getPersonId());
+//        personRepository.deleteById(student.getPerson().getPersonId());
         studentRepository.deleteById(student.getStudentId());
 
-        attendanceInfoRepository.deleteByStudent_StudentId(student.getStudentId());
-        beforeUniversityRepository.deleteBeforeUniversityByStudent_StudentId(student.getStudentId());
-        dailyActivityStudentRepository.deleteByStudent_StudentId(student.getStudentId());
-        familyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
-        feeRepository.deleteByStudent_StudentId(student.getStudentId());
-        homeworkRepository.deleteByStudent_StudentId(student.getStudentId());
-        honorInfoRepository.deleteByStudent_StudentId(student.getStudentId());
-        innovativePracticeStudentRepository.deleteByStudent_StudentId(student.getStudentId());
-        leaveInfoRepository.deleteByStudent_StudentId(student.getStudentId());
-        scoreRepository.deleteScoresByStudent_StudentId(student.getStudentId());
-        selectedCourseRepository.deleteByStudent_StudentId(student.getStudentId());
-        societyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+//        attendanceInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+//        beforeUniversityRepository.deleteBeforeUniversityByStudent_StudentId(student.getStudentId());
+//        dailyActivityStudentRepository.deleteByStudent_StudentId(student.getStudentId());
+//        familyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+//        feeRepository.deleteByStudent_StudentId(student.getStudentId());
+//        homeworkRepository.deleteByStudent_StudentId(student.getStudentId());
+//        honorInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+//        innovativePracticeStudentRepository.deleteByStudent_StudentId(student.getStudentId());
+//        leaveInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+//        scoreRepository.deleteScoresByStudent_StudentId(student.getStudentId());
+//        selectedCourseRepository.deleteByStudent_StudentId(student.getStudentId());
+//        societyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
 
         return DataResponse.ok();
     }

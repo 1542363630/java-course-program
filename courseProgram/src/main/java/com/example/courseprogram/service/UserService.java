@@ -1,15 +1,20 @@
 package com.example.courseprogram.service;
 
 import com.example.courseprogram.model.DO.Person;
+import com.example.courseprogram.model.DO.Student;
+import com.example.courseprogram.model.DO.Teacher;
 import com.example.courseprogram.model.DO.User;
 import com.example.courseprogram.model.DTO.DataResponse;
 import com.example.courseprogram.model.DTO.Token;
 import com.example.courseprogram.model.DTO.UserInfo;
 import com.example.courseprogram.repository.PersonRepository;
+import com.example.courseprogram.repository.StudentRepository;
 import com.example.courseprogram.repository.UserRepository;
 import com.example.courseprogram.utils.DataUtil;
 import com.example.courseprogram.utils.JwtUtil;
 import kong.unirest.Unirest;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,12 +27,14 @@ public class UserService{
 
     @Autowired
     UserRepository userRepository;
-
     @Autowired
     PersonRepository personRepository;
-
+    @Autowired
     PersonService personService;
-
+    @Autowired
+    StudentService studentService;
+    @Autowired
+    TeacherService teacherService;
     //增加一个用户
     public DataResponse addUser(User user,String userName,String userType){
         user.setLoginCount(0);
@@ -140,19 +147,46 @@ public class UserService{
 
         // 第三个接口，获取姓名和学号
         // 结果是一个xml，需要自己从中提取需要的信息，Jsoup或正则均可
-//        String validationResult = Unirest.get(baseURL + "cas/serviceValidate").
-//                queryString("ticket", sTicket).
-//                queryString("service", "https://service.sdu.edu.cn/tp_up/view?m=up").asString().getBody();
+        String validationResult = Unirest.get(baseURL + "cas/serviceValidate").
+                queryString("ticket", sTicket).
+                queryString("service", "https://service.sdu.edu.cn/tp_up/view?m=up").asString().getBody();
 //        System.out.println(validationResult);
 
+        Document document = Jsoup.parse(validationResult);
+        String name = document.getElementsByTag("cas:USER_NAME").text();//获取学生姓名
+        String type = document.getElementsByTag("cas:ID_TYPE").text();//获取类型
+        if(type.equals("1")){
+            type="student";
+        }
+        else{
+            type="teacher";
+        }
         //如果数据库中没有这个人的信息，就添加到数据库中
         if(userRepository.findUserByUserName(username)==null){
-//            addUser(new User(),username,password);
+            if(type.equals("student")){
+                Student student=new Student();
+                student.setStudentId(Long.valueOf(user.getUserName()));
+                Person person=new Person();
+                person.setNumber(username);
+                person.setType(type);
+                person.setName(name);
+                user.setUserType(type);
+                user.setPerson(person);
+                student.setPerson(person);
+                studentService.addSDUStudent(student,user);
+            }
+            else {
+                Teacher teacher=new Teacher();
+                teacher.setTeacherId(Long.valueOf(user.getUserName()));
+                Person person=new Person();
+                person.setNumber(username);
+                person.setName(name);
+                user.setUserType(type);
+                user.setPerson(person);
+                teacher.setPerson(person);
+                teacherService.addSDUTeacher(teacher,user);
+            }
         }
-
-//        Document document = Jsoup.parse(validationResult);
-//        String name = document.getElementsByTag("cas:USER_NAME").text();//获取学生姓名
-//        System.out.println(name);
 
         return DataResponse.success(new Token(JwtUtil.generateToken(username),new UserInfo(user)));
     }
