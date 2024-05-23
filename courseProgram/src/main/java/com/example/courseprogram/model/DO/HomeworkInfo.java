@@ -1,6 +1,7 @@
 package com.example.courseprogram.model.DO;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -29,11 +30,11 @@ public class HomeworkInfo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
-
+    @NotBlank(message = "作业要求不能为空")
     private String demand;
-
+    @NotBlank(message = "作业名称不能为空")
     private String name;
-
+    @NotBlank(message = "发布时间不能为空")
     private String time;
 
     private String file;

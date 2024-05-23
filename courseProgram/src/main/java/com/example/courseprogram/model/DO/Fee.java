@@ -1,6 +1,7 @@
 package com.example.courseprogram.model.DO;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 import java.io.Serializable;
@@ -26,15 +27,20 @@ public class Fee implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer feeId;
 
+    @NotBlank(message = "消费类型不能为空")
     private String feeType;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @NotBlank(message = "消费日期不能为空")
     private String day;
-
+    @NotNull(message = "消费金额未填写")
+    @DecimalMin(value = "0",message = "消费金额不能小于0")
+    @DecimalMax(value = "100000000",message = "消费金额不能大于100000000")
     private Double money;
-
+    @NotBlank(message = "消费描述不能为空")
+    @Size(max=200,message = "消费描述不能超过100个字")
     private String description;
 }

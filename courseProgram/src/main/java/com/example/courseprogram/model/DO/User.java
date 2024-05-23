@@ -1,7 +1,10 @@
 package com.example.courseprogram.model.DO;
 
+import com.example.courseprogram.Exception.AllowedValues;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
@@ -28,13 +31,17 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
     //用户类型 admin student teacher
+    @NotBlank(message = "用户类型不能为空")
+    @AllowedValues(allowedValues = {"admin","student","teacher"},message = "用户类型必须为(admin,student,teacher)中的一个")
     private String userType;
 
     @OneToOne
     @JoinColumn(name = "person_id")
     private Person person;
-
+    @NotBlank(message = "用户名不能为空")
+    @Size(max = 50,message = "用户名不能超过50个字符")
     private String userName;
+    @NotBlank(message = "密码不能为空")
     private String password;
 
     @JsonIgnore

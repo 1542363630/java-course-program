@@ -1,6 +1,10 @@
 package com.example.courseprogram.model.DO;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
@@ -30,16 +34,21 @@ public class AttendanceInfo implements Serializable {
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @NotBlank(message = "活动名称不能为空")
+    @Size(max = 100 , message = "活动名称长度不能超过50个字")
     private String activityName;
     /**
      * 上课考勤、会议考勤、活动考勤
      */
+    @NotBlank(message = "考勤类型不能为空")
     private String type;
 
+    @NotBlank(message = "考勤时间不能为空")
     private String attendanceTime;
 
     /**
      * 已考勤、未考勤
      */
+    @NotBlank(message = "考勤状态不能为空")
     private String isAttended;
 }
