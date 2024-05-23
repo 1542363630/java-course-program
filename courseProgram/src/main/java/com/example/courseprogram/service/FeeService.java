@@ -65,4 +65,12 @@ public class FeeService {
     public DataResponse findAll(){
         return DataResponse.success(feeRepository.findAll());
     }
+
+    //根据学生id和日期查询
+    public DataResponse findByStudentIdAndDay(Long id, String day){
+        if(id==null)return DataResponse.failure(401,"信息不完整！");
+        List<Fee> b=feeRepository.findByStudentIdAndDay(id, day);
+        if(b==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(b);
+    }
 }

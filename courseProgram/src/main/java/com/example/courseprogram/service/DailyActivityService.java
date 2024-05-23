@@ -97,6 +97,14 @@ public class DailyActivityService {
         return DataResponse.success(list);
     }
 
+    //根据学号和活动名称查询
+    public DataResponse findByStudentIdAndName(Long id,String name){
+        if(id==null||name==null)return DataResponse.failure(401,"信息不完整");
+        List<DailyActivity> list=dailyActivityRepository.findByStudentIdAndName(id,name);
+        if(list==null)return DataResponse.failure(404,"未找到相关信息");
+        return DataResponse.success(list);
+    }
+
     //根据名称查找
     public DataResponse findByName(String name){
         if(name==null)return DataResponse.failure(401,"信息不完整");

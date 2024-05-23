@@ -47,4 +47,10 @@ public class FeeController {
         return feeService.findAll();
     }
 
+    //根据学生id和日期查询
+    @PostMapping("/findByStudentIdAndDay")
+    public DataResponse findByStudentIdAndDay(@RequestBody DataRequest dataRequest){
+        return feeService.findByStudentIdAndDay(JsonUtil.parse(dataRequest.get("id"), Long.class), JsonUtil.parse(dataRequest.get("day"), String.class));
+    }
+
 }

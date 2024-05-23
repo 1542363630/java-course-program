@@ -20,6 +20,10 @@ public interface DailyActivityRepository extends JpaRepository<DailyActivity,Int
     @Query(value = "select d.dailyActivity from DailyActivityStudent d where d.student.studentId = ?1 and d.dailyActivity.activityType = ?2")
     List<DailyActivity> findByStudentIdAndType(Long studentId,String type);
 
+    //根据学号和活动名称查询
+    @Query(value = "select d.dailyActivity from DailyActivityStudent d where d.student.studentId = ?1 and (d.dailyActivity.activityName like %?2% or ?2 = '')")
+    List<DailyActivity> findByStudentIdAndName(Long studentId,String name);
+
     //根据活动类型查询
     @Query(value = "select d from DailyActivity d where ?1 = d.activityType")
     List<DailyActivity> findByType(String type);

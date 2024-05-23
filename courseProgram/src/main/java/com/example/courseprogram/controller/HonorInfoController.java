@@ -60,4 +60,10 @@ public class HonorInfoController {
         return honorInfoService.findAll();
     }
 
+    //根据学号和荣誉名称查询
+    @PostMapping("/findByStudentIdAndHonorName")
+    public DataResponse findByStudentIdAndHonorName(@RequestBody DataRequest dataRequest){
+        return honorInfoService.findByStudentIdAndHonorName(JsonUtil.parse(dataRequest.get("id"),Long.class),JsonUtil.parse(dataRequest.get("name"), String.class));
+    }
+
 }

@@ -22,6 +22,10 @@ public interface HonorInfoRepository extends JpaRepository<HonorInfo,Integer> {
     @Query(value = "select hi from HonorInfo hi where hi.honorName like %?1% or ?1='' ")
     List<HonorInfo> findByName(String name);
 
+    //根据荣誉名根据学号和荣誉名称查询称查找
+    @Query(value = "select hi from HonorInfo hi where hi.student.studentId = ?1 and (hi.honorName like %?2% or ?2='') ")
+    List<HonorInfo> findByStudentIdAndHonorName(Long id,String name);
+
     //根据学号删除
     void deleteByStudent_StudentId(Long studentId);
 }

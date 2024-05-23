@@ -36,6 +36,12 @@ public class DailyActivityController {
         return dailyActivityService.findByStudentIdAndType(JsonUtil.parse(dataRequest.get("id"),Long.class),JsonUtil.parse(dataRequest.get("type"), String.class));
     }
 
+    //根据学号和活动名称查询
+    @PostMapping("/findByStudentIdAndName")
+    public DataResponse findByStudentIdAndName(@RequestBody DataRequest dataRequest){
+        return dailyActivityService.findByStudentIdAndName(JsonUtil.parse(dataRequest.get("id"),Long.class),JsonUtil.parse(dataRequest.get("name"), String.class));
+    }
+
     //查找某学生的信息
     @PostMapping("/findByStudent")
     public DataResponse findByStudentId(@RequestBody DataRequest dataRequest){

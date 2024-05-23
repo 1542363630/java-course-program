@@ -17,6 +17,10 @@ public interface FeeRepository extends JpaRepository<Fee,Integer> {
     List<Fee> findFeesByStudent_StudentId(Long studentId);
 
 
+    //根据学生id和日期查询
+    @Query(value = "select f from Fee f where f.student.studentId=?1 and f.day = ?2")
+    List<Fee> findByStudentIdAndDay(Long studentId, String day);
+
     //根据学号删除
     void deleteByStudent_StudentId(Long studentId);
 }
