@@ -135,7 +135,7 @@ public class BaseController {
      */
 
     @PostMapping("/uploadHtmlString")
-    public DataResponse uploadHtmlString(@Valid @RequestBody DataRequest dataRequest) {
+    public DataResponse uploadHtmlString(@RequestBody DataRequest dataRequest) {
         String str = dataRequest.getString("html");
         String html = new String(Base64.getDecoder().decode(str.getBytes(StandardCharsets.UTF_8)));
         System.out.println(html);
@@ -184,7 +184,7 @@ public class BaseController {
         String content = ComDataUtil.getInstance().getHtmlString(htmlCount);
         String head = "<!DOCTYPE html><html><head><style>html { font-family: \"SourceHanSansSC\", \"Open Sans\";}</style><meta charset='UTF-8' /><title>Insert title here</title></head><body>";
         content = head + content + "</body></html>";
-        content = CommonMethod.removeErrorString(content, "&nbsp;", "style=\"font-family: &quot;&quot;;\"");
+        content = CommonMethod.removeErrorString(content,"<br>", "&nbsp;", "style=\"font-family: &quot;&quot;;\"");
         return pdfService.getPdfDataFromHtml(content);
     }
 
