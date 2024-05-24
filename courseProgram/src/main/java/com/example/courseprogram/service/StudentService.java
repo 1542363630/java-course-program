@@ -132,7 +132,7 @@ public class StudentService{
         }
         personRepository.saveAndFlush(student.getPerson());
         studentRepository.saveAndFlush(student);
-        return DataResponse.okM("修改成功");
+        return DataResponse.success(student);
     }
 
     //根据uid查找学生
