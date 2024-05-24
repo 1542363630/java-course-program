@@ -1,6 +1,10 @@
 package com.example.courseprogram.model.DO;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -34,8 +38,15 @@ public class Score implements Serializable {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @NotBlank(message = "成绩不能为空")
+    @DecimalMin(value = "0",message = "成绩必须大于0")
+    @DecimalMax(value = "100",message = "成绩不能超过100")
+    @Digits(integer = 20,fraction = 0,message = "成绩必须为整数")
     private Double mark;
 
+    @NotBlank(message = "排名不能为空")
+    @DecimalMin(value = "0",message = "排名必须大于0")
+    @Digits(integer = 20,fraction = 0,message = "排名必须为整数")
     private Integer ranking;
 
     private Boolean IsCal;

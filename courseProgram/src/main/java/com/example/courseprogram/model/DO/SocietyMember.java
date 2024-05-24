@@ -1,5 +1,6 @@
 package com.example.courseprogram.model.DO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -28,9 +29,9 @@ public class SocietyMember implements Serializable {
     private Student student;
 
     private String gender;
-
+    @NotBlank(message = "关系不能为空")
     private String relation;
-
+    @NotBlank(message = "姓名不能为空")
     private String name;
 
     private String phone;

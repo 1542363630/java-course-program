@@ -1,5 +1,10 @@
 package com.example.courseprogram.model.DO;
+import com.example.courseprogram.Exception.AllowedValues;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -32,18 +37,24 @@ public class Homework implements Serializable {
     @JoinColumn(name = "homework_info_id")
     private HomeworkInfo homeworkInfo;
 
+    @NotBlank(message = "提交状态不能为空")
+    @AllowedValues(allowedValues = {"已提交","未提交"},message = "必须为(已提交、未提交)中的一个")
     private String isSubmit;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
-
+    @NotBlank(message = "审核状态不能为空")
+    @AllowedValues(allowedValues = {"已审核","未审核","等待提交"},message = "必须为(已审核、未审核、等待提交)中的一个")
     private String isChecked;
 
     private String checkTime;
 
     private String submitTime;
-
+    @NotBlank(message = "作业成绩不能为空")
+    @DecimalMax(value = "100",message = "成绩不能超过100")
+    @DecimalMin(value = "0",message = "成绩不能小于0")
+    @Digits(integer = 3,fraction = 0,message = "必须为整数")
     private String homeworkScore;
 
     private String file;

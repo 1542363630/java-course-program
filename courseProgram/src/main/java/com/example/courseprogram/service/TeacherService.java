@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -57,13 +58,15 @@ public class TeacherService {
 
     //增加或删除
     public DataResponse addOrUpdateTeacher(Teacher teacher){
-        if(teacherRepository.existsById(teacher.getTeacherId())){
-            personRepository.saveAndFlush(teacher.getPerson());
-            return DataResponse.success(teacherRepository.saveAndFlush(teacher));
+        if(teacher==null)return DataResponse.failure(401,"信息不完整！");
+        if(!Objects.equals(teacher.getTeacherId(), Long.valueOf(teacher.getPerson().getNumber()))){
+            if(teacherRepository.existsTeacherByPerson_Number(teacher.getPerson().getNumber())){
+                return DataResponse.failure(402,"该学工号已存在！");
+            }
         }
-        else {
-            return DataResponse.success(teacherRepository.updateTeacherByTeacherId(teacher,teacher.getTeacherId()));
-        }
+        personRepository.saveAndFlush(teacher.getPerson());
+        teacherRepository.saveAndFlush(teacher);
+        return DataResponse.okM("修改成功");
     }
 
     //添加统一认证的教师，初始账号和密码为学号

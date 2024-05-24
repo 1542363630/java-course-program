@@ -1,5 +1,7 @@
 package com.example.courseprogram.model.DO;
+import com.example.courseprogram.Exception.AllowedValues;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -30,6 +32,7 @@ public class InnovativePractice implements Serializable {
 
     private String studentName;
 
+    @NotBlank(message = "活动名称不能为空")
     private String activityName;
 
     private String teacherName;
@@ -43,16 +46,34 @@ public class InnovativePractice implements Serializable {
      * <p>校级优秀团队（队长）、校级优秀团队（队员）</p>
      * <p>其他</p>
      */
+    @NotBlank(message = "成果不能为空")
+    @AllowedValues(allowedValues = {
+            "特等奖","一等奖","二等奖","三等奖","优秀奖",
+            "金奖","银奖","铜奖","参与",
+            "发明专利","实用新型专利","外观设计专利",
+            "志愿者","负责人",
+            "校级优秀团队（队长）","校级优秀团队（队员）",
+            "其他"
+    },message = "成果必须为(特等奖、一等奖、二等奖、三等奖、优秀奖、" +
+            "金奖、银奖、铜奖、参与、" +
+            "发明专利、实用新型专利、外观设计专利、" +
+            "志愿者、负责人、" +
+            "校级优秀团队（队长）、校级优秀团队（队员）、" +
+            "其他)中的一个")
     private String achievement;
 
+    @NotBlank(message = "开始时间不能为空")
     private String beginTime;
 
+    @NotBlank(message = "结束时间不能为空")
     private String endTime;
 
     /**
      * 创新实践类型：
      * <p>社会实践、学科竞赛、科技成果、培训讲座、创新项目、校外实习、志愿服务</p>
      */
+    @NotBlank(message = "创新实践类型不能为空")
+    @AllowedValues(allowedValues = {"社会实践","学科竞赛","科技成果","培训讲座","创新项目","校外实习","志愿服务"},message = "创新实践类型必须为(社会实践,学科竞赛,科技成果,培训讲座,创新项目,校外实习,志愿服务)中的一个")
     private String type;
 
     private String file;

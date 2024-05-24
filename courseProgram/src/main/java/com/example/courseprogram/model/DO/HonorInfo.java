@@ -1,6 +1,8 @@
 package com.example.courseprogram.model.DO;
 
+import com.example.courseprogram.Exception.AllowedValues;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -31,19 +33,22 @@ public class HonorInfo implements Serializable {
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
-
+    @NotBlank(message = "荣誉类型不能为空")
     private String type;
 
     /**
      * 荣誉等级：
      * <p>班级、年级、院级、校级、市级、省级、国家级、世界级</p>
      */
+    @NotBlank(message = "荣誉等级不能为空")
+    @AllowedValues(allowedValues = {"班级","年级","院级","校级","市级","省级","国家级","世界级"
+            },message = "荣誉等级必须为(班级、年级、院级、校级、市级、省级、国家级、世界级)中的一个")
     private String level;
-
+    @NotBlank(message = "获得荣誉的时间不能为空")
     private String honorTime;
-
+    @NotBlank(message = "授予单位不能为空")
     private String honorFrom;
-
+    @NotBlank(message = "荣誉名称不能为空")
     private String honorName;
 
     private String file;

@@ -1,6 +1,8 @@
 package com.example.courseprogram.model.DO;
 
+import com.example.courseprogram.Exception.AllowedValues;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -32,11 +34,12 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer personId;
-
+    @NotBlank(message = "学工号不能为空")
     private String number;
-
+    @NotBlank(message = "姓名不能为空")
     private String name;
-
+    @NotBlank(message = "用户类型不能为空")
+    @AllowedValues(allowedValues = {"admin","student","teacher"},message = "用户类型必须为(admin,student,teacher)中的一个")
     private String type;
 
     private String dept;

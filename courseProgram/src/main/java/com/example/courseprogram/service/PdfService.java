@@ -4,10 +4,20 @@ import com.itextpdf.text.pdf.AcroFields;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
+import com.openhtmltopdf.extend.FSSupplier;
+import com.openhtmltopdf.extend.impl.FSDefaultCacheStore;
+import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +25,44 @@ import java.util.Map;
 
 @Service
 public class PdfService {
+    @Autowired
+    private ResourceLoader resourceLoader;
+
+    private FSDefaultCacheStore fSDefaultCacheStore = new FSDefaultCacheStore();
+    /**
+     * 将HTML的字符串转换成PDF文件，返回前端的PDF文件二进制数据流数据流
+     * @param htmlContent  HTML 字符流
+     * @return PDF数据流兑现
+     */
+    public ResponseEntity<StreamingResponseBody> getPdfDataFromHtml(String htmlContent) {
+        try {
+            PdfRendererBuilder builder = new PdfRendererBuilder();
+            builder.withHtmlContent(htmlContent, null);
+            builder.useFastMode();
+            builder.useCacheStore(PdfRendererBuilder.CacheStore.PDF_FONT_METRICS, fSDefaultCacheStore);
+            Resource resource = resourceLoader.getResource("classpath:font/SourceHanSansSC-Regular.ttf");
+            InputStream fontInput = resource.getInputStream();
+            builder.useFont(new FSSupplier<InputStream>() {
+                @Override
+                public InputStream supply() {
+                    return fontInput;
+                }
+            }, "SourceHanSansSC");
+            StreamingResponseBody stream = outputStream -> {
+                builder.toStream(outputStream);
+                builder.run();
+            };
+
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(stream);
+
+        }
+        catch (Exception e) {
+            return  ResponseEntity.internalServerError().build();
+        }
+    }
+
     public static void generateTempPDF() throws Exception {
         PdfReader reader = null;
         PdfStamper ps = null;

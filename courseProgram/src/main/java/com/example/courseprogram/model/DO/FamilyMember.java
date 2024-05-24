@@ -1,6 +1,8 @@
 package com.example.courseprogram.model.DO;
 
+import com.example.courseprogram.Exception.AllowedValues;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -32,8 +34,9 @@ public class FamilyMember implements Serializable {
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @NotBlank(message = "关系不能为空")
     private String relation;
-
+    @NotBlank(message = "姓名不能为空")
     private String name;
 
     private String phone;
@@ -42,6 +45,8 @@ public class FamilyMember implements Serializable {
      * 性别：
      * <p>男、女</p>
      */
+    @NotBlank(message = "性别不能为空")
+    @AllowedValues(allowedValues = {"男","女"},message = "性别必须为(男、女)中的一个")
     private String gender;
 
     private String birthday;
