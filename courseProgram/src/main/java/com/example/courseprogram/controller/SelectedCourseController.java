@@ -56,12 +56,29 @@ public class SelectedCourseController {
         return selectedCourseService.findByStudentId(JsonUtil.parse(dataRequest.get("id"), Long.class));
     }
 
+    //根据学号或学生姓名查询
+    @PostMapping("/findByStudentNameOrNum")
+    public DataResponse findByStudentNameOrNum(@RequestBody DataRequest dataRequest){
+        return selectedCourseService.findByStudentNameOrNum(JsonUtil.parse(dataRequest.get("numName"), String.class));
+    }
+
     //查找某课程的所有选课数据
     @PostMapping("/findByCourseId")
     public DataResponse findByCourseId(@RequestBody DataRequest dataRequest){
         return selectedCourseService.findByCourseId(JsonUtil.parse(dataRequest.get("id"), Integer.class));
     }
 
+    //根据课程种类查询
+    @PostMapping("/findByCourseType")
+    public DataResponse findByCourseType(@RequestBody DataRequest dataRequest){
+        return selectedCourseService.findByCourseType(JsonUtil.parse(dataRequest.get("courseType"), String.class));
+    }
+
+    //根据(课程编号或名称)查询
+    @PostMapping("/findByNumName")
+    public DataResponse findByNumName(@RequestBody DataRequest dataRequest){
+        return selectedCourseService.findByNumName(JsonUtil.parse(dataRequest.get("numName"), String.class));
+    }
 
     //根据学号和课程种类查询
     @PostMapping("/findByStudentIdAndCourseType")

@@ -12,6 +12,7 @@ import java.util.*;
 @Getter
 @Setter
 public class DataRequest {
+
     private Map<String, Object> data;
 
     public DataRequest() {

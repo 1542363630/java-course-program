@@ -40,5 +40,13 @@ public interface SelectedCourseRepository extends JpaRepository<SelectedCourse,I
     @Query(value = "select s.selectedCourseInfo from SelectedCourse s where s.student.studentId = ?1 and (s.selectedCourseInfo.course.teacherName like %?2%)")
     List<SelectedCourseInfo> findByStudentIdAndTeacherName(Long id,String teacherName);
 
+    @Query(value = "select s from SelectedCourse s where (s.selectedCourseInfo.course.number like %?1% or s.selectedCourseInfo.course.name like %?1%)")
+    List<SelectedCourse> findByNumName(String numName);
+
+    @Query(value = "select s from SelectedCourse s where (s.selectedCourseInfo.course.type like %?1%)")
+    List<SelectedCourse> findByCourseType(String type);
+
+    @Query(value = "select s from SelectedCourse s where s.student.person.number like %?1% or s.student.person.name like %?1% or ?1 = ''  ")
+    List<SelectedCourse> findByStudentNameOrNum(String numName);
 
 }
