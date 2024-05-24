@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -123,13 +124,15 @@ public class StudentService{
 
     //增加或更改学生
     public DataResponse addOrUpdateStudent(Student student){
-        if(studentRepository.existsById(student.getStudentId())){
-            personRepository.saveAndFlush(student.getPerson());
-            return DataResponse.success(studentRepository.saveAndFlush(student));
+        if(!checkInfo(student))return DataResponse.failure(401,"信息不完整！");
+        if(!Objects.equals(student.getStudentId(), Long.valueOf(student.getPerson().getNumber()))){
+            if(studentRepository.existsStudentByPerson_Number(student.getPerson().getNumber())){
+                return DataResponse.failure(402,"该学工号已存在！");
+            }
         }
-        else {
-            return DataResponse.success(studentRepository.updateStudentByStudentId(student,student.getStudentId()));
-        }
+        personRepository.saveAndFlush(student.getPerson());
+        studentRepository.saveAndFlush(student);
+        return DataResponse.okM("修改成功");
     }
 
     //根据uid查找学生
