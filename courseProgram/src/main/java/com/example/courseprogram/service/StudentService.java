@@ -102,22 +102,24 @@ public class StudentService{
             return DataResponse.failure(404,"未找到该学生");
         }
         Student student=o.get();
-//        userRepository.deleteUserByPersonId(student.getPerson().getPersonId());
-//        personRepository.deleteById(student.getPerson().getPersonId());
-        studentRepository.deleteById(student.getStudentId());
+        userRepository.deleteUserByPersonId(student.getPerson().getPersonId());
+        personRepository.deleteById(student.getPerson().getPersonId());
 
-//        attendanceInfoRepository.deleteByStudent_StudentId(student.getStudentId());
-//        beforeUniversityRepository.deleteBeforeUniversityByStudent_StudentId(student.getStudentId());
-//        dailyActivityStudentRepository.deleteByStudent_StudentId(student.getStudentId());
-//        familyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
-//        feeRepository.deleteByStudent_StudentId(student.getStudentId());
-//        homeworkRepository.deleteByStudent_StudentId(student.getStudentId());
-//        honorInfoRepository.deleteByStudent_StudentId(student.getStudentId());
-//        innovativePracticeStudentRepository.deleteByStudent_StudentId(student.getStudentId());
-//        leaveInfoRepository.deleteByStudent_StudentId(student.getStudentId());
-//        scoreRepository.deleteScoresByStudent_StudentId(student.getStudentId());
-//        selectedCourseRepository.deleteByStudent_StudentId(student.getStudentId());
-//        societyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+
+        attendanceInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+        beforeUniversityRepository.deleteBeforeUniversityByStudent_StudentId(student.getStudentId());
+        dailyActivityStudentRepository.deleteByStudent_StudentId(student.getStudentId());
+        familyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+        feeRepository.deleteByStudent_StudentId(student.getStudentId());
+        homeworkRepository.deleteByStudent_StudentId(student.getStudentId());
+        honorInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+        innovativePracticeStudentRepository.deleteByStudent_StudentId(student.getStudentId());
+        leaveInfoRepository.deleteByStudent_StudentId(student.getStudentId());
+        scoreRepository.deleteScoresByStudent_StudentId(student.getStudentId());
+        selectedCourseRepository.deleteByStudent_StudentId(student.getStudentId());
+        societyMemberRepository.deleteByStudent_StudentId(student.getStudentId());
+
+        studentRepository.deleteById(student.getStudentId());
 
         return DataResponse.ok();
     }
